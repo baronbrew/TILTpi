@@ -1,0 +1,2523 @@
+[
+    {
+        "id": "a564595f.642818",
+        "type": "tab",
+        "label": "Main"
+    },
+    {
+        "id": "45fc2eae.52e02",
+        "type": "scanBeacon",
+        "z": "a564595f.642818",
+        "name": "Tilt Scan",
+        "beacon_uuid": "",
+        "beacon_major": "",
+        "beacon_minor": "",
+        "x": 308,
+        "y": 206,
+        "wires": [
+            [
+                "8dc4fe46.fc364"
+            ]
+        ]
+    },
+    {
+        "id": "f42fdaab.48a078",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "start scanning",
+        "topic": "",
+        "payload": "on",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 126,
+        "y": 245,
+        "wires": [
+            [
+                "45fc2eae.52e02"
+            ]
+        ]
+    },
+    {
+        "id": "8dc4fe46.fc364",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "to JSON Object",
+        "x": 483,
+        "y": 206,
+        "wires": [
+            [
+                "e5652ef0.acaaf"
+            ]
+        ]
+    },
+    {
+        "id": "2836e0e1.4ea9c",
+        "type": "http request",
+        "z": "a564595f.642818",
+        "name": "Google Sheets",
+        "method": "POST",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 3207.5,
+        "y": 117.5,
+        "wires": [
+            [
+                "f14feb76.aebb48",
+                "28cb14ba.a35f1c",
+                "6cbfa171.d2106"
+            ]
+        ]
+    },
+    {
+        "id": "7f2f1fbf.e1098",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Decode Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.Color",
+                "pt": "msg",
+                "to": "payload.uuid",
+                "tot": "msg"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb60c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "BLUE",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb70c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "YELLOW",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb20c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "GREEN",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb50c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "ORANGE",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb10c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "RED",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": ".*bb80.*",
+                "fromt": "re",
+                "to": "PINK",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb30c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "BLACK",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bb40c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "PURPLE",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 842.5,
+        "y": 206.5,
+        "wires": [
+            [
+                "7c18d8fe.188168",
+                "deb647da.107328"
+            ]
+        ]
+    },
+    {
+        "id": "e5652ef0.acaaf",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Tilt Filter",
+        "property": "payload.uuid",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "a495bb..c5b14b44b5121370f02d74de",
+                "vt": "str",
+                "case": true
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 659.5,
+        "y": 206,
+        "wires": [
+            [
+                "7f2f1fbf.e1098"
+            ]
+        ]
+    },
+    {
+        "id": "28cb14ba.a35f1c",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 3466.27783203125,
+        "y": 232,
+        "wires": []
+    },
+    {
+        "id": "656f0cf9.e79cd4",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Beer Name",
+        "label": "Set Beer Name",
+        "group": "81394fa6.f9523",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "2000",
+        "topic": "",
+        "x": 1790.0000305175781,
+        "y": 496.9999990463257,
+        "wires": [
+            [
+                "6040e73e.fa2088"
+            ]
+        ]
+    },
+    {
+        "id": "6040e73e.fa2088",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Beer Name",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set(color + \"-Beer\",msg.payload);\nglobal.set(color + \"-Beer\",msg.payload);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1983.000015258789,
+        "y": 497.0000009536743,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c18d8fe.188168",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Add Parameters",
+        "func": "//set beer name\nmsg.payload.Beer = global.get(msg.payload.Color + \"-Beer\")||\"Untitled\";\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1069,
+        "y": 205,
+        "wires": [
+            [
+                "86447ba5.5d5b68"
+            ]
+        ]
+    },
+    {
+        "id": "1aee8aa4.c92885",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "b642e71.9697318",
+        "name": "1",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2417,
+        "y": 90,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "79bac478.35317c",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "b914fb40.bc5c78",
+        "name": "5",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2423,
+        "y": 257,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "2ddd6c1f.7838e4",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "stop scanning",
+        "topic": "",
+        "payload": "off",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 121,
+        "y": 186,
+        "wires": [
+            [
+                "45fc2eae.52e02"
+            ]
+        ]
+    },
+    {
+        "id": "64f10179.474c9",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "1",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-1",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1630.5,
+        "y": 73,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be15eceb.e8738",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-1",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1808.5,
+        "y": 68,
+        "wires": [
+            [
+                "9628a72.af07d58"
+            ]
+        ]
+    },
+    {
+        "id": "e0d6a855.d4e018",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "4a85df35.41e16",
+        "name": "6",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2423,
+        "y": 315,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "c4b0f249.af093",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Display",
+        "property": "payload.Color",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "options[0]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[1]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[2]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[3]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[4]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[5]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[6]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[7]",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "false",
+        "outputs": 8,
+        "x": 1432,
+        "y": 207,
+        "wires": [
+            [
+                "64f10179.474c9"
+            ],
+            [
+                "45da85de.0a884c"
+            ],
+            [
+                "4c140999.2a7428"
+            ],
+            [
+                "561c3f7f.1b8ab"
+            ],
+            [
+                "2e45b69e.abf3fa"
+            ],
+            [
+                "8803bae2.740958"
+            ],
+            [
+                "5ea7f34.5181f0c"
+            ],
+            [
+                "eba532a9.2afe3"
+            ]
+        ]
+    },
+    {
+        "id": "2e45b69e.abf3fa",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "5",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-5",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1645,
+        "y": 256,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5ea7f34.5181f0c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "7",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-7",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1644,
+        "y": 356,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8803bae2.740958",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "6",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-6",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1645,
+        "y": 306,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c53503.d97f0b",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-5",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1827,
+        "y": 257,
+        "wires": [
+            [
+                "97228e52.47232"
+            ]
+        ]
+    },
+    {
+        "id": "d66a9ebe.70d94",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-6",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1820,
+        "y": 303,
+        "wires": [
+            [
+                "87e70118.323b3"
+            ]
+        ]
+    },
+    {
+        "id": "9628a72.af07d58",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2013,
+        "y": 71,
+        "wires": [
+            [
+                "14d297fb.15dbc8"
+            ]
+        ]
+    },
+    {
+        "id": "86447ba5.5d5b68",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Interpolate",
+        "func": "//requires msg.payload.SG, msg.payload.actualSGPoints (a comma separated string of the actual values), and msg.payload.unCalSGPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\nreturn msg;",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 1255.5,
+        "y": 206,
+        "wires": [
+            [
+                "c4b0f249.af093"
+            ]
+        ]
+    },
+    {
+        "id": "93d9202c.d9c1e",
+        "type": "ui_dropdown",
+        "z": "a564595f.642818",
+        "name": "Logging Dropdown",
+        "label": "TILT | ",
+        "place": "Select Tilt Color",
+        "group": "81394fa6.f9523",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 1032.5,
+        "y": 553,
+        "wires": [
+            [
+                "6aa75852.1e3068",
+                "b418ce11.8981a"
+            ]
+        ]
+    },
+    {
+        "id": "deb647da.107328",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Dropdown Options",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    flow.set('options',options);\n    node.send({options:options});\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 741.5,
+        "y": 554,
+        "wires": [
+            [
+                "93d9202c.d9c1e",
+                "b418ce11.8981a"
+            ]
+        ]
+    },
+    {
+        "id": "971574e0.783ba8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Get Beer Name",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nmsg.payload = flow.get(color + \"-Beer\")||\"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1580,
+        "y": 500,
+        "wires": [
+            [
+                "656f0cf9.e79cd4"
+            ]
+        ]
+    },
+    {
+        "id": "e899ac8f.ec903",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send Comment",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Posting comment: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1511.5,
+        "y": 662,
+        "wires": [
+            [
+                "8dec8962.63e398"
+            ]
+        ]
+    },
+    {
+        "id": "39028c20.4a5fb4",
+        "type": "comment",
+        "z": "a564595f.642818",
+        "name": "Store latest and update every x seconds",
+        "info": "Saves iBeacon scans to flow database and reads back at 1 second intervals. Allows read out to continue to display last reading even if out of range.",
+        "x": 1859.5,
+        "y": 24,
+        "wires": []
+    },
+    {
+        "id": "1ee5d27c.fa4e8e",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Setup Cloud Post",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n    return msg;\n}\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2754.5,
+        "y": 232,
+        "wires": [
+            [
+                "bac24b5.6a220b8"
+            ]
+        ]
+    },
+    {
+        "id": "edb75c90.8414",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Cloud URL",
+        "label": "Set Cloud URL",
+        "group": "19fab5c2.199ffa",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "500",
+        "topic": "",
+        "x": 1262.5,
+        "y": 721,
+        "wires": [
+            [
+                "c79f0193.2a7c7"
+            ]
+        ]
+    },
+    {
+        "id": "dc8e0ec5.550d",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Start Logging to the Cloud",
+        "group": "19fab5c2.199ffa",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1313.5,
+        "y": 773,
+        "wires": [
+            [
+                "bed68eaf.abdc3"
+            ]
+        ]
+    },
+    {
+        "id": "c79f0193.2a7c7",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Current CloudURL",
+        "func": "flow.set(\"cloudURL\",msg.payload);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1527,
+        "y": 719,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bed68eaf.abdc3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Logging to Cloud",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | ALL COLORS\";\nif (msg.payload){\nmsg.payload = \"Logging started.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1596.5,
+        "y": 762,
+        "wires": [
+            [
+                "8dec8962.63e398"
+            ]
+        ]
+    },
+    {
+        "id": "777f1a14.1b3e44",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set Uncal SG Value",
+        "func": "flow.set('uncalSGpoint',Number(msg.payload).toFixed(3));",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1829.5,
+        "y": 839,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6aa75852.1e3068",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Save selected color",
+        "func": "flow.set('colordropdownSelect',msg.payload);\nmsg.payload = \"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1302,
+        "y": 552,
+        "wires": [
+            [
+                "971574e0.783ba8",
+                "df1c3ed0.bd3a9",
+                "df1ac3a9.c4472",
+                "de92b02f.5ebe1"
+            ]
+        ]
+    },
+    {
+        "id": "c7a566a0.651948",
+        "type": "comment",
+        "z": "a564595f.642818",
+        "name": "Set Current Time for Display",
+        "info": "",
+        "x": 2293,
+        "y": 41,
+        "wires": []
+    },
+    {
+        "id": "3eb6f3c4.588d1c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Get Current SG",
+        "func": "var options = flow.get('options');\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1353,
+        "y": 837,
+        "wires": [
+            [
+                "ecfbe772.ba4cb8",
+                "777f1a14.1b3e44"
+            ]
+        ]
+    },
+    {
+        "id": "84ffe685.150d58",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set Actual SG Value",
+        "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(3));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1519,
+        "y": 956,
+        "wires": [
+            [
+                "6c6270ad.ae742"
+            ]
+        ]
+    },
+    {
+        "id": "45da85de.0a884c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "2",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-2",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1631,
+        "y": 109,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4dbe6177.1028",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "307e2bd0.e69514",
+        "name": "2",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2418,
+        "y": 134,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "4c140999.2a7428",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "3",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-3",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1630,
+        "y": 155,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c6f1c01.297234",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "8de27cf2.dbd6a",
+        "name": "3",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2417,
+        "y": 172,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "638214b2.6402bc",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-3",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1821.5,
+        "y": 153,
+        "wires": [
+            [
+                "455abe60.6afd4"
+            ]
+        ]
+    },
+    {
+        "id": "e767b4ca.6228c8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-2",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1825,
+        "y": 108,
+        "wires": [
+            [
+                "b4de88bb.e0e148"
+            ]
+        ]
+    },
+    {
+        "id": "14d297fb.15dbc8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2220,
+        "y": 87,
+        "wires": [
+            [
+                "1aee8aa4.c92885"
+            ]
+        ]
+    },
+    {
+        "id": "6c6270ad.ae742",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Add SG Cal Point",
+        "func": "var color = msg.payload;\nvar uncalSGcalPoint = flow.get('uncalSGpoint')||0;\nvar actualSGcalPoint = flow.get('actualSGpoint')||0;\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nuncalpointsArray.push(uncalSGcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalSGpoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualSGcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualSGpoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1823.5,
+        "y": 962,
+        "wires": [
+            [
+                "1be76b3b.e111e5"
+            ],
+            [
+                "e29d71bb.f0e81"
+            ]
+        ]
+    },
+    {
+        "id": "63c7bb7c.317274",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clear Calibration",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 1591.5,
+        "y": 1082,
+        "wires": [
+            [
+                "e38fab7c.6f34e8"
+            ]
+        ]
+    },
+    {
+        "id": "e38fab7c.6f34e8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "clear calibration",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1803.5,
+        "y": 1083,
+        "wires": [
+            [
+                "1be76b3b.e111e5",
+                "e29d71bb.f0e81"
+            ]
+        ]
+    },
+    {
+        "id": "df1c3ed0.bd3a9",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update display",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1602.5,
+        "y": 1019,
+        "wires": [
+            [
+                "1be76b3b.e111e5"
+            ],
+            [
+                "e29d71bb.f0e81"
+            ]
+        ]
+    },
+    {
+        "id": "bac24b5.6a220b8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2984,
+        "y": 185,
+        "wires": [
+            [
+                "28cb14ba.a35f1c",
+                "2836e0e1.4ea9c"
+            ]
+        ]
+    },
+    {
+        "id": "b4de88bb.e0e148",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2017,
+        "y": 110,
+        "wires": [
+            [
+                "c9e125df.66b318"
+            ]
+        ]
+    },
+    {
+        "id": "c9e125df.66b318",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2218,
+        "y": 127,
+        "wires": [
+            [
+                "4dbe6177.1028"
+            ]
+        ]
+    },
+    {
+        "id": "455abe60.6afd4",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2009,
+        "y": 159,
+        "wires": [
+            [
+                "3fc07c6.f563084"
+            ]
+        ]
+    },
+    {
+        "id": "3fc07c6.f563084",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2225,
+        "y": 167,
+        "wires": [
+            [
+                "7c6f1c01.297234"
+            ]
+        ]
+    },
+    {
+        "id": "97228e52.47232",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2014,
+        "y": 251,
+        "wires": [
+            [
+                "a6fc7026.3943f"
+            ]
+        ]
+    },
+    {
+        "id": "a6fc7026.3943f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2222,
+        "y": 256,
+        "wires": [
+            [
+                "79bac478.35317c"
+            ]
+        ]
+    },
+    {
+        "id": "87e70118.323b3",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2018,
+        "y": 305,
+        "wires": [
+            [
+                "822668cd.451b98"
+            ]
+        ]
+    },
+    {
+        "id": "822668cd.451b98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2222,
+        "y": 311,
+        "wires": [
+            [
+                "e0d6a855.d4e018"
+            ]
+        ]
+    },
+    {
+        "id": "dd81e411.1cdd78",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "b8d3bbbf.2c9cb8",
+        "name": "4",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2424,
+        "y": 216,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "29f2062c.9eafea",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2012,
+        "y": 210,
+        "wires": [
+            [
+                "10fa6d83.b3b1b2"
+            ]
+        ]
+    },
+    {
+        "id": "10fa6d83.b3b1b2",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2221,
+        "y": 208,
+        "wires": [
+            [
+                "dd81e411.1cdd78"
+            ]
+        ]
+    },
+    {
+        "id": "e2227000.fd309",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-4",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1813.5,
+        "y": 207,
+        "wires": [
+            [
+                "29f2062c.9eafea"
+            ]
+        ]
+    },
+    {
+        "id": "228b94fc.188afc",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "ab6da67f.a47fa8",
+        "name": "8",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2429,
+        "y": 426,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "6d7ca362.0790dc",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-8",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1816,
+        "y": 427,
+        "wires": [
+            [
+                "49c2c87.03bfc38"
+            ]
+        ]
+    },
+    {
+        "id": "49c2c87.03bfc38",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 420,
+        "wires": [
+            [
+                "ba5663bf.b7cd6"
+            ]
+        ]
+    },
+    {
+        "id": "ba5663bf.b7cd6",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2225,
+        "y": 416,
+        "wires": [
+            [
+                "228b94fc.188afc"
+            ]
+        ]
+    },
+    {
+        "id": "2cbc023f.86f2de",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "a510f969.f28538",
+        "name": "7",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{'°F'}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2418,
+        "y": 370,
+        "wires": [
+            [
+                "1ee5d27c.fa4e8e",
+                "394a5d3d.92fa72"
+            ]
+        ]
+    },
+    {
+        "id": "8e49f6ea.8fa718",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2013,
+        "y": 360,
+        "wires": [
+            [
+                "68f079f0.789e18"
+            ]
+        ]
+    },
+    {
+        "id": "68f079f0.789e18",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2225,
+        "y": 363,
+        "wires": [
+            [
+                "2cbc023f.86f2de"
+            ]
+        ]
+    },
+    {
+        "id": "153b404.67792c",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-7",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 1823.5,
+        "y": 357,
+        "wires": [
+            [
+                "8e49f6ea.8fa718"
+            ]
+        ]
+    },
+    {
+        "id": "df1ac3a9.c4472",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "19fab5c2.199ffa",
+        "name": "Cloud Response",
+        "order": 6,
+        "width": "6",
+        "height": "3",
+        "format": "<div ng-bind-html=\"msg.payload.result\"></div>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "x": 3502,
+        "y": 566,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f14feb76.aebb48",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update name, clear comment",
+        "func": "var beerArray = msg.payload.beername.split(\",\");\nglobal.set(msg.payload.tiltcolor + \"-Beer\",beerArray[0]);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3555,
+        "y": 155,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8dec8962.63e398",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "8",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 1869,
+        "y": 704,
+        "wires": []
+    },
+    {
+        "id": "561c3f7f.1b8ab",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "4",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-4",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1641,
+        "y": 207,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eba532a9.2afe3",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "8",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-8",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1645,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de92b02f.5ebe1",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Comment [use RETURN to send]",
+        "group": "19fab5c2.199ffa",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 1247.5,
+        "y": 663,
+        "wires": [
+            [
+                "e899ac8f.ec903"
+            ]
+        ]
+    },
+    {
+        "id": "6cbfa171.d2106",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter cloud response",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3418,
+        "y": 414,
+        "wires": [
+            [
+                "df1ac3a9.c4472"
+            ]
+        ]
+    },
+    {
+        "id": "b1836d66.f976c",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Use Default Cloud URL",
+        "group": "19fab5c2.199ffa",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 862.5,
+        "y": 709,
+        "wires": [
+            [
+                "5d331f4.1bed9e"
+            ]
+        ]
+    },
+    {
+        "id": "5d331f4.1bed9e",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "default cloud url",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1082.5,
+        "y": 709,
+        "wires": [
+            [
+                "edb75c90.8414"
+            ]
+        ]
+    },
+    {
+        "id": "88a2c98f.f38b08",
+        "type": "ui_slider",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Cloud Interval",
+        "group": "19fab5c2.199ffa",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "min": "5",
+        "max": "60",
+        "step": "5",
+        "x": 1594.5,
+        "y": 798,
+        "wires": [
+            [
+                "e95c8a86.0f73c8",
+                "1a5d2031.88af3"
+            ]
+        ]
+    },
+    {
+        "id": "e95c8a86.0f73c8",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "19fab5c2.199ffa",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Minutes:",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 1789.5,
+        "y": 802,
+        "wires": []
+    },
+    {
+        "id": "1a5d2031.88af3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Save Interval",
+        "func": "flow.set('loggingInterval',msg.payload);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1848,
+        "y": 759,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f5685a6.76e34a",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/log.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 2977.5,
+        "y": 301,
+        "wires": []
+    },
+    {
+        "id": "6af4a20b.f5f3cc",
+        "type": "http response",
+        "z": "a564595f.642818",
+        "name": "Show Local Data",
+        "x": 3140.5,
+        "y": 375,
+        "wires": []
+    },
+    {
+        "id": "dd2bec42.f4069",
+        "type": "http in",
+        "z": "a564595f.642818",
+        "name": "",
+        "url": "/csv",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 2750.5,
+        "y": 377,
+        "wires": [
+            [
+                "898ef56a.365648"
+            ]
+        ]
+    },
+    {
+        "id": "898ef56a.365648",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/log.csv",
+        "format": "utf8",
+        "x": 2935.5,
+        "y": 376,
+        "wires": [
+            [
+                "6af4a20b.f5f3cc"
+            ]
+        ]
+    },
+    {
+        "id": "681c2428.1c3a5c",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "82607108.c5be8",
+        "name": "Download Log Button",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 2933.5,
+        "y": 428,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2cabe65a.14f1ba",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "82607108.c5be8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Minutes:",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 1799,
+        "y": 1186,
+        "wires": []
+    },
+    {
+        "id": "7b1370e2.6e8c9",
+        "type": "ui_slider",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Local Interval",
+        "group": "82607108.c5be8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "min": "0.25",
+        "max": "60",
+        "step": ".25",
+        "x": 1553,
+        "y": 1161,
+        "wires": [
+            [
+                "2cabe65a.14f1ba",
+                "b560ab50.dc71d8"
+            ]
+        ]
+    },
+    {
+        "id": "b560ab50.dc71d8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Save Interval",
+        "func": "flow.set('localloggingInterval',msg.payload);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1785.5,
+        "y": 1137,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "394a5d3d.92fa72",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Setup Local Log",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2747,
+        "y": 301,
+        "wires": [
+            [
+                "2f5685a6.76e34a",
+                "dcc41bde.fc7208"
+            ]
+        ]
+    },
+    {
+        "id": "2316593.5ec70a6",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Logging to SD Card",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | ALL COLORS\";\nif (msg.payload){\nmsg.payload = \"Logging enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1829,
+        "y": 1256,
+        "wires": [
+            [
+                "cd2573a4.64137"
+            ]
+        ]
+    },
+    {
+        "id": "c7601414.73cf68",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Start Logging to TILTpi",
+        "group": "82607108.c5be8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1544,
+        "y": 1253,
+        "wires": [
+            [
+                "2316593.5ec70a6"
+            ]
+        ]
+    },
+    {
+        "id": "cd2573a4.64137",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "8",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 2051,
+        "y": 1255,
+        "wires": []
+    },
+    {
+        "id": "644a5410.3ea0bc",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "82607108.c5be8",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "Log Size",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 3512.5,
+        "y": 291,
+        "wires": []
+    },
+    {
+        "id": "dcc41bde.fc7208",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "stat",
+        "addpay": false,
+        "append": "log.csv",
+        "useSpawn": true,
+        "timer": "5",
+        "name": "",
+        "x": 2927.5,
+        "y": 244.5,
+        "wires": [
+            [
+                "5c5d0dab.293cc4"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5c5d0dab.293cc4",
+        "type": "split",
+        "z": "a564595f.642818",
+        "name": "",
+        "splt": "\\n",
+        "x": 3075,
+        "y": 253,
+        "wires": [
+            [
+                "7317b5bb.adcf1c"
+            ]
+        ]
+    },
+    {
+        "id": "7317b5bb.adcf1c",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Size",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 3218,
+        "y": 286,
+        "wires": [
+            [
+                "ae037878.ee52b8"
+            ]
+        ]
+    },
+    {
+        "id": "ae037878.ee52b8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "format",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Blocks*.*file",
+                "fromt": "re",
+                "to": " bytes",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3363.5,
+        "y": 290,
+        "wires": [
+            [
+                "644a5410.3ea0bc"
+            ]
+        ]
+    },
+    {
+        "id": "9b51bae9.bed728",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/log.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 2976.5,
+        "y": 474,
+        "wires": []
+    },
+    {
+        "id": "da1dd72.c86df28",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "82607108.c5be8",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Delete Log",
+        "color": "white",
+        "bgcolor": "red",
+        "icon": "",
+        "payload": "Time,Timepoint,Temp,SG,Beer,Color,Comment",
+        "payloadType": "str",
+        "topic": "",
+        "x": 2727.5,
+        "y": 477,
+        "wires": [
+            [
+                "9b51bae9.bed728",
+                "dcc41bde.fc7208"
+            ]
+        ]
+    },
+    {
+        "id": "b418ce11.8981a",
+        "type": "ui_dropdown",
+        "z": "a564595f.642818",
+        "name": "Calibration Dropdown",
+        "label": "TILT | ",
+        "place": "Select Tilt Color",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 1124,
+        "y": 446,
+        "wires": [
+            [
+                "6aa75852.1e3068",
+                "93d9202c.d9c1e",
+                "3eb6f3c4.588d1c"
+            ]
+        ]
+    },
+    {
+        "id": "54a7dcc3.03b934",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Populate Tilt Colors",
+        "topic": "",
+        "payload": "options",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 626,
+        "y": 446,
+        "wires": [
+            [
+                "70e26859.813d18"
+            ]
+        ]
+    },
+    {
+        "id": "70e26859.813d18",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "options",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 857,
+        "y": 445,
+        "wires": [
+            [
+                "93d9202c.d9c1e",
+                "b418ce11.8981a"
+            ]
+        ]
+    },
+    {
+        "id": "d9ea777.f3c9388",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "SG (actual) [use RETURN to set]",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 1218,
+        "y": 953,
+        "wires": [
+            [
+                "84ffe685.150d58"
+            ]
+        ]
+    },
+    {
+        "id": "ecfbe772.ba4cb8",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "SG (uncal.)",
+        "format": "{{msg.payload | number:3}}",
+        "layout": "row-left",
+        "x": 1615,
+        "y": 865,
+        "wires": []
+    },
+    {
+        "id": "9bdc1db3.4ceaa",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "x": 1110,
+        "y": 839,
+        "wires": [
+            [
+                "3eb6f3c4.588d1c"
+            ]
+        ]
+    },
+    {
+        "id": "f81079e6.5fdd48",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "81394fa6.f9523",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Start Logging",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 620,
+        "y": 804,
+        "wires": [
+            [
+                "bc1e0e42.90dd3"
+            ]
+        ]
+    },
+    {
+        "id": "bc1e0e42.90dd3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Toggle Cloud Logging",
+        "func": "node.send({payload:false});\nnode.send({payload:true});",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 849,
+        "y": 814,
+        "wires": [
+            [
+                "c7601414.73cf68",
+                "dc8e0ec5.550d"
+            ]
+        ]
+    },
+    {
+        "id": "1be76b3b.e111e5",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Uncalibrated Points [use RETURN to set]",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2205,
+        "y": 1002,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e29d71bb.f0e81",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Actual Points [use RETURN to set]",
+        "group": "eb4ab3d5.7b3f1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2197,
+        "y": 1069,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81394fa6.f9523",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Color & Name",
+        "tab": "6529e313.74108c",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b642e71.9697318",
+        "type": "ui_group",
+        "z": "",
+        "name": "1",
+        "tab": "4ede131f.f2e09c",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b914fb40.bc5c78",
+        "type": "ui_group",
+        "z": "",
+        "name": "5",
+        "tab": "4ede131f.f2e09c",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "4a85df35.41e16",
+        "type": "ui_group",
+        "z": "",
+        "name": "6",
+        "tab": "4ede131f.f2e09c",
+        "order": 6,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "19fab5c2.199ffa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Cloud Logging",
+        "tab": "6529e313.74108c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "307e2bd0.e69514",
+        "type": "ui_group",
+        "z": "",
+        "name": "2",
+        "tab": "4ede131f.f2e09c",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "8de27cf2.dbd6a",
+        "type": "ui_group",
+        "z": "",
+        "name": "3",
+        "tab": "4ede131f.f2e09c",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Calibration",
+        "tab": "75f710f5.16d2e",
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b8d3bbbf.2c9cb8",
+        "type": "ui_group",
+        "z": "",
+        "name": "4",
+        "tab": "4ede131f.f2e09c",
+        "order": 4,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "ab6da67f.a47fa8",
+        "type": "ui_group",
+        "z": "",
+        "name": "8",
+        "tab": "4ede131f.f2e09c",
+        "order": 8,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "a510f969.f28538",
+        "type": "ui_group",
+        "z": "",
+        "name": "7",
+        "tab": "4ede131f.f2e09c",
+        "order": 7,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "82607108.c5be8",
+        "type": "ui_group",
+        "z": "",
+        "name": "TILTpi Logging",
+        "tab": "6529e313.74108c",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6529e313.74108c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Logging Setup",
+        "icon": "fa-cog",
+        "order": 2
+    },
+    {
+        "id": "4ede131f.f2e09c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tilt™ Hydrometer",
+        "icon": "fa-tachometer",
+        "order": 1
+    },
+    {
+        "id": "75f710f5.16d2e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Calibration",
+        "icon": "fa-bullseye",
+        "order": 3
+    }
+]

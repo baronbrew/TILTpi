@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+    	<title>Tilt Hub Setup</title>
+
+<script src="mdl/material.js"></script>
+
+<style>
+		@import 'mdl/material.css';
+</style>
+<style>
+.demo-card-wide.mdl-card {
+  width: 512px;
+  background-color: whitesmoke;
+}
+.demo-card-wide > .mdl-card__title {
+  color: black;
+  height: 250px;
+  background: url('logo.png') center / cover;
+  background-size: 150px 150px;
+  background-repeat: no-repeat;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+</style>
+</head>
+
+<body>
+<div class="demo-card-wide mdl-card mdl-shadow--8dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Tilt Network Setup</h2>
+  </div>
+ <center>
+<h6>
+SSID
+</h6>
+</center>
+<center>
+<div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="wifi-val">     <label class="mdl-textfield__label" for="wifi-val">WiFi name</label>
+    </div>
+    </center>
+<center><h6>
+Password
+</h6></center>
+<center>
+<div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="wifi-pass">     
+   <label class="mdl-textfield__label" for="wifi-pass">WiFi password</label>
+    </div>
+</center>
+<div class="mdl-card__supporting-text">
+After entering your wifi credentials above, click button below to save settings to "wpa_supplicant.conf" file and copy to your Tilt Hub SD card. Make sure any older versions of "wpa_supplicant.conf" are deleted prior to saving a new one.
+</div>
+<center><input type="button" id="dwn-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Save Settings"></center>
+<div class="mdl-card__supporting-text">
+Manually copy downloaded file to your Tilt Hub SD card (called "boot") then remove card from PC/Mac/Linux system and insert into Tilt Hub while unplugged. Plug in Tilt Hub and open iOS/Android Tilt Hydrometer App and wait for confirmation of successful wifi connection.
+</div>
+</div>
+</body>
+</html>
+
+<script>
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+// Start file download.
+document.getElementById("dwn-btn").addEventListener("click", function(){
+    // Generate download of wpa_supplicant.conf
+    var text = 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
+    var filename = "wpa_supplicant.conf";
+    download(filename, text);
+    }, false);
+</script>
