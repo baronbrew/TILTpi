@@ -66,7 +66,6 @@
         "wires": [
             [
                 "f14feb76.aebb48",
-                "28cb14ba.a35f1c",
                 "6cbfa171.d2106"
             ]
         ]
@@ -195,18 +194,6 @@
                 "7f2f1fbf.e1098"
             ]
         ]
-    },
-    {
-        "id": "28cb14ba.a35f1c",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "payload",
-        "x": 3466.27783203125,
-        "y": 232,
-        "wires": []
     },
     {
         "id": "656f0cf9.e79cd4",
@@ -857,11 +844,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options');\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;",
+        "func": "var options = flow.get('options');\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 1353,
-        "y": 837,
+        "x": 1333,
+        "y": 859,
         "wires": [
             [
                 "ecfbe772.ba4cb8",
@@ -1020,7 +1007,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2220,
@@ -1130,7 +1117,6 @@
         "y": 185,
         "wires": [
             [
-                "28cb14ba.a35f1c",
                 "2836e0e1.4ea9c"
             ]
         ]
@@ -1167,7 +1153,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2218,
@@ -1210,7 +1196,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1253,7 +1239,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2222,
@@ -1296,7 +1282,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2222,
@@ -1360,7 +1346,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2221,
@@ -1462,7 +1448,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1526,7 +1512,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nelse {\n msg.show = \"visible\";\n msg.topic = msg.payload.Color;\n if(msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n     msg.show = \"hidden\";\n }\n return msg;\n}\n",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1944,7 +1930,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment + \",\" + msg.payload.rssi;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2747,
@@ -2342,7 +2328,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated Points [use RETURN to set]",
+        "label": "Uncal. Points [use RETURN to set]",
         "group": "eb4ab3d5.7b3f1",
         "order": 0,
         "width": 0,
@@ -2351,7 +2337,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2205,
+        "x": 2185,
         "y": 1002,
         "wires": [
             []
@@ -2376,6 +2362,105 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "249f1e9c.6a1d42",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "15",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 1302,
+        "y": 1025,
+        "wires": [
+            [
+                "7b1370e2.6e8c9"
+            ]
+        ]
+    },
+    {
+        "id": "f9e2fc12.8340c",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "15",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 1406,
+        "y": 814,
+        "wires": [
+            [
+                "88a2c98f.f38b08"
+            ]
+        ]
+    },
+    {
+        "id": "b13cb5ba.f355b8",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": false,
+        "timer": "",
+        "name": "Reboot",
+        "x": 1295,
+        "y": 1457,
+        "wires": [
+            [
+                "2a36a03c.47d1f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a85e96c5.56cc58",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "8db40dd1.d984",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Restart",
+        "color": "",
+        "bgcolor": "",
+        "icon": "fa-refresh",
+        "payload": "now",
+        "payloadType": "str",
+        "topic": "",
+        "x": 1055,
+        "y": 1454,
+        "wires": [
+            [
+                "b13cb5ba.f355b8"
+            ]
+        ]
+    },
+    {
+        "id": "2a36a03c.47d1f",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 1521,
+        "y": 1448,
+        "wires": []
     },
     {
         "id": "81394fa6.f9523",
@@ -2497,18 +2582,28 @@
         "width": "6"
     },
     {
+        "id": "8db40dd1.d984",
+        "type": "ui_group",
+        "z": "",
+        "name": "System",
+        "tab": "c9c26b4a.4cde78",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
         "id": "6529e313.74108c",
         "type": "ui_tab",
         "z": "",
-        "name": "Logging Setup",
-        "icon": "fa-cog",
+        "name": "Logging",
+        "icon": "fa-line-chart",
         "order": 2
     },
     {
         "id": "4ede131f.f2e09c",
         "type": "ui_tab",
         "z": "",
-        "name": "Tilt™ Hydrometer",
+        "name": "TILTpi",
         "icon": "fa-tachometer",
         "order": 1
     },
@@ -2519,5 +2614,13 @@
         "name": "Calibration",
         "icon": "fa-bullseye",
         "order": 3
+    },
+    {
+        "id": "c9c26b4a.4cde78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "System",
+        "icon": "fa-cog",
+        "order": 4
     }
 ]
