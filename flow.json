@@ -644,7 +644,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Dropdown Options",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    flow.set('options',options);\n    node.send({options:options});\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    node.send({options:options});\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 741.5,
@@ -1007,7 +1007,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2220,
@@ -1153,7 +1153,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2218,
@@ -1196,7 +1196,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1239,7 +1239,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2222,
@@ -1282,7 +1282,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2222,
@@ -1346,7 +1346,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2221,
@@ -1448,7 +1448,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1512,7 +1512,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2225,
@@ -1963,7 +1963,7 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Start Logging to TILTpi",
+        "label": "Start Logging to Tilt Pi",
         "group": "82607108.c5be8",
         "order": 1,
         "width": 0,
@@ -2319,7 +2319,8 @@
         "wires": [
             [
                 "c7601414.73cf68",
-                "dc8e0ec5.550d"
+                "dc8e0ec5.550d",
+                "b1836d66.f976c"
             ]
         ]
     },
@@ -2426,8 +2427,8 @@
         "type": "ui_button",
         "z": "a564595f.642818",
         "name": "",
-        "group": "8db40dd1.d984",
-        "order": 0,
+        "group": "5ca7d250.c3938c",
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -2460,6 +2461,259 @@
         "name": "",
         "x": 1521,
         "y": 1448,
+        "wires": []
+    },
+    {
+        "id": "9fa076ac.17f568",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "time zones",
+        "func": "var options = [\"Africa/Harare\",\"Africa/Lusaka\",\"Africa/Johannesburg\",\"Indian/Mayotte\",\"Asia/Aden\",\"Pacific/Apia\",\"Pacific/Wallis\",\"Pacific/Efate\",\"Asia/Ho_Chi_Minh\",\"America/St_Thomas\",\"America/Tortola\",\"America/Caracas\",\"America/St_Vincent\",\"Europe/Vatican\",\"Asia/Samarkand\",\"Asia/Tashkent\",\"America/Montevideo\",\"America/Adak\",\"America/Anchorage\",\"America/Boise\",\"America/Chicago\",\"America/Denver\",\"America/Detroit\",\"America/Indiana/Indianapolis\",\"America/Indiana/Knox\",\"America/Indiana/Marengo\",\"America/Indiana/Petersburg\",\"America/Indiana/Tell_City\",\"America/Indiana/Vevay\",\"America/Indiana/Vincennes\",\"America/Indiana/Winamac\",\"America/Juneau\",\"America/Kentucky/Louisville\",\"America/Kentucky/Monticello\",\"America/Los_Angeles\",\"America/Menominee\",\"America/Metlakatla\",\"America/New_York\",\"America/Nome\",\"America/North_Dakota/Beulah\",\"America/North_Dakota/Center\",\"America/North_Dakota/New_Salem\",\"America/Phoenix\",\"America/Sitka\",\"America/Yakutat\",\"Pacific/Honolulu\",\"Pacific/Midway\",\"Pacific/Wake\",\"Africa/Kampala\",\"Europe/Kiev\",\"Europe/Uzhgorod\",\"Europe/Zaporozhye\",\"Africa/Dar_es_Salaam\",\"Asia/Taipei\",\"Pacific/Funafuti\",\"America/Port_of_Spain\",\"Europe/Istanbul\",\"Pacific/Tongatapu\",\"Africa/Tunis\",\"Asia/Ashgabat\",\"Asia/Dili\",\"Pacific/Fakaofo\",\"Asia/Dushanbe\",\"Asia/Bangkok\",\"Africa/Lome\",\"Indian/Kerguelen\",\"Africa/Ndjamena\",\"America/Grand_Turk\",\"Africa/Mbabane\",\"Asia/Damascus\",\"America/Lower_Princes\",\"America/El_Salvador\",\"Africa/Sao_Tome\",\"Africa/Juba\",\"America/Paramaribo\",\"Africa/Mogadishu\",\"Africa/Dakar\",\"Europe/San_Marino\",\"Africa/Freetown\",\"Europe/Bratislava\",\"Arctic/Longyearbyen\",\"Europe/Ljubljana\",\"Atlantic/St_Helena\",\"Asia/Singapore\",\"Europe/Stockholm\",\"Africa/Khartoum\",\"Indian/Mahe\",\"Pacific/Guadalcanal\",\"Asia/Riyadh\",\"Africa/Kigali\",\"Asia/Anadyr\",\"Asia/Barnaul\",\"Asia/Chita\",\"Asia/Irkutsk\",\"Asia/Kamchatka\",\"Asia/Khandyga\",\"Asia/Krasnoyarsk\",\"Asia/Magadan\",\"Asia/Novokuznetsk\",\"Asia/Novosibirsk\",\"Asia/Omsk\",\"Asia/Sakhalin\",\"Asia/Srednekolymsk\",\"Asia/Tomsk\",\"Asia/Ust-Nera\",\"Asia/Vladivostok\",\"Asia/Yakutsk\",\"Asia/Yekaterinburg\",\"Europe/Astrakhan\",\"Europe/Kaliningrad\",\"Europe/Kirov\",\"Europe/Moscow\",\"Europe/Samara\",\"Europe/Saratov\",\"Europe/Simferopol\",\"Europe/Ulyanovsk\",\"Europe/Volgograd\",\"Europe/Belgrade\",\"Europe/Bucharest\",\"Indian/Reunion\",\"Asia/Qatar\",\"America/Asuncion\",\"Pacific/Palau\",\"Atlantic/Azores\",\"Atlantic/Madeira\",\"Europe/Lisbon\",\"Asia/Gaza\",\"Asia/Hebron\",\"America/Puerto_Rico\",\"Pacific/Pitcairn\",\"America/Miquelon\",\"Europe/Warsaw\",\"Asia/Karachi\",\"Asia/Manila\",\"Pacific/Bougainville\",\"Pacific/Port_Moresby\",\"Pacific/Gambier\",\"Pacific/Marquesas\",\"Pacific/Tahiti\",\"America/Lima\",\"America/Panama\",\"Asia/Muscat\",\"Pacific/Auckland\",\"Pacific/Chatham\",\"Pacific/Niue\",\"Pacific/Nauru\",\"Asia/Kathmandu\",\"Europe/Oslo\",\"Europe/Amsterdam\",\"America/Managua\",\"Africa/Lagos\",\"Pacific/Norfolk\",\"Africa/Niamey\",\"Pacific/Noumea\",\"Africa/Windhoek\",\"Africa/Maputo\",\"Asia/Kuala_Lumpur\",\"Asia/Kuching\",\"America/Bahia_Banderas\",\"America/Cancun\",\"America/Chihuahua\",\"America/Hermosillo\",\"America/Matamoros\",\"America/Mazatlan\",\"America/Merida\",\"America/Mexico_City\",\"America/Monterrey\",\"America/Ojinaga\",\"America/Tijuana\",\"Africa/Blantyre\",\"Indian/Maldives\",\"Indian/Mauritius\",\"Europe/Malta\",\"America/Montserrat\",\"Africa/Nouakchott\",\"America/Martinique\",\"Pacific/Saipan\",\"Asia/Macau\",\"Asia/Choibalsan\",\"Asia/Hovd\",\"Asia/Ulaanbaatar\",\"Asia/Yangon\",\"Africa/Bamako\",\"Europe/Skopje\",\"Pacific/Kwajalein\",\"Pacific/Majuro\",\"Indian/Antananarivo\",\"America/Marigot\",\"Europe/Podgorica\",\"Europe/Chisinau\",\"Europe/Monaco\",\"Africa/Casablanca\",\"Africa/Tripoli\",\"Europe/Riga\",\"Europe/Luxembourg\",\"Europe/Vilnius\",\"Africa/Maseru\",\"Africa/Monrovia\",\"Asia/Colombo\",\"Europe/Vaduz\",\"America/St_Lucia\",\"Asia/Beirut\",\"Asia/Vientiane\",\"Asia/Almaty\",\"Asia/Aqtau\",\"Asia/Aqtobe\",\"Asia/Atyrau\",\"Asia/Oral\",\"Asia/Qyzylorda\",\"America/Cayman\",\"Asia/Kuwait\",\"Asia/Seoul\",\"Asia/Pyongyang\",\"America/St_Kitts\",\"Indian/Comoro\",\"Pacific/Enderbury\",\"Pacific/Kiritimati\",\"Pacific/Tarawa\",\"Asia/Phnom_Penh\",\"Asia/Bishkek\",\"Africa/Nairobi\",\"Asia/Tokyo\",\"Asia/Amman\",\"America/Jamaica\",\"Europe/Jersey\",\"Europe/Rome\",\"Atlantic/Reykjavik\",\"Asia/Tehran\",\"Asia/Baghdad\",\"Indian/Chagos\",\"Asia/Kolkata\",\"Europe/Isle_of_Man\",\"Asia/Jerusalem\",\"Europe/Dublin\",\"Asia/Jakarta\",\"Asia/Jayapura\",\"Asia/Makassar\",\"Asia/Pontianak\",\"Europe/Budapest\",\"America/Port-au-Prince\",\"Europe/Zagreb\",\"America/Tegucigalpa\",\"Asia/Hong_Kong\",\"America/Guyana\",\"Africa/Bissau\",\"Pacific/Guam\",\"America/Guatemala\",\"Atlantic/South_Georgia\",\"Europe/Athens\",\"Africa/Malabo\",\"America/Guadeloupe\",\"Africa/Conakry\",\"Africa/Banjul\",\"America/Danmarkshavn\",\"America/Godthab\",\"America/Scoresbysund\",\"America/Thule\",\"Europe/Gibraltar\",\"Africa/Accra\",\"Europe/Guernsey\",\"America/Cayenne\",\"Asia/Tbilisi\",\"America/Grenada\",\"Europe/London\",\"Africa/Libreville\",\"Europe/Paris\",\"Atlantic/Faroe\",\"Pacific/Chuuk\",\"Pacific/Kosrae\",\"Pacific/Pohnpei\",\"Atlantic/Stanley\",\"Pacific/Fiji\",\"Europe/Helsinki\",\"Africa/Addis_Ababa\",\"Africa/Ceuta\",\"Atlantic/Canary\",\"Europe/Madrid\",\"Africa/Asmara\",\"Africa/El_Aaiun\",\"Africa/Cairo\",\"Europe/Tallinn\",\"America/Guayaquil\",\"Pacific/Galapagos\",\"Africa/Algiers\",\"America/Santo_Domingo\",\"America/Dominica\",\"Europe/Copenhagen\",\"Africa/Djibouti\",\"Europe/Berlin\",\"Europe/Busingen\",\"Europe/Prague\",\"Asia/Famagusta\",\"Asia/Nicosia\",\"Indian/Christmas\",\"America/Curacao\",\"Atlantic/Cape_Verde\",\"America/Havana\",\"America/Costa_Rica\",\"America/Bogota\",\"Asia/Shanghai\",\"Asia/Urumqi\",\"Africa/Douala\",\"America/Punta_Arenas\",\"America/Santiago\",\"Pacific/Easter\",\"Pacific/Rarotonga\",\"Africa/Abidjan\",\"Europe/Zurich\",\"Africa/Brazzaville\",\"Africa/Bangui\",\"Africa/Kinshasa\",\"Africa/Lubumbashi\",\"Indian/Cocos\",\"America/Atikokan\",\"America/Blanc-Sablon\",\"America/Cambridge_Bay\",\"America/Creston\",\"America/Dawson\",\"America/Dawson_Creek\",\"America/Edmonton\",\"America/Fort_Nelson\",\"America/Glace_Bay\",\"America/Goose_Bay\",\"America/Halifax\",\"America/Inuvik\",\"America/Iqaluit\",\"America/Moncton\",\"America/Nipigon\",\"America/Pangnirtung\",\"America/Rainy_River\",\"America/Rankin_Inlet\",\"America/Regina\",\"America/Resolute\",\"America/St_Johns\",\"America/Swift_Current\",\"America/Thunder_Bay\",\"America/Toronto\",\"America/Vancouver\",\"America/Whitehorse\",\"America/Winnipeg\",\"America/Yellowknife\",\"America/Belize\",\"Europe/Minsk\",\"Africa/Gaborone\",\"Asia/Thimphu\",\"America/Nassau\",\"America/Araguaina\",\"America/Bahia\",\"America/Belem\",\"America/Boa_Vista\",\"America/Campo_Grande\",\"America/Cuiaba\",\"America/Eirunepe\",\"America/Fortaleza\",\"America/Maceio\",\"America/Manaus\",\"America/Noronha\",\"America/Porto_Velho\",\"America/Recife\",\"America/Rio_Branco\",\"America/Santarem\",\"America/Sao_Paulo\",\"America/Kralendijk\",\"America/La_Paz\",\"Asia/Brunei\",\"Atlantic/Bermuda\",\"America/St_Barthelemy\",\"Africa/Porto-Novo\",\"Africa/Bujumbura\",\"Asia/Bahrain\",\"Europe/Sofia\",\"Africa/Ouagadougou\",\"Europe/Brussels\",\"Asia/Dhaka\",\"America/Barbados\",\"Europe/Sarajevo\",\"Asia/Baku\",\"Europe/Mariehamn\",\"America/Aruba\",\"Antarctica/Macquarie\",\"Australia/Adelaide\",\"Australia/Brisbane\",\"Australia/Broken_Hill\",\"Australia/Currie\",\"Australia/Darwin\",\"Australia/Eucla\",\"Australia/Hobart\",\"Australia/Lindeman\",\"Australia/Lord_Howe\",\"Australia/Melbourne\",\"Australia/Perth\",\"Australia/Sydney\",\"Europe/Vienna\",\"Pacific/Pago_Pago\",\"America/Argentina/Buenos_Aires\",\"America/Argentina/Catamarca\",\"America/Argentina/Cordoba\",\"America/Argentina/Jujuy\",\"America/Argentina/La_Rioja\",\"America/Argentina/Mendoza\",\"America/Argentina/Rio_Gallegos\",\"America/Argentina/Salta\",\"America/Argentina/San_Juan\",\"America/Argentina/San_Luis\",\"America/Argentina/Tucuman\",\"America/Argentina/Ushuaia\",\"Antarctica/Casey\",\"Antarctica/Davis\",\"Antarctica/DumontDUrville\",\"Antarctica/Mawson\",\"Antarctica/McMurdo\",\"Antarctica/Palmer\",\"Antarctica/Rothera\",\"Antarctica/Syowa\",\"Antarctica/Troll\",\"Antarctica/Vostok\",\"Africa/Luanda\",\"Asia/Yerevan\",\"Europe/Tirane\",\"America/Anguilla\",\"America/Antigua\",\"Asia/Kabul\",\"Asia/Dubai\",\"Europe/Andorra\",\"Africa/Asmera\",\"Africa/Timbuktu\",\"America/Argentina/ComodRivadavia\",\"America/Atka\",\"America/Buenos_Aires\",\"America/Catamarca\",\"America/Coral_Harbour\",\"America/Cordoba\",\"America/Ensenada\",\"America/Fort_Wayne\",\"America/Indianapolis\",\"America/Jujuy\",\"America/Knox_IN\",\"America/Louisville\",\"America/Mendoza\",\"America/Montreal\",\"America/Porto_Acre\",\"America/Rosario\",\"America/Santa_Isabel\",\"America/Shiprock\",\"America/Virgin\",\"Antarctica/South_Pole\",\"Asia/Ashkhabad\",\"Asia/Calcutta\",\"Asia/Chongqing\",\"Asia/Chungking\",\"Asia/Dacca\",\"Asia/Harbin\",\"Asia/Istanbul\",\"Asia/Kashgar\",\"Asia/Katmandu\",\"Asia/Macao\",\"Asia/Rangoon\",\"Asia/Saigon\",\"Asia/Tel_Aviv\",\"Asia/Thimbu\",\"Asia/Ujung_Pandang\",\"Asia/Ulan_Bator\",\"Atlantic/Faeroe\",\"Atlantic/Jan_Mayen\",\"Australia/ACT\",\"Australia/Canberra\",\"Australia/LHI\",\"Australia/North\",\"Australia/NSW\",\"Australia/Queensland\",\"Australia/South\",\"Australia/Tasmania\",\"Australia/Victoria\",\"Australia/West\",\"Australia/Yancowinna\",\"Brazil/Acre\",\"Brazil/DeNoronha\",\"Brazil/East\",\"Brazil/West\",\"Canada/Atlantic\",\"Canada/Central\",\"Canada/East-Saskatchewan\",\"Canada/Eastern\",\"Canada/Mountain\",\"Canada/Newfoundland\",\"Canada/Pacific\",\"Canada/Saskatchewan\",\"Canada/Yukon\",\"CET\",\"Chile/Continental\",\"Chile/EasterIsland\",\"CST6CDT\",\"Cuba\",\"EET\",\"Egypt\",\"Eire\",\"EST\",\"EST5EDT\",\"Etc/GMT\",\"Etc/GMT+0\",\"Etc/GMT+1\",\"Etc/GMT+10\",\"Etc/GMT+11\",\"Etc/GMT+12\",\"Etc/GMT+2\",\"Etc/GMT+3\",\"Etc/GMT+4\",\"Etc/GMT+5\",\"Etc/GMT+6\",\"Etc/GMT+7\",\"Etc/GMT+8\",\"Etc/GMT+9\",\"Etc/GMT-0\",\"Etc/GMT-1\",\"Etc/GMT-10\",\"Etc/GMT-11\",\"Etc/GMT-12\",\"Etc/GMT-13\",\"Etc/GMT-14\",\"Etc/GMT-2\",\"Etc/GMT-3\",\"Etc/GMT-4\",\"Etc/GMT-5\",\"Etc/GMT-6\",\"Etc/GMT-7\",\"Etc/GMT-8\",\"Etc/GMT-9\",\"Etc/GMT0\",\"Etc/Greenwich\",\"Etc/UCT\",\"Etc/Universal\",\"Etc/UTC\",\"Etc/Zulu\",\"Europe/Belfast\",\"Europe/Nicosia\",\"Europe/Tiraspol\",\"GB\",\"GB-Eire\",\"GMT\",\"GMT+0\",\"GMT-0\",\"GMT0\",\"Greenwich\",\"Hongkong\",\"HST\",\"Iceland\",\"Iran\",\"Israel\",\"Jamaica\",\"Japan\",\"Kwajalein\",\"Libya\",\"MET\",\"Mexico/BajaNorte\",\"Mexico/BajaSur\",\"Mexico/General\",\"MST\",\"MST7MDT\",\"Navajo\",\"NZ\",\"NZ-CHAT\",\"Pacific/Johnston\",\"Pacific/Ponape\",\"Pacific/Samoa\",\"Pacific/Truk\",\"Pacific/Yap\",\"Poland\",\"Portugal\",\"PRC\",\"PST8PDT\",\"ROC\",\"ROK\",\"Singapore\",\"Turkey\",\"UCT\",\"Universal\",\"US/Alaska\",\"US/Aleutian\",\"US/Arizona\",\"US/Central\",\"US/East-Indiana\",\"US/Eastern\",\"US/Hawaii\",\"US/Indiana-Starke\",\"US/Michigan\",\"US/Mountain\",\"US/Pacific\",\"US/Pacific-New\",\"US/Samoa\",\"UTC\",\"W-SU\",\"WET\",\"Zulu\"];\nmsg.options = options.sort();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1157.5,
+        "y": 1558,
+        "wires": [
+            [
+                "9bb86c18.f0deb"
+            ]
+        ]
+    },
+    {
+        "id": "9bb86c18.f0deb",
+        "type": "ui_dropdown",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Time Zone:",
+        "place": "Select",
+        "group": "5ca7d250.c3938c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 1609.5,
+        "y": 1552,
+        "wires": [
+            [
+                "a6b43763.a12aa8"
+            ]
+        ]
+    },
+    {
+        "id": "f49b2576.99e1d8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 683.5,
+        "y": 1552,
+        "wires": [
+            [
+                "9fa076ac.17f568",
+                "a1357f50.ee57a"
+            ]
+        ]
+    },
+    {
+        "id": "a1357f50.ee57a",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/etc/timezone",
+        "format": "utf8",
+        "x": 1163.5,
+        "y": 1651,
+        "wires": [
+            [
+                "6547f655.0621e8"
+            ]
+        ]
+    },
+    {
+        "id": "6547f655.0621e8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "remove line breaks",
+        "func": "msg.payload = msg.payload.replace(/(\\r\\n|\\n|\\r)/gm,\"\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1370.5,
+        "y": 1650,
+        "wires": [
+            [
+                "9bb86c18.f0deb"
+            ]
+        ]
+    },
+    {
+        "id": "8a877d9e.f36ac",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1828.5,
+        "y": 1644,
+        "wires": []
+    },
+    {
+        "id": "a6b43763.a12aa8",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/timezone",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1825.5,
+        "y": 1561,
+        "wires": []
+    },
+    {
+        "id": "3a8464e7.9213dc",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "5ca7d250.c3938c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Set Time Zone",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "go",
+        "payloadType": "str",
+        "topic": "",
+        "x": 1165.5,
+        "y": 1733,
+        "wires": [
+            [
+                "c542fa3.77cb308"
+            ]
+        ]
+    },
+    {
+        "id": "c542fa3.77cb308",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo cp -f /home/pi/timezone /etc/timezone",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "set timezone file",
+        "x": 1371.5,
+        "y": 1723.5,
+        "wires": [
+            [
+                "c21dbb0e.93a778"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c21dbb0e.93a778",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo dpkg-reconfigure -f noninteractive tzdata",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "confirm update",
+        "x": 1612.5,
+        "y": 1728.5,
+        "wires": [
+            [
+                "be6c33c3.62e8a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8ee3b7e3.1833a8",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 2030.5,
+        "y": 1694,
+        "wires": []
+    },
+    {
+        "id": "be6c33c3.62e8a",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Click restart to save changes.",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Restart Needed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1816.5,
+        "y": 1708,
+        "wires": [
+            [
+                "8ee3b7e3.1833a8",
+                "c08f3c8c.b6e87"
+            ]
+        ]
+    },
+    {
+        "id": "c08f3c8c.b6e87",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "5ca7d250.c3938c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "status",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1991.5,
+        "y": 1751,
         "wires": []
     },
     {
@@ -2575,17 +2829,17 @@
         "id": "82607108.c5be8",
         "type": "ui_group",
         "z": "",
-        "name": "TILTpi Logging",
+        "name": "Tilt Pi Logging",
         "tab": "6529e313.74108c",
         "order": 3,
         "disp": true,
         "width": "6"
     },
     {
-        "id": "8db40dd1.d984",
+        "id": "5ca7d250.c3938c",
         "type": "ui_group",
         "z": "",
-        "name": "System",
+        "name": "Time Zone",
         "tab": "c9c26b4a.4cde78",
         "order": 1,
         "disp": true,
@@ -2603,7 +2857,7 @@
         "id": "4ede131f.f2e09c",
         "type": "ui_tab",
         "z": "",
-        "name": "TILTpi",
+        "name": "Tilt Pi",
         "icon": "fa-tachometer",
         "order": 1
     },
@@ -2619,8 +2873,8 @@
         "id": "c9c26b4a.4cde78",
         "type": "ui_tab",
         "z": "",
-        "name": "System",
-        "icon": "fa-cog",
+        "name": "Time Zone",
+        "icon": "fa-clock-o",
         "order": 4
     }
 ]
