@@ -209,8 +209,8 @@
         "mode": "text",
         "delay": "2000",
         "topic": "",
-        "x": 1790.0000305175781,
-        "y": 496.9999990463257,
+        "x": 3675,
+        "y": 509,
         "wires": [
             [
                 "6040e73e.fa2088"
@@ -222,11 +222,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set(color + \"-Beer\",msg.payload);\nglobal.set(color + \"-Beer\",msg.payload);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set(color + \"-Beer\",[msg.payload,true]);",
         "outputs": 1,
         "noerr": 0,
-        "x": 1983.000015258789,
-        "y": 497.0000009536743,
+        "x": 3897,
+        "y": 508,
         "wires": [
             []
         ]
@@ -236,14 +236,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name\nmsg.payload.Beer = global.get(msg.payload.Color + \"-Beer\")||\"Untitled\";\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray[0];\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1069,
         "y": 205,
         "wires": [
             [
-                "86447ba5.5d5b68"
+                "86447ba5.5d5b68",
+                "34a1aa43.05d556"
             ]
         ]
     },
@@ -644,15 +645,18 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Dropdown Options",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    node.send({options:options});\n}",
-        "outputs": 1,
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nvar colorSelect = flow.get('colordropdownSelect')||\"\";\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    msg.options = options;\n    msg.payload = colorSelect;\n    return msg;\n}",
+        "outputs": "2",
         "noerr": 0,
-        "x": 741.5,
-        "y": 554,
+        "x": 680.5,
+        "y": 551,
         "wires": [
             [
                 "93d9202c.d9c1e",
                 "b418ce11.8981a"
+            ],
+            [
+                "19dc2cac.3a0263"
             ]
         ]
     },
@@ -661,7 +665,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nmsg.payload = flow.get(color + \"-Beer\")||\"\";\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n    return msg;\n    \n}\nelse {\n    msg.payload = beerArray;\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -1566,13 +1570,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "var beerArray = msg.payload.beername.split(\",\");\nglobal.set(msg.payload.tiltcolor + \"-Beer\",beerArray[0]);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nmsg.payload = beerArray;\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
         "y": 155,
         "wires": [
-            []
+            [
+                "656f0cf9.e79cd4"
+            ]
         ]
     },
     {
@@ -2189,8 +2195,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 599,
-        "y": 454,
+        "x": 627,
+        "y": 445,
         "wires": [
             [
                 "70e26859.813d18"
@@ -2711,6 +2717,41 @@
                 "dc8e0ec5.550d",
                 "b1836d66.f976c",
                 "c7601414.73cf68"
+            ]
+        ]
+    },
+    {
+        "id": "34a1aa43.05d556",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload.Beer",
+        "x": 1310.5,
+        "y": 104,
+        "wires": []
+    },
+    {
+        "id": "19dc2cac.3a0263",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 855.5,
+        "y": 631,
+        "wires": [
+            [
+                "93d9202c.d9c1e"
             ]
         ]
     },
