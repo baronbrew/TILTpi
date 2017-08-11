@@ -680,8 +680,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Posting comment: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1511.5,
-        "y": 662,
+        "x": 1521.5,
+        "y": 671,
         "wires": [
             [
                 "8dec8962.63e398"
@@ -703,7 +703,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\"\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2754.5,
@@ -785,7 +785,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to Cloud",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | ALL COLORS\";\nif (msg.payload){\nmsg.payload = \"Logging started.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Cloud started.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1596.5,
@@ -1117,6 +1117,7 @@
         "y": 185,
         "wires": [
             [
+                "6cbfa171.d2106",
                 "2836e0e1.4ea9c"
             ]
         ]
@@ -1546,12 +1547,12 @@
         "id": "df1ac3a9.c4472",
         "type": "ui_template",
         "z": "a564595f.642818",
-        "group": "19fab5c2.199ffa",
+        "group": "81394fa6.f9523",
         "name": "Cloud Response",
-        "order": 6,
+        "order": 4,
         "width": "6",
         "height": "3",
-        "format": "<div ng-bind-html=\"msg.payload.result\"></div>",
+        "format": "<div ng-bind-html=\"msg.payload.result\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "x": 3502,
@@ -1647,7 +1648,7 @@
         "name": "",
         "label": "Comment [use RETURN to send]",
         "group": "19fab5c2.199ffa",
-        "order": 7,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -1655,7 +1656,7 @@
         "delay": "0",
         "topic": "",
         "x": 1247.5,
-        "y": 663,
+        "y": 640,
         "wires": [
             [
                 "e899ac8f.ec903"
@@ -1667,7 +1668,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -1865,7 +1866,7 @@
         "format": "<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
-        "x": 2933.5,
+        "x": 2955.5,
         "y": 428,
         "wires": [
             []
@@ -1930,7 +1931,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment + \",\" + msg.payload.rssi;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2747,
@@ -1947,7 +1948,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to SD Card",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | ALL COLORS\";\nif (msg.payload){\nmsg.payload = \"Logging enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Tilt Pi enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1829,
@@ -2188,8 +2189,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 626,
-        "y": 446,
+        "x": 599,
+        "y": 454,
         "wires": [
             [
                 "70e26859.813d18"
@@ -2273,54 +2274,11 @@
         "repeat": "2",
         "crontab": "",
         "once": false,
-        "x": 1110,
-        "y": 839,
+        "x": 1131,
+        "y": 859,
         "wires": [
             [
                 "3eb6f3c4.588d1c"
-            ]
-        ]
-    },
-    {
-        "id": "f81079e6.5fdd48",
-        "type": "ui_button",
-        "z": "a564595f.642818",
-        "name": "",
-        "group": "81394fa6.f9523",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Start Logging",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "topic": "",
-        "x": 620,
-        "y": 804,
-        "wires": [
-            [
-                "bc1e0e42.90dd3"
-            ]
-        ]
-    },
-    {
-        "id": "bc1e0e42.90dd3",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Toggle Cloud Logging",
-        "func": "node.send({payload:false});\nnode.send({payload:true});",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 849,
-        "y": 814,
-        "wires": [
-            [
-                "c7601414.73cf68",
-                "dc8e0ec5.550d",
-                "b1836d66.f976c"
             ]
         ]
     },
@@ -2560,18 +2518,6 @@
         ]
     },
     {
-        "id": "8a877d9e.f36ac",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 1828.5,
-        "y": 1644,
-        "wires": []
-    },
-    {
         "id": "a6b43763.a12aa8",
         "type": "file",
         "z": "a564595f.642818",
@@ -2717,10 +2663,62 @@
         "wires": []
     },
     {
+        "id": "1dc3fc9e.e1f193",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "GMAIL email [use RETURN to start]",
+        "group": "81394fa6.f9523",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 565,
+        "y": 782,
+        "wires": [
+            [
+                "e899ac8f.ec903",
+                "4e68e4c.496741c"
+            ]
+        ]
+    },
+    {
+        "id": "4e68e4c.496741c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "turn on logging",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 914.5,
+        "y": 846,
+        "wires": [
+            [
+                "dc8e0ec5.550d",
+                "b1836d66.f976c",
+                "c7601414.73cf68"
+            ]
+        ]
+    },
+    {
         "id": "81394fa6.f9523",
         "type": "ui_group",
         "z": "",
-        "name": "Tilt Color & Name",
+        "name": "Quick Start",
         "tab": "6529e313.74108c",
         "order": 1,
         "disp": true,
@@ -2760,7 +2758,7 @@
         "id": "19fab5c2.199ffa",
         "type": "ui_group",
         "z": "",
-        "name": "Cloud Logging",
+        "name": "Cloud Settings",
         "tab": "6529e313.74108c",
         "order": 2,
         "disp": true,
@@ -2829,7 +2827,7 @@
         "id": "82607108.c5be8",
         "type": "ui_group",
         "z": "",
-        "name": "Tilt Pi Logging",
+        "name": "Tilt Pi Settings",
         "tab": "6529e313.74108c",
         "order": 3,
         "disp": true,
