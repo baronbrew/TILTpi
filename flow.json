@@ -2937,7 +2937,7 @@
         "type": "exec",
         "z": "a564595f.642818",
         "command": "wget -O /home/pi/flow.json",
-        "addpay": true,
+        "addpay": false,
         "append": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
         "useSpawn": false,
         "timer": "",
