@@ -8,7 +8,7 @@
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
-        "name": "Tilt Scanner",
+        "name": "Tilt Scan",
         "beacon_uuid": "",
         "beacon_major": "",
         "beacon_minor": "",
