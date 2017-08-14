@@ -3025,6 +3025,29 @@
         ]
     },
     {
+        "id": "fabf2824.c89c68",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "Needless Feature",
+        "group": "c8854cd2.f1773",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Needless Feature",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 981.4285888671875,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "81394fa6.f9523",
         "type": "ui_group",
         "z": "",
