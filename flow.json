@@ -1118,7 +1118,8 @@
         "y": 185,
         "wires": [
             [
-                "6cbfa171.d2106"
+                "6cbfa171.d2106",
+                "2836e0e1.4ea9c"
             ]
         ]
     },
@@ -2945,6 +2946,85 @@
         ]
     },
     {
+        "id": "13f0085a.0d5178",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "wget -O /home/pi/flow.json",
+        "addpay": true,
+        "append": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
+        "useSpawn": false,
+        "timer": "",
+        "name": "Download Update from GitHub",
+        "x": 1198,
+        "y": 1308,
+        "wires": [
+            [],
+            [],
+            [
+                "ef8b11d3.ed055"
+            ]
+        ]
+    },
+    {
+        "id": "94e4a0ea.aeb8",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "Update App",
+        "group": "c8854cd2.f1773",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 947,
+        "y": 1310,
+        "wires": [
+            [
+                "13f0085a.0d5178"
+            ]
+        ]
+    },
+    {
+        "id": "ef8b11d3.ed055",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1482.5,
+        "y": 1313,
+        "wires": [
+            [
+                "b0fab2cd.d77d4"
+            ]
+        ]
+    },
+    {
+        "id": "b0fab2cd.d77d4",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "curl -X POST http://localhost:1880/flows -H \"Content-Type: application/json\" -H \"Node-RED-Deployment-Type: nodes\" --data \"@/home/pi/flow.json\"",
+        "addpay": false,
+        "append": "",
+        "useSpawn": false,
+        "timer": "",
+        "name": "Update App",
+        "x": 1708,
+        "y": 1313,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
         "id": "81394fa6.f9523",
         "type": "ui_group",
         "z": "",
@@ -3080,6 +3160,15 @@
         "name": "Units",
         "tab": "c9c26b4a.4cde78",
         "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c8854cd2.f1773",
+        "type": "ui_group",
+        "z": "",
+        "name": "App Updates",
+        "tab": "4ede131f.f2e09c",
         "disp": true,
         "width": "6"
     },
