@@ -1,5 +1,10 @@
 [
     {
+        "id": "a564595f.642818",
+        "type": "tab",
+        "label": "Main"
+    },
+    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -217,7 +222,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set(color + \"-Beer\",[msg.payload,true]);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n}\nflow.set(color + \"-Beer\",beerArray);",
         "outputs": 1,
         "noerr": 0,
         "x": 3897,
@@ -231,7 +236,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray[0];\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1069,
@@ -252,7 +257,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2417,
@@ -273,7 +278,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2423,
@@ -357,7 +362,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2423,
@@ -640,7 +645,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Dropdown Options",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    msg.options = options;\n    return msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) == -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    msg.options = options;\n    node.send(msg);\n    //set dropdown if only 1 Tilt available\n    if (options.length === 1){\n        msg.payload = options[0];\n        node.send(msg);\n    }\n}",
         "outputs": "1",
         "noerr": 0,
         "x": 680.5,
@@ -657,7 +662,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n    return msg;\n    \n}\nelse {\n    msg.payload = beerArray;\n    return msg;\n}",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true || beerArray[1] === \"true\"){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n    node.warn(beerArray[1]);\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -781,7 +786,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to Cloud",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Cloud started.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging request sent. Waiting for response.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1596.5,
@@ -902,7 +907,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2418,
@@ -948,7 +953,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2417,
@@ -1113,8 +1118,7 @@
         "y": 185,
         "wires": [
             [
-                "6cbfa171.d2106",
-                "2836e0e1.4ea9c"
+                "6cbfa171.d2106"
             ]
         ]
     },
@@ -1299,7 +1303,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2424,
@@ -1382,7 +1386,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2429,
@@ -1465,7 +1469,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "x": 2418,
@@ -1562,7 +1566,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nmsg.payload = beerArray;\nreturn msg;\n}",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (beerArray[1] === \"true\"){\n   msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -1737,8 +1741,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1082.5,
-        "y": 709,
+        "x": 1079.5,
+        "y": 689,
         "wires": [
             [
                 "edb75c90.8414"
@@ -1929,7 +1933,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var beerName = msg.payload.Beer.split(\",\");\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + beerName[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2747,
@@ -2265,15 +2269,15 @@
         "id": "9bdc1db3.4ceaa",
         "type": "inject",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Get Color Selection",
         "topic": "",
         "payload": "colordropdownSelect",
         "payloadType": "flow",
         "repeat": "2",
         "crontab": "",
         "once": false,
-        "x": 1131,
-        "y": 859,
+        "x": 1096,
+        "y": 878,
         "wires": [
             [
                 "3eb6f3c4.588d1c"
@@ -2665,12 +2669,12 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "GMAIL email [use RETURN to start]",
+        "label": "GMAIL email [use RETURN to set]",
         "group": "81394fa6.f9523",
         "order": 3,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
@@ -2679,7 +2683,8 @@
         "wires": [
             [
                 "e899ac8f.ec903",
-                "4e68e4c.496741c"
+                "4e68e4c.496741c",
+                "d656e52b.f2a508"
             ]
         ]
     },
@@ -2702,8 +2707,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 914.5,
-        "y": 846,
+        "x": 894.5,
+        "y": 823,
         "wires": [
             [
                 "dc8e0ec5.550d",
@@ -2717,7 +2722,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "payload.Beer",
         "x": 1310.5,
@@ -2837,6 +2842,106 @@
         "y": 310,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "5a69b142.f96b6",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo shutdown",
+        "addpay": true,
+        "append": "",
+        "useSpawn": false,
+        "timer": "",
+        "name": "Shutdown",
+        "x": 1298,
+        "y": 1380,
+        "wires": [
+            [
+                "f2bdbc36.5644d"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2bcbe8c9.eefe28",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "5ca7d250.c3938c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Shutdown",
+        "color": "",
+        "bgcolor": "",
+        "icon": "fa-power-off",
+        "payload": "now",
+        "payloadType": "str",
+        "topic": "",
+        "x": 1058,
+        "y": 1377,
+        "wires": [
+            [
+                "5a69b142.f96b6"
+            ]
+        ]
+    },
+    {
+        "id": "f2bdbc36.5644d",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 1514,
+        "y": 1371,
+        "wires": []
+    },
+    {
+        "id": "510190df.5876c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "clear email address",
+        "func": "//prevent excessive cloud logs\nmsg.payload = '';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 544.5,
+        "y": 942,
+        "wires": [
+            [
+                "1dc3fc9e.e1f193"
+            ]
+        ]
+    },
+    {
+        "id": "d656e52b.f2a508",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 650.5,
+        "y": 852,
+        "wires": [
+            [
+                "510190df.5876c"
+            ]
         ]
     },
     {
