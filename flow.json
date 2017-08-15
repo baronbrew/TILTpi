@@ -1042,8 +1042,8 @@
         "type": "ui_button",
         "z": "a564595f.642818",
         "name": "",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 6,
+        "group": "6acae0b0.a184",
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -2232,9 +2232,9 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "SG (actual) [use RETURN to set]",
+        "label": "Actual SG [use RETURN to set]",
         "group": "eb4ab3d5.7b3f1",
-        "order": 4,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -2254,14 +2254,14 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "eb4ab3d5.7b3f1",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "SG (uncal.)",
+        "label": "Uncalibrated SG",
         "format": "{{msg.payload | number:3}}",
-        "layout": "row-left",
-        "x": 1615,
+        "layout": "col-center",
+        "x": 1625,
         "y": 865,
         "wires": []
     },
@@ -2289,19 +2289,21 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncal. Points [use RETURN to set]",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 0,
+        "label": "Uncalibrated [use RETURN to set]",
+        "group": "6acae0b0.a184",
+        "order": 3,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
         "x": 2185,
         "y": 1002,
         "wires": [
-            []
+            [
+                "88f0f33d.110ab"
+            ]
         ]
     },
     {
@@ -2310,18 +2312,20 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Actual Points [use RETURN to set]",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 0,
+        "group": "6acae0b0.a184",
+        "order": 2,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
         "x": 2197,
         "y": 1069,
         "wires": [
-            []
+            [
+                "b36a946.3813e68"
+            ]
         ]
     },
     {
@@ -3026,6 +3030,34 @@
         "wires": []
     },
     {
+        "id": "88f0f33d.110ab",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Uncal Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalSGpoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2508.5,
+        "y": 999,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b36a946.3813e68",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Actual Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualSGpoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2507,
+        "y": 1059,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "81394fa6.f9523",
         "type": "ui_group",
         "z": "",
@@ -3096,12 +3128,13 @@
         "width": "6"
     },
     {
-        "id": "eb4ab3d5.7b3f1",
+        "id": "6acae0b0.a184",
         "type": "ui_group",
         "z": "",
-        "name": "Calibration",
+        "name": "Edit SG Calibration Points",
         "tab": "75f710f5.16d2e",
-        "disp": false,
+        "order": 2,
+        "disp": true,
         "width": "6"
     },
     {
@@ -3141,6 +3174,16 @@
         "name": "Tilt Pi Settings",
         "tab": "6529e313.74108c",
         "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Specific Gravity",
+        "tab": "75f710f5.16d2e",
+        "order": 1,
         "disp": true,
         "width": "6"
     },
