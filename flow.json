@@ -56,7 +56,7 @@
         "id": "2836e0e1.4ea9c",
         "type": "http request",
         "z": "a564595f.642818",
-        "name": "Google Sheets",
+        "name": "Cloud Service",
         "method": "POST",
         "ret": "obj",
         "url": "",
@@ -66,7 +66,8 @@
         "wires": [
             [
                 "f14feb76.aebb48",
-                "6cbfa171.d2106"
+                "6cbfa171.d2106",
+                "f1d6da3e.a43598"
             ]
         ]
     },
@@ -165,8 +166,7 @@
         "y": 206.5,
         "wires": [
             [
-                "7c18d8fe.188168",
-                "deb647da.107328"
+                "7c18d8fe.188168"
             ]
         ]
     },
@@ -200,14 +200,14 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Beer Name",
-        "label": "Set Beer Name",
+        "label": "Set Beer Name [use RETURN to set]",
         "group": "81394fa6.f9523",
         "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
-        "delay": "2000",
+        "delay": "0",
         "topic": "",
         "x": 3675,
         "y": 509,
@@ -222,7 +222,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n}\nflow.set(color + \"-Beer\",beerArray);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n}\nnode.warn(beerArray);\nflow.set(color + \"-Beer\",beerArray);",
         "outputs": 1,
         "noerr": 0,
         "x": 3897,
@@ -236,7 +236,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1069,
@@ -263,8 +263,10 @@
         "y": 90,
         "wires": [
             [
+                "394a5d3d.92fa72",
+                "3c8572c8.6a4b1e",
                 "1ee5d27c.fa4e8e",
-                "394a5d3d.92fa72"
+                "77ca1717.53cb38"
             ]
         ]
     },
@@ -640,28 +642,11 @@
         ]
     },
     {
-        "id": "deb647da.107328",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Set Dropdown Options",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n    msg.options = options;\n    node.send(msg);\n    //set dropdown if only 1 Tilt available\n    if (options.length === 1){\n        msg.payload = options[0];\n        node.send(msg);\n    }\n}",
-        "outputs": "1",
-        "noerr": 0,
-        "x": 680.5,
-        "y": 551,
-        "wires": [
-            [
-                "93d9202c.d9c1e",
-                "b418ce11.8981a"
-            ]
-        ]
-    },
-    {
         "id": "971574e0.783ba8",
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true || beerArray[1] === \"true\"){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n    node.warn(beerArray[1]);\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true || beerArray[1] === \"true\"){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -703,11 +688,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\"\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\"\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2754.5,
-        "y": 232,
+        "x": 2757.5,
+        "y": 226,
         "wires": [
             [
                 "bac24b5.6a220b8"
@@ -726,7 +711,7 @@
         "height": 0,
         "passthru": true,
         "mode": "text",
-        "delay": "500",
+        "delay": "1000",
         "topic": "",
         "x": 1262.5,
         "y": 721,
@@ -825,7 +810,8 @@
                 "971574e0.783ba8",
                 "df1c3ed0.bd3a9",
                 "df1ac3a9.c4472",
-                "de92b02f.5ebe1"
+                "de92b02f.5ebe1",
+                "656f0cf9.e79cd4"
             ]
         ]
     },
@@ -835,8 +821,8 @@
         "z": "a564595f.642818",
         "name": "Set Current Time for Display",
         "info": "",
-        "x": 2293,
-        "y": 41,
+        "x": 2233,
+        "y": 35,
         "wires": []
     },
     {
@@ -1113,12 +1099,13 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 2984,
-        "y": 185,
+        "x": 2995,
+        "y": 183,
         "wires": [
             [
-                "2836e0e1.4ea9c",
-                "6cbfa171.d2106"
+                "6cbfa171.d2106",
+                "f1d6da3e.a43598",
+                "2836e0e1.4ea9c"
             ]
         ]
     },
@@ -1566,7 +1553,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (beerArray[1] === \"true\"){\n   msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;\n}",
+        "func": "if (msg.payload.tiltcolor !== undefined){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nmsg.payload = beerArray;\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -1670,7 +1657,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -1933,7 +1920,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||\"Untitled Beer\";\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2747,
@@ -2177,53 +2164,6 @@
                 "93d9202c.d9c1e",
                 "6aa75852.1e3068",
                 "3eb6f3c4.588d1c"
-            ]
-        ]
-    },
-    {
-        "id": "54a7dcc3.03b934",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "Populate Tilt Colors",
-        "topic": "",
-        "payload": "options",
-        "payloadType": "flow",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "x": 620,
-        "y": 316,
-        "wires": [
-            [
-                "70e26859.813d18"
-            ]
-        ]
-    },
-    {
-        "id": "70e26859.813d18",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "options",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 857,
-        "y": 445,
-        "wires": [
-            [
-                "93d9202c.d9c1e",
-                "b418ce11.8981a"
             ]
         ]
     },
@@ -2673,7 +2613,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "GMAIL email [use RETURN to set]",
+        "label": "GMAIL email [use RETURN to start log]",
         "group": "81394fa6.f9523",
         "order": 3,
         "width": 0,
@@ -2682,7 +2622,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 565,
+        "x": 585,
         "y": 782,
         "wires": [
             [
@@ -2716,7 +2656,6 @@
         "wires": [
             [
                 "dc8e0ec5.550d",
-                "b1836d66.f976c",
                 "c7601414.73cf68"
             ]
         ]
@@ -2765,7 +2704,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Extract network config",
-        "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nreturn {payload: outString};\n}\n",
+        "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nflow.set('ipaddress',outString);\nreturn {payload: outString};\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 1126,
@@ -3056,6 +2995,153 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "f1d6da3e.a43598",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 3417.5,
+        "y": 58,
+        "wires": []
+    },
+    {
+        "id": "640f9404.72d27c",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "Cloud Log Config",
+        "filename": "/boot/cloud_log.json",
+        "format": "utf8",
+        "x": 2645.5,
+        "y": 20,
+        "wires": [
+            [
+                "a4b482e4.388e7"
+            ]
+        ]
+    },
+    {
+        "id": "a4b482e4.388e7",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "x": 2804.5,
+        "y": 21,
+        "wires": [
+            [
+                "3c8572c8.6a4b1e"
+            ]
+        ]
+    },
+    {
+        "id": "3c8572c8.6a4b1e",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Up Tilt Pi",
+        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('logCloudDataCheck',true);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")[1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\n}\nflow.set('setupmanager',count);\n}\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2988.5,
+        "y": 76,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84c05058.79f0d",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "set up cloud",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 2454.5,
+        "y": 20,
+        "wires": [
+            [
+                "640f9404.72d27c",
+                "cd073a.aab1a8c8"
+            ]
+        ]
+    },
+    {
+        "id": "2ea21084.81a28",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "options",
+        "payloadType": "flow",
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "x": 534.5,
+        "y": 488,
+        "wires": [
+            [
+                "3a5225ad.57dada"
+            ]
+        ]
+    },
+    {
+        "id": "cd073a.aab1a8c8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "setupmanager",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2654.5,
+        "y": 58,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a5225ad.57dada",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Options Manager",
+        "func": "var optionsmanager = context.get('optionsmanager')||[];\nif (optionsmanager !== msg.payload){\n    context.set('optionsmanager',msg.payload)\n    msg.options = msg.payload;\n    msg.payload = msg.options[0];\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 776.5,
+        "y": 491,
+        "wires": [
+            [
+                "b418ce11.8981a",
+                "93d9202c.d9c1e"
+            ]
+        ]
+    },
+    {
+        "id": "77ca1717.53cb38",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload.Beer",
+        "x": 2699.5,
+        "y": 129,
+        "wires": []
     },
     {
         "id": "81394fa6.f9523",

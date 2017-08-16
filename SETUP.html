@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8" />
-    	<title>Tilt Hub Setup</title>
+    	<title>Tilt Pi Setup</title>
 
 <script src="mdl/material.js"></script>
 
@@ -32,7 +32,7 @@
 <body>
 <div class="demo-card-wide mdl-card mdl-shadow--8dp">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Tilt Network Setup</h2>
+    <h2 class="mdl-card__title-text">Connect to WiFi and Get Link Emailed</h2>
   </div>
  <center>
 <h6>
@@ -54,11 +54,35 @@ Password
     </div>
 </center>
 <div class="mdl-card__supporting-text">
-After entering your Wifi credentials above, click button below to save settings to "wpa_supplicant.conf" file and copy to your Tilt Pi SD card. Make sure any older versions of "wpa_supplicant.conf" are deleted prior to saving a new one otherwise the filename may have an appended number to it and not work properly.
+Clicking the button below will create a new "wpa_supplicant.conf" configuration file. Make sure it is titled "wpa_supplicant.conf" and copy this file to your Tilt Pi SD card (called "boot").
 </div>
-<center><input type="button" id="dwn-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Save Settings"></center>
+<center><input type="button" id="dwn-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Create WiFi Configuration File"></center>
 <div class="mdl-card__supporting-text">
-Manually copy downloaded file to your Tilt Pi SD card (called "boot") then remove card from PC/Mac/Linux system and insert into Raspberry Pi while unplugged. Plug in Raspberry Pi and wait about two minutes to connect to Wifi.
+</div>
+<center>
+<h6>
+Email Address (GMAIL only)
+</h6>
+</center>
+<center>
+<div class="mdl-textfield mdl-js-textfield">
+  <input class="mdl-textfield__input" type="text" id="email">     <label class="mdl-textfield__label" for="email">example@gmail.com</label>
+  </div>
+  </center>
+<center><h6>
+Beer Name (optional)
+</h6></center>
+<center>
+<div class="mdl-textfield mdl-js-textfield">
+  <input class="mdl-textfield__input" type="text" id="beername">     
+ <label class="mdl-textfield__label" for="beername">West Coast IPA</label>
+  </div>
+</center>
+<div class="mdl-card__supporting-text">
+Clicking the button below will create a new "cloud_log.json" configuration file. Make sure it is titled "cloud_log.json" and copy this file to your Tilt Pi SD card (called "boot"). After connecting to WiFi, the Tilt Pi will send you an email with a link to your cloud data and Tilt Pi dashboard.
+</div>
+<center><input type="button" id="dwn-cloud-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Create Cloud Configuration File"></center>
+<div class="mdl-card__supporting-text">
 </div>
 </div>
 </body>
@@ -84,5 +108,11 @@ document.getElementById("dwn-btn").addEventListener("click", function(){
     var text = 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
     var filename = "wpa_supplicant.conf";
     download(filename, text);
+    }, false);
+    document.getElementById("dwn-cloud-btn").addEventListener("click", function(){
+    // Generate download of cloud_log.json
+    var text2 = '{"email":"' + document.getElementById("email").value + '",' + '"beer":"' + document.getElementById("beername").value + '"}';
+    var filename2 = "cloud_log.json";
+    download(filename2, text2);
     }, false);
 </script>
