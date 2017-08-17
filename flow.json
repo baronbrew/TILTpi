@@ -264,9 +264,9 @@
         "wires": [
             [
                 "394a5d3d.92fa72",
-                "3c8572c8.6a4b1e",
                 "1ee5d27c.fa4e8e",
-                "77ca1717.53cb38"
+                "77ca1717.53cb38",
+                "3c8572c8.6a4b1e"
             ]
         ]
     },
@@ -3014,8 +3014,9 @@
         "type": "file in",
         "z": "a564595f.642818",
         "name": "Cloud Log Config",
-        "filename": "/boot/cloud_log.json",
+        "filename": "",
         "format": "utf8",
+        "sendError": false,
         "x": 2645.5,
         "y": 20,
         "wires": [
@@ -3057,17 +3058,16 @@
         "z": "a564595f.642818",
         "name": "",
         "topic": "",
-        "payload": "set up cloud",
+        "payload": "/boot/cloud_log.json",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 2454.5,
+        "x": 2440,
         "y": 20,
         "wires": [
             [
-                "640f9404.72d27c",
-                "cd073a.aab1a8c8"
+                "640f9404.72d27c"
             ]
         ]
     },
@@ -3109,8 +3109,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2654.5,
-        "y": 58,
+        "x": 2660,
+        "y": 60,
         "wires": [
             []
         ]
