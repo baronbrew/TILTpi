@@ -5,6 +5,288 @@
         "label": "Main"
     },
     {
+        "id": "81394fa6.f9523",
+        "type": "ui_group",
+        "z": "",
+        "name": "Quick Start",
+        "tab": "6529e313.74108c",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b642e71.9697318",
+        "type": "ui_group",
+        "z": "",
+        "name": "1",
+        "tab": "4ede131f.f2e09c",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b914fb40.bc5c78",
+        "type": "ui_group",
+        "z": "",
+        "name": "5",
+        "tab": "4ede131f.f2e09c",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "4a85df35.41e16",
+        "type": "ui_group",
+        "z": "",
+        "name": "6",
+        "tab": "4ede131f.f2e09c",
+        "order": 6,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "19fab5c2.199ffa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Cloud Settings",
+        "tab": "6529e313.74108c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "307e2bd0.e69514",
+        "type": "ui_group",
+        "z": "",
+        "name": "2",
+        "tab": "4ede131f.f2e09c",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "8de27cf2.dbd6a",
+        "type": "ui_group",
+        "z": "",
+        "name": "3",
+        "tab": "4ede131f.f2e09c",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "6acae0b0.a184",
+        "type": "ui_group",
+        "z": "",
+        "name": "Edit SG Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b8d3bbbf.2c9cb8",
+        "type": "ui_group",
+        "z": "",
+        "name": "4",
+        "tab": "4ede131f.f2e09c",
+        "order": 4,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "ab6da67f.a47fa8",
+        "type": "ui_group",
+        "z": "",
+        "name": "8",
+        "tab": "4ede131f.f2e09c",
+        "order": 8,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "a510f969.f28538",
+        "type": "ui_group",
+        "z": "",
+        "name": "7",
+        "tab": "4ede131f.f2e09c",
+        "order": 7,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "82607108.c5be8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Pi Settings",
+        "tab": "6529e313.74108c",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Specific Gravity",
+        "tab": "75f710f5.16d2e",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5ca7d250.c3938c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Time Zone",
+        "tab": "c9c26b4a.4cde78",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c8854cd2.f1773",
+        "type": "ui_group",
+        "z": "",
+        "name": "App Admin",
+        "tab": "c9c26b4a.4cde78",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6fabad8a.3909f4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6529e313.74108c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Logging",
+        "icon": "fa-line-chart",
+        "order": 2
+    },
+    {
+        "id": "4ede131f.f2e09c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tilt Pi",
+        "icon": "fa-tachometer",
+        "order": 1
+    },
+    {
+        "id": "75f710f5.16d2e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Calibration",
+        "icon": "fa-bullseye",
+        "order": 3
+    },
+    {
+        "id": "c9c26b4a.4cde78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "System",
+        "icon": "fa-clock-o",
+        "order": 4
+    },
+    {
+        "id": "5fec9a11.37a164",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-custom",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "",
+                "default": "#4B7930",
+                "baseColor": "#666666",
+                "baseFont": "Trebuchet MS,Helvetica,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#4B7930",
+                    "value": "#4B7930",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#666666",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#8c8c8c",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#666666",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Trebuchet MS,Helvetica,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -264,9 +546,9 @@
         "wires": [
             [
                 "394a5d3d.92fa72",
+                "3c8572c8.6a4b1e",
                 "1ee5d27c.fa4e8e",
-                "77ca1717.53cb38",
-                "3c8572c8.6a4b1e"
+                "77ca1717.53cb38"
             ]
         ]
     },
@@ -3014,9 +3296,8 @@
         "type": "file in",
         "z": "a564595f.642818",
         "name": "Cloud Log Config",
-        "filename": "",
+        "filename": "/boot/cloud_log.json",
         "format": "utf8",
-        "sendError": false,
         "x": 2645.5,
         "y": 20,
         "wires": [
@@ -3058,16 +3339,17 @@
         "z": "a564595f.642818",
         "name": "",
         "topic": "",
-        "payload": "/boot/cloud_log.json",
+        "payload": "set up cloud",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 2440,
+        "x": 2454.5,
         "y": 20,
         "wires": [
             [
-                "640f9404.72d27c"
+                "640f9404.72d27c",
+                "cd073a.aab1a8c8"
             ]
         ]
     },
@@ -3109,8 +3391,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2660,
-        "y": 60,
+        "x": 2654.5,
+        "y": 58,
         "wires": [
             []
         ]
@@ -3143,197 +3425,5 @@
         "x": 2699.5,
         "y": 129,
         "wires": []
-    },
-    {
-        "id": "81394fa6.f9523",
-        "type": "ui_group",
-        "z": "",
-        "name": "Quick Start",
-        "tab": "6529e313.74108c",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b642e71.9697318",
-        "type": "ui_group",
-        "z": "",
-        "name": "1",
-        "tab": "4ede131f.f2e09c",
-        "order": 1,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "b914fb40.bc5c78",
-        "type": "ui_group",
-        "z": "",
-        "name": "5",
-        "tab": "4ede131f.f2e09c",
-        "order": 5,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "4a85df35.41e16",
-        "type": "ui_group",
-        "z": "",
-        "name": "6",
-        "tab": "4ede131f.f2e09c",
-        "order": 6,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "19fab5c2.199ffa",
-        "type": "ui_group",
-        "z": "",
-        "name": "Cloud Settings",
-        "tab": "6529e313.74108c",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "307e2bd0.e69514",
-        "type": "ui_group",
-        "z": "",
-        "name": "2",
-        "tab": "4ede131f.f2e09c",
-        "order": 2,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "8de27cf2.dbd6a",
-        "type": "ui_group",
-        "z": "",
-        "name": "3",
-        "tab": "4ede131f.f2e09c",
-        "order": 3,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "6acae0b0.a184",
-        "type": "ui_group",
-        "z": "",
-        "name": "Edit SG Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b8d3bbbf.2c9cb8",
-        "type": "ui_group",
-        "z": "",
-        "name": "4",
-        "tab": "4ede131f.f2e09c",
-        "order": 4,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "ab6da67f.a47fa8",
-        "type": "ui_group",
-        "z": "",
-        "name": "8",
-        "tab": "4ede131f.f2e09c",
-        "order": 8,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "a510f969.f28538",
-        "type": "ui_group",
-        "z": "",
-        "name": "7",
-        "tab": "4ede131f.f2e09c",
-        "order": 7,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "82607108.c5be8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Tilt Pi Settings",
-        "tab": "6529e313.74108c",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "eb4ab3d5.7b3f1",
-        "type": "ui_group",
-        "z": "",
-        "name": "Specific Gravity",
-        "tab": "75f710f5.16d2e",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "5ca7d250.c3938c",
-        "type": "ui_group",
-        "z": "",
-        "name": "Time Zone",
-        "tab": "c9c26b4a.4cde78",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "c8854cd2.f1773",
-        "type": "ui_group",
-        "z": "",
-        "name": "App Admin",
-        "tab": "c9c26b4a.4cde78",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6fabad8a.3909f4",
-        "type": "ui_group",
-        "z": "",
-        "name": "Units",
-        "tab": "c9c26b4a.4cde78",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6529e313.74108c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Logging",
-        "icon": "fa-line-chart",
-        "order": 2
-    },
-    {
-        "id": "4ede131f.f2e09c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Tilt Pi",
-        "icon": "fa-tachometer",
-        "order": 1
-    },
-    {
-        "id": "75f710f5.16d2e",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Calibration",
-        "icon": "fa-bullseye",
-        "order": 3
-    },
-    {
-        "id": "c9c26b4a.4cde78",
-        "type": "ui_tab",
-        "z": "",
-        "name": "System",
-        "icon": "fa-clock-o",
-        "order": 4
     }
 ]
