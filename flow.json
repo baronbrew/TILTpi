@@ -1843,7 +1843,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "if (msg.payload.tiltcolor !== undefined){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\"> | View Cloud Log</a>');\nmsg.payload = beerArray;\nreturn msg;\n}",
+        "func": "if (msg.payload.tiltcolor !== undefined){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
