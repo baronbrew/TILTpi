@@ -547,8 +547,8 @@
         "wires": [
             [
                 "394a5d3d.92fa72",
-                "3c8572c8.6a4b1e",
-                "1ee5d27c.fa4e8e"
+                "1ee5d27c.fa4e8e",
+                "7226fb32.8cae04"
             ]
         ]
     },
@@ -1104,7 +1104,7 @@
         "z": "a564595f.642818",
         "name": "Set Current Time for Display",
         "info": "",
-        "x": 2220,
+        "x": 2180,
         "y": 60,
         "wires": []
     },
@@ -1113,7 +1113,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options');\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1333,
@@ -3360,7 +3360,8 @@
         "y": 20,
         "wires": [
             [
-                "4a3d87ba.8dff08"
+                "4a3d87ba.8dff08",
+                "cd073a.aab1a8c8"
             ]
         ]
     },
@@ -3383,8 +3384,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2654.5,
-        "y": 58,
+        "x": 2440,
+        "y": 60,
         "wires": [
             []
         ]
@@ -3431,8 +3432,7 @@
         "y": 20,
         "wires": [
             [
-                "640f9404.72d27c",
-                "cd073a.aab1a8c8"
+                "640f9404.72d27c"
             ]
         ]
     },
@@ -3487,6 +3487,29 @@
         "wires": [
             [
                 "f663d5d8.9f9448"
+            ]
+        ]
+    },
+    {
+        "id": "7226fb32.8cae04",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 2704.515625,
+        "y": 94.06640625,
+        "wires": [
+            [
+                "3c8572c8.6a4b1e"
             ]
         ]
     }
