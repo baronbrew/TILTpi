@@ -548,8 +548,7 @@
             [
                 "394a5d3d.92fa72",
                 "3c8572c8.6a4b1e",
-                "1ee5d27c.fa4e8e",
-                "77ca1717.53cb38"
+                "1ee5d27c.fa4e8e"
             ]
         ]
     },
@@ -1095,8 +1094,7 @@
                 "971574e0.783ba8",
                 "df1c3ed0.bd3a9",
                 "df1ac3a9.c4472",
-                "de92b02f.5ebe1",
-                "656f0cf9.e79cd4"
+                "de92b02f.5ebe1"
             ]
         ]
     },
@@ -1832,6 +1830,7 @@
         "format": "<div ng-bind-html=\"msg.payload.result\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
         "storeOutMessages": false,
         "fwdInMessages": true,
+        "templateScope": "local",
         "x": 3502,
         "y": 566,
         "wires": [
@@ -1947,7 +1946,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -1980,8 +1979,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 862.5,
-        "y": 709,
+        "x": 770,
+        "y": 700,
         "wires": [
             [
                 "5d331f4.1bed9e"
@@ -2031,7 +2030,7 @@
         "type": "ui_slider",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Cloud Interval",
+        "label": "Time Interval",
         "group": "19fab5c2.199ffa",
         "order": 4,
         "width": 0,
@@ -2041,7 +2040,7 @@
         "min": "5",
         "max": "60",
         "step": "5",
-        "x": 1594.5,
+        "x": 1584.5,
         "y": 798,
         "wires": [
             [
@@ -2142,9 +2141,10 @@
         "order": 4,
         "width": 0,
         "height": 0,
-        "format": "<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
+        "format": "<style>\n    a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\n    a:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<center><a href=\"/csv\">View Log (copy/paste .csv file)</a></center><br>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
+        "templateScope": "local",
         "x": 2955.5,
         "y": 428,
         "wires": [
@@ -2172,7 +2172,7 @@
         "type": "ui_slider",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Local Interval",
+        "label": "Time Interval",
         "group": "82607108.c5be8",
         "order": 2,
         "width": 0,
@@ -3390,18 +3390,6 @@
         ]
     },
     {
-        "id": "77ca1717.53cb38",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "payload.doclongurl",
-        "x": 2719.5,
-        "y": 129,
-        "wires": []
-    },
-    {
         "id": "7b880cec.674314",
         "type": "exec",
         "z": "a564595f.642818",
@@ -3449,31 +3437,6 @@
         ]
     },
     {
-        "id": "65f75fe.daf55a",
-        "type": "ui_button",
-        "z": "a564595f.642818",
-        "name": "",
-        "group": "81394fa6.f9523",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Update Options",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "options",
-        "payloadType": "flow",
-        "topic": "",
-        "x": 620,
-        "y": 500,
-        "wires": [
-            [
-                "f663d5d8.9f9448"
-            ]
-        ]
-    },
-    {
         "id": "f663d5d8.9f9448",
         "type": "change",
         "z": "a564595f.642818",
@@ -3490,7 +3453,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "options[0]",
+                "to": "colordropdownSelect",
                 "tot": "flow"
             }
         ],
@@ -3509,24 +3472,18 @@
         ]
     },
     {
-        "id": "8409ae32.b6fc4",
-        "type": "ui_button",
+        "id": "c7d23677.6a67f8",
+        "type": "inject",
         "z": "a564595f.642818",
-        "name": "",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Update Options",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
+        "name": "update options",
+        "topic": "",
         "payload": "options",
         "payloadType": "flow",
-        "topic": "",
-        "x": 620,
-        "y": 420,
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "x": 580,
+        "y": 480,
         "wires": [
             [
                 "f663d5d8.9f9448"
