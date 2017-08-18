@@ -272,7 +272,7 @@
         "site": {
             "name": "Tilt Pi",
             "hideToolbar": "false",
-            "allowSwipe": "true",
+            "allowSwipe": "false",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
                 "sx": 48,
@@ -548,7 +548,7 @@
             [
                 "394a5d3d.92fa72",
                 "1ee5d27c.fa4e8e",
-                "7226fb32.8cae04"
+                "1ac34138.84647f"
             ]
         ]
     },
@@ -3491,22 +3491,41 @@
         ]
     },
     {
-        "id": "7226fb32.8cae04",
+        "id": "1ac34138.84647f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send 2 copies",
+        "func": "//2 messages needed to send setup info\nmsg1 = msg;\nmsg2 = msg;\nreturn [msg1,msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 2600,
+        "y": 100,
+        "wires": [
+            [
+                "3c8572c8.6a4b1e"
+            ],
+            [
+                "48234a2d.df0e84"
+            ]
+        ]
+    },
+    {
+        "id": "48234a2d.df0e84",
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
         "rate": "1",
-        "nbRateUnits": "5",
+        "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
-        "drop": true,
-        "x": 2704.515625,
-        "y": 94.06640625,
+        "drop": false,
+        "x": 2790,
+        "y": 120,
         "wires": [
             [
                 "3c8572c8.6a4b1e"
