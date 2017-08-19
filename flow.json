@@ -504,7 +504,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n}\nnode.warn(beerArray);\nflow.set(color + \"-Beer\",beerArray);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n    flow.set(color + \"-URL\",\"\");\n}\nflow.set(color + \"-Beer\",beerArray);",
         "outputs": 1,
         "noerr": 0,
         "x": 3897,
@@ -548,7 +548,8 @@
             [
                 "394a5d3d.92fa72",
                 "1ee5d27c.fa4e8e",
-                "1ac34138.84647f"
+                "fcd6778b.dcc9f8",
+                "2267309d.95b65"
             ]
         ]
     },
@@ -930,7 +931,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true || beerArray[1] === \"true\"){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -946,7 +947,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send Comment",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Posting comment: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Sending: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1521.5,
@@ -1827,7 +1828,7 @@
         "order": 5,
         "width": "6",
         "height": "3",
-        "format": "<div ng-bind-html=\"msg.payload.result\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
+        "format": "<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1842,7 +1843,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "if (msg.payload.tiltcolor !== undefined){\nbeerArray = msg.payload.beername.split(\",\");\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}",
+        "func": "if (msg.payload.beername !== undefined){\nif (msg.payload.beername.indexOf(\",\") > -1){\nbeerArray = msg.payload.beername.split(\",\");\nnode.warn(msg.payload.beername[1]);\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n//node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -1946,7 +1947,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    msg.cloudlink = flow.get(color + \"-URL\");\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -2141,7 +2142,7 @@
         "order": 4,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\n    a:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<center><a href=\"/csv\">View Log (copy/paste .csv file)</a></center><br>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
+        "format": "<style>\n    a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\n    a:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<center><a href=\"/csv\" target=\"_blank\">View Log (to copy/paste as CSV)</a></center><br>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -3334,7 +3335,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Up Tilt Pi",
-        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('logCloudDataCheck',true);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")[1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\nmsg.payload = \"success\"\nnode.send(msg);\n}\nflow.set('setupmanager',count);\n}\n}",
+        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set('logCloudDataCheck',true);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")[1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\nmsg.payload = \"success\"\nnode.send(msg);\n}\nflow.set('setupmanager',count);\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2988.5,
@@ -3491,26 +3492,38 @@
         ]
     },
     {
-        "id": "1ac34138.84647f",
+        "id": "fcd6778b.dcc9f8",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload.Beer",
+        "x": 2723.265625,
+        "y": 152.26953125,
+        "wires": []
+    },
+    {
+        "id": "2267309d.95b65",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Send 2 copies",
-        "func": "//2 messages needed to send setup info\nmsg1 = msg;\nmsg2 = msg;\nreturn [msg1,msg2];",
+        "name": "send 2 copies",
+        "func": "msg1 = msg;\nmsg2 = msg;\nreturn [msg1,msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 2600,
-        "y": 100,
+        "x": 2640,
+        "y": 80,
         "wires": [
             [
                 "3c8572c8.6a4b1e"
             ],
             [
-                "48234a2d.df0e84"
+                "75fecca9.5e5964"
             ]
         ]
     },
     {
-        "id": "48234a2d.df0e84",
+        "id": "75fecca9.5e5964",
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
@@ -3524,8 +3537,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 2790,
-        "y": 120,
+        "x": 2810,
+        "y": 100,
         "wires": [
             [
                 "3c8572c8.6a4b1e"
