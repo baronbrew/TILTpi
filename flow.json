@@ -1389,9 +1389,9 @@
         "y": 183,
         "wires": [
             [
+                "2836e0e1.4ea9c",
                 "6cbfa171.d2106",
-                "f1d6da3e.a43598",
-                "2836e0e1.4ea9c"
+                "f1d6da3e.a43598"
             ]
         ]
     },
@@ -1843,7 +1843,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "if (msg.payload.beername !== undefined){\nif (msg.payload.beername.indexOf(\",\") > -1){\nbeerArray = msg.payload.beername.split(\",\");\nnode.warn(msg.payload.beername[1]);\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n//node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}\n}",
+        "func": "if (msg.payload.beername !== undefined){\nif (msg.payload.beername.indexOf(\",\") > -1){\nbeerArray = msg.payload.beername.split(\",\");\n//node.warn(msg.payload.beername[1]);\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n//node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -2452,9 +2452,9 @@
         "y": 446,
         "wires": [
             [
+                "93d9202c.d9c1e",
                 "6aa75852.1e3068",
-                "3eb6f3c4.588d1c",
-                "93d9202c.d9c1e"
+                "3eb6f3c4.588d1c"
             ]
         ]
     },
@@ -3467,8 +3467,8 @@
         "y": 480,
         "wires": [
             [
-                "b418ce11.8981a",
-                "93d9202c.d9c1e"
+                "93d9202c.d9c1e",
+                "b418ce11.8981a"
             ]
         ]
     },
@@ -3496,7 +3496,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "payload.Beer",
         "x": 2723.265625,
@@ -3507,38 +3507,12 @@
         "id": "2267309d.95b65",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "send 2 copies",
-        "func": "msg1 = msg;\nmsg2 = msg;\nreturn [msg1,msg2];",
-        "outputs": "2",
+        "name": "Wait for Tilt Scan",
+        "func": "//wait until all colors have been scanned\nvar color = context.get('color')||\"\";\nvar counter = context.get('counter')||0;\nif(color === msg.payload.Color && counter < 5){\ncounter++;\ncontext.set('counter',counter);\n}\ncontext.set('color',msg.payload.Color);\nif (counter === 5){\n    return msg;\n}\n",
+        "outputs": "1",
         "noerr": 0,
-        "x": 2640,
+        "x": 2650,
         "y": 80,
-        "wires": [
-            [
-                "3c8572c8.6a4b1e"
-            ],
-            [
-                "75fecca9.5e5964"
-            ]
-        ]
-    },
-    {
-        "id": "75fecca9.5e5964",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "500",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 2810,
-        "y": 100,
         "wires": [
             [
                 "3c8572c8.6a4b1e"
