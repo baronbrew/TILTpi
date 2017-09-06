@@ -106,7 +106,7 @@ function download(filename, text) {
 // Start file download.
 document.getElementById("dwn-btn").addEventListener("click", function(){
     // Generate download of wpa_supplicant.conf
-    var text = 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
+    var text = 'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n' + 'update_config=1\n' + 'country=US\n' + 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
     var filename = "wpa_supplicant.conf";
     download(filename, text);
     }, false);
