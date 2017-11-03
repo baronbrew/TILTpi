@@ -317,7 +317,8 @@
         "y": 245,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "45fc2eae.52e02",
+                "3680db82.06e844"
             ]
         ]
     },
@@ -548,7 +549,6 @@
             [
                 "394a5d3d.92fa72",
                 "1ee5d27c.fa4e8e",
-                "fcd6778b.dcc9f8",
                 "2267309d.95b65"
             ]
         ]
@@ -950,8 +950,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Sending: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1521.5,
-        "y": 671,
+        "x": 1532.5,
+        "y": 653,
         "wires": [
             [
                 "8dec8962.63e398"
@@ -989,20 +989,21 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Cloud URL",
-        "label": "Set Cloud URL",
+        "label": "Cloud URL [use RETURN to set]",
         "group": "19fab5c2.199ffa",
         "order": 1,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "mode": "text",
-        "delay": "1000",
+        "delay": "0",
         "topic": "",
-        "x": 1262.5,
-        "y": 721,
+        "x": 1177.5,
+        "y": 690,
         "wires": [
             [
-                "c79f0193.2a7c7"
+                "c79f0193.2a7c7",
+                "871261eb.cf05f"
             ]
         ]
     },
@@ -1041,11 +1042,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Current CloudURL",
-        "func": "flow.set(\"cloudURL\",msg.payload);\n",
+        "func": "flow.set(\"cloudURL\",msg.payload);\nflow.set(\"customcloudURL\",msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1527,
-        "y": 719,
+        "x": 1407,
+        "y": 696,
         "wires": [
             []
         ]
@@ -1972,57 +1973,19 @@
         "decouple": "false",
         "topic": "",
         "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
+        "onvalue": "https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec",
+        "onvalueType": "str",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
+        "offvalue": "customcloudURL",
+        "offvalueType": "flow",
         "officon": "",
         "offcolor": "",
-        "x": 770,
-        "y": 700,
+        "x": 731,
+        "y": 687,
         "wires": [
             [
-                "5d331f4.1bed9e"
-            ]
-        ]
-    },
-    {
-        "id": "5d331f4.1bed9e",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "default cloud url",
-        "rules": [
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "true",
-                "fromt": "bool",
-                "to": "https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec",
-                "tot": "str"
-            },
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "false",
-                "fromt": "bool",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1079.5,
-        "y": 689,
-        "wires": [
-            [
-                "edb75c90.8414"
+                "d599e3c9.1ae09"
             ]
         ]
     },
@@ -3294,7 +3257,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "payload",
         "x": 3417.5,
@@ -3335,7 +3298,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Up Tilt Pi",
-        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set('logCloudDataCheck',true);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")[1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\nmsg.payload = \"success\"\nnode.send(msg);\n}\nflow.set('setupmanager',count);\n}\n}",
+        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set('logCloudDataCheck',true);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true][1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\nmsg.payload = \"success\";\nnode.send(msg);\n}\nflow.set('setupmanager',count);\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2988.5,
@@ -3361,8 +3324,7 @@
         "y": 20,
         "wires": [
             [
-                "4a3d87ba.8dff08",
-                "cd073a.aab1a8c8"
+                "4a3d87ba.8dff08"
             ]
         ]
     },
@@ -3492,18 +3454,6 @@
         ]
     },
     {
-        "id": "fcd6778b.dcc9f8",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "payload.Beer",
-        "x": 2723.265625,
-        "y": 152.26953125,
-        "wires": []
-    },
-    {
         "id": "2267309d.95b65",
         "type": "function",
         "z": "a564595f.642818",
@@ -3516,6 +3466,79 @@
         "wires": [
             [
                 "3c8572c8.6a4b1e"
+            ]
+        ]
+    },
+    {
+        "id": "3680db82.06e844",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "Get Custom Cloud URL",
+        "filename": "/home/pi/cloudURL.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 367.5,
+        "y": 270,
+        "wires": [
+            [
+                "9ee2561a.dedcd8"
+            ]
+        ]
+    },
+    {
+        "id": "9ee2561a.dedcd8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "set Custom Cloud URL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "customcloudURL",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 617.5,
+        "y": 269,
+        "wires": [
+            [
+                "b1836d66.f976c"
+            ]
+        ]
+    },
+    {
+        "id": "871261eb.cf05f",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Save Custom Cloud URL",
+        "filename": "/home/pi/cloudURL.txt",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1411.5,
+        "y": 739,
+        "wires": []
+    },
+    {
+        "id": "d599e3c9.1ae09",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Current CloudURL",
+        "func": "flow.set(\"cloudURL\",msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 981,
+        "y": 690,
+        "wires": [
+            [
+                "edb75c90.8414"
             ]
         ]
     }
