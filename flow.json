@@ -3644,7 +3644,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Options",
-        "func": "msg.options = msg.payload;\nif (flow.get('colordropdownSelect') !== undefined){\nmsg.payload = flow.get('colordropdownSelect');\n}\nreturn msg;",
+        "func": "msg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 819.847240447998,
