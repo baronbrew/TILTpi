@@ -3577,7 +3577,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send Tilt Colors",
-        "func": "var colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    msg.filename = \"/home/pi/\" + colors[i] + \".json\";\n    node.send(msg);\n}",
+        "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    msg.filename = \"/home/pi/\" + colors[i] + \".json\";\n    node.send(msg);\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 229.51390075683594,
