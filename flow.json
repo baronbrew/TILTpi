@@ -317,7 +317,6 @@
         "y": 245,
         "wires": [
             [
-                "3680db82.06e844",
                 "b42102fe.e4abd"
             ]
         ]
@@ -506,13 +505,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n    flow.set(color + \"-URL\",\"\");\n}\nflow.set(color + \"-Beer\",beerArray);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n    flow.set(color + \"-URL\",\"\");\n}\nflow.set(color + \"-Beer\",beerArray);\n\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n    msg.topic = \"Beer name set for \" + color;\n} else {\n    msg.payload = beerArray[0] + \",\" + beerArray[1];\n    msg.topic = \"[Beer name],[cloud ID] set for \" + color;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 3897,
         "y": 508,
         "wires": [
-            []
+            [
+                "2f84bf9f.847b6"
+            ]
         ]
     },
     {
@@ -586,8 +587,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 101,
-        "y": 186,
+        "x": 111.00000381469727,
+        "y": 122.00000095367432,
         "wires": [
             [
                 "45fc2eae.52e02"
@@ -917,12 +918,13 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1032.5,
-        "y": 553,
+        "x": 900.5000610351562,
+        "y": 542.999979019165,
         "wires": [
             [
                 "b418ce11.8981a",
-                "6aa75852.1e3068"
+                "6aa75852.1e3068",
+                "d5439ed.a8afa6"
             ]
         ]
     },
@@ -973,7 +975,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\"\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.url = flow.get('cloudURL')||flow.get('cloudURL-' + msg.payload.Color);\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -998,12 +1000,11 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1177.5,
-        "y": 690,
+        "x": 1179.5003280639648,
+        "y": 699.000057220459,
         "wires": [
             [
-                "c79f0193.2a7c7",
-                "871261eb.cf05f"
+                "c79f0193.2a7c7"
             ]
         ]
     },
@@ -1041,12 +1042,12 @@
         "id": "c79f0193.2a7c7",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Set Current CloudURL",
-        "func": "flow.set(\"cloudURL\",msg.payload);\nflow.set(\"customcloudURL\",msg.payload);\nreturn msg;",
+        "name": "Set CloudURL",
+        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1380,
-        "y": 679,
+        "x": 1367.0002326965332,
+        "y": 694.0000705718994,
         "wires": [
             [
                 "ecffbfac.2fc53"
@@ -1091,14 +1092,13 @@
         "func": "flow.set('colordropdownSelect',msg.payload);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1299.1428604125977,
-        "y": 532.0000200271606,
+        "x": 1255.1428833007812,
+        "y": 468.0000057220459,
         "wires": [
             [
                 "971574e0.783ba8",
                 "df1c3ed0.bd3a9",
-                "de92b02f.5ebe1",
-                "df1ac3a9.c4472"
+                "de92b02f.5ebe1"
             ]
         ]
     },
@@ -1279,8 +1279,7 @@
         "y": 70.00000476837158,
         "wires": [
             [
-                "1aee8aa4.c92885",
-                "10c271c4.9ec6de"
+                "1aee8aa4.c92885"
             ]
         ]
     },
@@ -1821,8 +1820,8 @@
         "name": "Cloud Response",
         "order": 5,
         "width": "6",
-        "height": "3",
-        "format": "<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
+        "height": "4",
+        "format": "<!DOCTYPE HTML>\n<center><strong><i class=\"fa fa-cloud-upload\"></i>\nCloud Response <i class=\"fa fa-cloud-download\"></i><hr></strong></center>\n<div ng-bind-html=\"msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1922,8 +1921,8 @@
         "label": "Comment [use RETURN to send]",
         "group": "19fab5c2.199ffa",
         "order": 6,
-        "width": 0,
-        "height": 0,
+        "width": "6",
+        "height": "2",
         "passthru": false,
         "mode": "text",
         "delay": "0",
@@ -1941,7 +1940,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    msg.cloudlink = flow.get(color + \"-URL\");\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    msg.cloudlink = flow.get(color + \"-URL\");\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -1957,7 +1956,7 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Default Cloud URL",
+        "label": "Use Default Cloud URL for All",
         "group": "19fab5c2.199ffa",
         "order": 2,
         "width": 0,
@@ -1970,12 +1969,12 @@
         "onvalueType": "str",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "customcloudURL",
+        "offvalue": "colordropdownSelect",
         "offvalueType": "flow",
         "officon": "",
         "offcolor": "",
-        "x": 731,
-        "y": 687,
+        "x": 706,
+        "y": 688.0000095367432,
         "wires": [
             [
                 "d599e3c9.1ae09"
@@ -2404,8 +2403,8 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1111.7777938842773,
-        "y": 402.66669368743896,
+        "x": 927.7778167724609,
+        "y": 401.6666793823242,
         "wires": [
             [
                 "6aa75852.1e3068",
@@ -3409,72 +3408,15 @@
         ]
     },
     {
-        "id": "3680db82.06e844",
-        "type": "file in",
-        "z": "a564595f.642818",
-        "name": "Get Custom Cloud URL",
-        "filename": "/home/pi/cloudURL.txt",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "x": 369.49998474121094,
-        "y": 230.00003337860107,
-        "wires": [
-            [
-                "9ee2561a.dedcd8"
-            ]
-        ]
-    },
-    {
-        "id": "9ee2561a.dedcd8",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "set Custom Cloud URL",
-        "rules": [
-            {
-                "t": "set",
-                "p": "customcloudURL",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 672.4999923706055,
-        "y": 231.99999904632568,
-        "wires": [
-            [
-                "b1836d66.f976c"
-            ]
-        ]
-    },
-    {
-        "id": "871261eb.cf05f",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "Save Custom Cloud URL",
-        "filename": "/home/pi/cloudURL.txt",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "x": 1392.5,
-        "y": 723,
-        "wires": []
-    },
-    {
         "id": "d599e3c9.1ae09",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Set Current CloudURL",
-        "func": "flow.set(\"cloudURL\",msg.payload);\nreturn msg;",
+        "name": "Custom CloudURL",
+        "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === color){\n   msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   flow.set(\"cloudURL\",undefined);\n   }\nelse {\n   flow.set(\"cloudURL\",msg.payload);\n   }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 981,
-        "y": 690,
+        "x": 967.0000381469727,
+        "y": 690.0000305175781,
         "wires": [
             [
                 "edb75c90.8414"
@@ -3491,23 +3433,10 @@
         "outputs": 0,
         "ok": "OK",
         "cancel": "",
-        "topic": "Cloud URL Saved",
-        "name": "Cloud URL Saved",
-        "x": 1594.5,
-        "y": 672,
-        "wires": []
-    },
-    {
-        "id": "10c271c4.9ec6de",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "",
-        "filename": "",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "x": 2423.1950035095215,
-        "y": 474.5729742050171,
+        "topic": "",
+        "name": "Cloud URL Status",
+        "x": 1577.5000076293945,
+        "y": 688.0000019073486,
         "wires": []
     },
     {
@@ -3519,8 +3448,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 2257.9725952148438,
-        "y": 533.9097452163696,
+        "x": 2257.972625732422,
+        "y": 565.909743309021,
         "wires": [
             [
                 "bdb5caad.d3dba8"
@@ -3536,8 +3465,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 2478.9688873291016,
-        "y": 531.6076698303223,
+        "x": 2479.9690017700195,
+        "y": 557.607741355896,
         "wires": [
             [
                 "60f15c0d.04a0b4"
@@ -3551,8 +3480,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 2704.194534301758,
-        "y": 533.5347328186035,
+        "x": 2703.1947116851807,
+        "y": 565.5347499847412,
         "wires": []
     },
     {
@@ -3594,8 +3523,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 529.5243186950684,
-        "y": 328.87160205841064,
+        "x": 547.5243225097656,
+        "y": 324.87160205841064,
         "wires": [
             [
                 "a2f14292.5b0f3"
@@ -3610,8 +3539,8 @@
         "func": "flow.set(msg.payload.Color + \"-Beer\",msg.payload.Beer);\nmsg.payload = \"on\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 708.6252212524414,
-        "y": 336.4618263244629,
+        "x": 689.6252517700195,
+        "y": 324.4618339538574,
         "wires": [
             [
                 "45fc2eae.52e02"
@@ -3629,8 +3558,8 @@
         "repeat": "5",
         "crontab": "",
         "once": false,
-        "x": 600.4028015136719,
-        "y": 476.41322135925293,
+        "x": 437.40282440185547,
+        "y": 480.4132270812988,
         "wires": [
             [
                 "f663d5d8.9f9448"
@@ -3663,8 +3592,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 800.0000610351562,
-        "y": 475.0000343322754,
+        "x": 650.0001068115234,
+        "y": 479.0000591278076,
         "wires": [
             [
                 "93d9202c.d9c1e",
@@ -3685,6 +3614,57 @@
         "y": 377.9552745819092,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "d5439ed.a8afa6",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Update",
+        "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL') === undefined){\n   return msg; \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 496.75000381469727,
+        "y": 686.9097137451172,
+        "wires": [
+            [
+                "b1836d66.f976c"
+            ]
+        ]
+    },
+    {
+        "id": "2f84bf9f.847b6",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "Beer Name Status",
+        "x": 4135.181529998779,
+        "y": 507.5486431121826,
+        "wires": []
+    },
+    {
+        "id": "982240ba.f2f5",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Clear Responses",
+        "topic": "",
+        "payload": "{\"result\":\"Waiting for next time point...\"}",
+        "payloadType": "json",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "x": 3210.2008361816406,
+        "y": 566.4970045089722,
+        "wires": [
+            [
+                "df1ac3a9.c4472"
+            ]
         ]
     }
 ]
