@@ -521,14 +521,16 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nif (flow.get('cloudURL') === undefined){\n   msg.payload.customcloudURL = flow.get(\"cloudURL-\" + color);\n   msg.payload.defaultcloudURL = undefined;\n}else{\n       msg.payload.customcloudURL = undefined;\n       msg.payload.defaultcloudURL = flow.get('cloudURL');\n   }\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1072.0000762939453,
-        "y": 173.00002193450928,
+        "x": 1048.666732788086,
+        "y": 129.6666898727417,
         "wires": [
             [
-                "86447ba5.5d5b68"
+                "86447ba5.5d5b68",
+                "ed713103.6cc24",
+                "6a77b965.400cc8"
             ]
         ]
     },
@@ -712,8 +714,8 @@
         ],
         "checkall": "false",
         "outputs": 8,
-        "x": 1432,
-        "y": 207,
+        "x": 1426.4443740844727,
+        "y": 235.88890075683594,
         "wires": [
             [
                 "64f10179.474c9"
@@ -889,8 +891,8 @@
         "func": "//requires msg.payload.SG, msg.payload.actualSGPoints (a comma separated string of the actual values), and msg.payload.unCalSGPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
-        "x": 1255.5,
-        "y": 206,
+        "x": 1233.2778091430664,
+        "y": 130.44444465637207,
         "wires": [
             [
                 "c4b0f249.af093"
@@ -918,11 +920,10 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 900.5000610351562,
-        "y": 542.999979019165,
+        "x": 911.5000762939453,
+        "y": 489.0000104904175,
         "wires": [
             [
-                "b418ce11.8981a",
                 "6aa75852.1e3068",
                 "d5439ed.a8afa6"
             ]
@@ -1059,7 +1060,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to Cloud",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging request sent. Waiting for response.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging request sent. Waiting for response.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1596.5,
@@ -2408,8 +2409,7 @@
         "wires": [
             [
                 "6aa75852.1e3068",
-                "3eb6f3c4.588d1c",
-                "93d9202c.d9c1e"
+                "3eb6f3c4.588d1c"
             ]
         ]
     },
@@ -3444,15 +3444,15 @@
         "type": "http in",
         "z": "a564595f.642818",
         "name": "",
-        "url": "/data",
+        "url": "/data/:color",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 2257.972625732422,
-        "y": 565.909743309021,
+        "x": 2065.75057220459,
+        "y": 552.57643699646,
         "wires": [
             [
-                "bdb5caad.d3dba8"
+                "dc9ecd32.25037"
             ]
         ]
     },
@@ -3461,15 +3461,15 @@
         "type": "file in",
         "z": "a564595f.642818",
         "name": "",
-        "filename": "/home/pi/PURPLE.json",
+        "filename": "",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 2479.9690017700195,
+        "x": 2419.9690017700195,
         "y": 557.607741355896,
         "wires": [
             [
-                "60f15c0d.04a0b4"
+                "7b788221.059a2c"
             ]
         ]
     },
@@ -3480,8 +3480,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 2703.1947116851807,
-        "y": 565.5347499847412,
+        "x": 2711.861789703369,
+        "y": 557.6458740234375,
         "wires": []
     },
     {
@@ -3506,7 +3506,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send Tilt Colors",
-        "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    msg.filename = \"/home/pi/\" + colors[i] + \".json\";\n    node.send(msg);\n}",
+        "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\n//var colors = [\"BLUE\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    msg.filename = \"/home/pi/\" + colors[i] + \".json\";\n    node.send(msg);\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 229.51390075683594,
@@ -3536,14 +3536,20 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore",
-        "func": "flow.set(msg.payload.Color + \"-Beer\",msg.payload.Beer);\nmsg.payload = \"on\";\nreturn msg;",
-        "outputs": 1,
+        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nnode.warn(msg.payload.defaultCloudURL);\nif (msg.payload.defaultcloudURL !== undefined){\n   flow.set('cloudURL',msg.payload.defaultcloudURL);\n   node.send([null,null,{payload:true}]);\n}\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nif (msg.payload.logCloudDataCheck !== undefined){\n   flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\n   node.send([null,{payload:flow.get('logCloudDataCheck')},null]);\n}\nmsg.payload = \"on\";\nreturn [msg,null,null];",
+        "outputs": "3",
         "noerr": 0,
         "x": 689.6252517700195,
         "y": 324.4618339538574,
         "wires": [
             [
                 "45fc2eae.52e02"
+            ],
+            [
+                "7d4b5c42.e71fb4"
+            ],
+            [
+                "b1836d66.f976c"
             ]
         ]
     },
@@ -3555,49 +3561,14 @@
         "topic": "",
         "payload": "options",
         "payloadType": "flow",
-        "repeat": "5",
+        "repeat": "4",
         "crontab": "",
         "once": false,
-        "x": 437.40282440185547,
-        "y": 480.4132270812988,
+        "x": 345.4028549194336,
+        "y": 471.4132957458496,
         "wires": [
             [
-                "f663d5d8.9f9448"
-            ]
-        ]
-    },
-    {
-        "id": "f663d5d8.9f9448",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "Set Options",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "options",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "colordropdownSelect",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 650.0001068115234,
-        "y": 479.0000591278076,
-        "wires": [
-            [
-                "93d9202c.d9c1e",
-                "b418ce11.8981a"
+                "423412c2.1b104c"
             ]
         ]
     },
@@ -3624,8 +3595,8 @@
         "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL') === undefined){\n   return msg; \n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 496.75000381469727,
-        "y": 686.9097137451172,
+        "x": 463.74999237060547,
+        "y": 683.9097318649292,
         "wires": [
             [
                 "b1836d66.f976c"
@@ -3656,7 +3627,7 @@
         "topic": "",
         "payload": "{\"result\":\"Waiting for next time point...\"}",
         "payloadType": "json",
-        "repeat": "10",
+        "repeat": "20",
         "crontab": "",
         "once": false,
         "x": 3210.2008361816406,
@@ -3664,6 +3635,137 @@
         "wires": [
             [
                 "df1ac3a9.c4472"
+            ]
+        ]
+    },
+    {
+        "id": "e56d18b9.6cbc88",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1435.056510925293,
+        "y": 88.44753837585449,
+        "wires": []
+    },
+    {
+        "id": "dc9ecd32.25037",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set filename",
+        "func": "msg.filename = \"/home/pi/\" + msg.req.params.color;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2255.3934783935547,
+        "y": 555.4592838287354,
+        "wires": [
+            [
+                "bdb5caad.d3dba8"
+            ]
+        ]
+    },
+    {
+        "id": "9b7e987d.accca8",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 2768.0604095458984,
+        "y": 637.5941762924194,
+        "wires": []
+    },
+    {
+        "id": "ed713103.6cc24",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 1217.0061747233074,
+        "y": 205.02701653374567,
+        "wires": []
+    },
+    {
+        "id": "6a77b965.400cc8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1251.7465362548828,
+        "y": 85.6180648803711,
+        "wires": [
+            [
+                "e56d18b9.6cbc88"
+            ]
+        ]
+    },
+    {
+        "id": "7b788221.059a2c",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 2558.406379699707,
+        "y": 557.3056106567383,
+        "wires": [
+            [
+                "60f15c0d.04a0b4",
+                "9b7e987d.accca8"
+            ]
+        ]
+    },
+    {
+        "id": "423412c2.1b104c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set options",
+        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 588.517463684082,
+        "y": 476.9063968658447,
+        "wires": [
+            [
+                "93d9202c.d9c1e",
+                "b418ce11.8981a"
+            ]
+        ]
+    },
+    {
+        "id": "7d4b5c42.e71fb4",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "Send Once",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 873.7466201782227,
+        "y": 346.395938873291,
+        "wires": [
+            [
+                "dc8e0ec5.550d"
             ]
         ]
     }
