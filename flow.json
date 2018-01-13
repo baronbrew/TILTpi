@@ -78,7 +78,7 @@
         "id": "6acae0b0.a184",
         "type": "ui_group",
         "z": "",
-        "name": "Edit SG Calibration Points",
+        "name": "Set SG/°P/°Bx Calibration Points",
         "tab": "75f710f5.16d2e",
         "order": 2,
         "disp": true,
@@ -128,7 +128,7 @@
         "id": "eb4ab3d5.7b3f1",
         "type": "ui_group",
         "z": "",
-        "name": "Specific Gravity",
+        "name": "Calibrate",
         "tab": "75f710f5.16d2e",
         "order": 1,
         "disp": true,
@@ -176,7 +176,7 @@
         "id": "4ede131f.f2e09c",
         "type": "ui_tab",
         "z": "",
-        "name": "Tilt Pi",
+        "name": "Tilt Pi v.2",
         "icon": "fa-tachometer",
         "order": 1
     },
@@ -270,7 +270,7 @@
             }
         },
         "site": {
-            "name": "Tilt Pi",
+            "name": "Tilt Pi v.2",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "dateFormat": "DD/MM/YYYY",
@@ -285,6 +285,16 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "c12bcb12.dbd0d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Temperature Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 4,
+        "disp": true,
+        "width": "6"
     },
     {
         "id": "45fc2eae.52e02",
@@ -521,7 +531,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nif (flow.get('cloudURL') === undefined){\n   msg.payload.customcloudURL = flow.get(\"cloudURL-\" + color);\n   msg.payload.defaultcloudURL = undefined;\n}else{\n       msg.payload.customcloudURL = undefined;\n       msg.payload.defaultcloudURL = flow.get('cloudURL');\n   }\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck');\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nif (flow.get('cloudURL') === undefined){\n   msg.payload.customcloudURL = flow.get(\"cloudURL-\" + color);\n   msg.payload.defaultcloudURL = undefined;\n}else{\n       msg.payload.customcloudURL = undefined;\n       msg.payload.defaultcloudURL = flow.get('cloudURL');\n   }\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1048.666732788086,
@@ -529,7 +539,6 @@
         "wires": [
             [
                 "86447ba5.5d5b68",
-                "ed713103.6cc24",
                 "6a77b965.400cc8"
             ]
         ]
@@ -888,7 +897,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//requires msg.payload.SG, msg.payload.actualSGPoints (a comma separated string of the actual values), and msg.payload.unCalSGPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
         "x": 1233.2778091430664,
@@ -1099,7 +1108,8 @@
             [
                 "971574e0.783ba8",
                 "df1c3ed0.bd3a9",
-                "de92b02f.5ebe1"
+                "de92b02f.5ebe1",
+                "5933654f.572e0c"
             ]
         ]
     },
@@ -1111,8 +1121,8 @@
         "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 1333,
-        "y": 859,
+        "x": 1340,
+        "y": 860,
         "wires": [
             [
                 "777f1a14.1b3e44",
@@ -1128,8 +1138,8 @@
         "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(3));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1519,
-        "y": 956,
+        "x": 1400,
+        "y": 1120,
         "wires": [
             [
                 "6c6270ad.ae742"
@@ -1292,8 +1302,8 @@
         "func": "var color = msg.payload;\nvar uncalSGcalPoint = flow.get('uncalSGpoint')||0;\nvar actualSGcalPoint = flow.get('actualSGpoint')||0;\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nuncalpointsArray.push(uncalSGcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalSGpoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualSGcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualSGpoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 1823.5,
-        "y": 962,
+        "x": 1704.5,
+        "y": 1126,
         "wires": [
             [
                 "1be76b3b.e111e5"
@@ -1309,7 +1319,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "6acae0b0.a184",
-        "order": 3,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -1320,8 +1330,8 @@
         "payload": "colordropdownSelect",
         "payloadType": "flow",
         "topic": "",
-        "x": 1591.5,
-        "y": 1082,
+        "x": 1472.5,
+        "y": 1246,
         "wires": [
             [
                 "e38fab7c.6f34e8"
@@ -1336,8 +1346,8 @@
         "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1803.5,
-        "y": 1083,
+        "x": 1684.5,
+        "y": 1247,
         "wires": [
             [
                 "1be76b3b.e111e5",
@@ -1353,8 +1363,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 1602.5,
-        "y": 1019,
+        "x": 1483.5,
+        "y": 1183,
         "wires": [
             [
                 "1be76b3b.e111e5"
@@ -2065,6 +2075,7 @@
         "name": "",
         "url": "/csv",
         "method": "get",
+        "upload": false,
         "swaggerDoc": "",
         "x": 2750.5,
         "y": 377,
@@ -2080,7 +2091,8 @@
         "z": "a564595f.642818",
         "name": "",
         "filename": "/home/pi/log.csv",
-        "format": "utf8",
+        "format": "",
+        "sendError": false,
         "x": 2935.5,
         "y": 376,
         "wires": [
@@ -2120,8 +2132,8 @@
         "label": "Minutes:",
         "format": "{{msg.payload}}",
         "layout": "row-left",
-        "x": 1799,
-        "y": 1186,
+        "x": 1540,
+        "y": 980,
         "wires": []
     },
     {
@@ -2139,8 +2151,8 @@
         "min": "0.25",
         "max": "60",
         "step": ".25",
-        "x": 1553,
-        "y": 1161,
+        "x": 1350,
+        "y": 960,
         "wires": [
             [
                 "2cabe65a.14f1ba",
@@ -2156,8 +2168,8 @@
         "func": "flow.set('localloggingInterval',msg.payload);",
         "outputs": 1,
         "noerr": 0,
-        "x": 1785.5,
-        "y": 1137,
+        "x": 1550,
+        "y": 940,
         "wires": [
             []
         ]
@@ -2187,8 +2199,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Tilt Pi enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1829,
-        "y": 1256,
+        "x": 1769,
+        "y": 1036,
         "wires": [
             [
                 "cd2573a4.64137"
@@ -2217,8 +2229,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1544,
-        "y": 1253,
+        "x": 1484,
+        "y": 1033,
         "wires": [
             [
                 "2316593.5ec70a6"
@@ -2237,8 +2249,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 2051,
-        "y": 1255,
+        "x": 1991,
+        "y": 1035,
         "wires": []
     },
     {
@@ -2408,8 +2420,7 @@
         "y": 401.6666793823242,
         "wires": [
             [
-                "6aa75852.1e3068",
-                "3eb6f3c4.588d1c"
+                "6aa75852.1e3068"
             ]
         ]
     },
@@ -2418,17 +2429,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual SG [use RETURN to set]",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 4,
+        "label": "Actual [use RETURN to set]",
+        "group": "6acae0b0.a184",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": true,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1218,
-        "y": 953,
+        "x": 1089,
+        "y": 1117,
         "wires": [
             [
                 "84ffe685.150d58"
@@ -2439,15 +2450,15 @@
         "id": "ecfbe772.ba4cb8",
         "type": "ui_text",
         "z": "a564595f.642818",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 3,
+        "group": "6acae0b0.a184",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncalibrated SG",
+        "label": "Current Measurement (Uncal.)",
         "format": "{{msg.payload | number:3}}",
         "layout": "row-spread",
-        "x": 1625,
+        "x": 1675,
         "y": 865,
         "wires": []
     },
@@ -2459,14 +2470,15 @@
         "topic": "",
         "payload": "colordropdownSelect",
         "payloadType": "flow",
-        "repeat": "2",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "x": 1096,
         "y": 878,
         "wires": [
             [
-                "3eb6f3c4.588d1c"
+                "3eb6f3c4.588d1c",
+                "d6de2020.56974"
             ]
         ]
     },
@@ -2475,17 +2487,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated [use RETURN to set]",
+        "label": "Uncalibrated Points [use RETURN to set]",
         "group": "6acae0b0.a184",
-        "order": 1,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2185,
-        "y": 1002,
+        "x": 2086,
+        "y": 1166,
         "wires": [
             [
                 "88f0f33d.110ab"
@@ -2499,15 +2511,15 @@
         "name": "",
         "label": "Actual Points [use RETURN to set]",
         "group": "6acae0b0.a184",
-        "order": 2,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2197,
-        "y": 1069,
+        "x": 2078,
+        "y": 1233,
         "wires": [
             [
                 "b36a946.3813e68"
@@ -2525,8 +2537,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1302,
-        "y": 1025,
+        "x": 1130,
+        "y": 960,
         "wires": [
             [
                 "7b1370e2.6e8c9"
@@ -2562,8 +2574,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Reboot",
-        "x": 1295,
-        "y": 1457,
+        "x": 460,
+        "y": 2140,
         "wires": [
             [
                 "2a36a03c.47d1f"
@@ -2589,8 +2601,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 1055,
-        "y": 1454,
+        "x": 220,
+        "y": 2137,
         "wires": [
             [
                 "b13cb5ba.f355b8"
@@ -2609,8 +2621,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1521,
-        "y": 1448,
+        "x": 686,
+        "y": 2131,
         "wires": []
     },
     {
@@ -2621,8 +2633,8 @@
         "func": "var options = [\"Africa/Harare\",\"Africa/Lusaka\",\"Africa/Johannesburg\",\"Indian/Mayotte\",\"Asia/Aden\",\"Pacific/Apia\",\"Pacific/Wallis\",\"Pacific/Efate\",\"Asia/Ho_Chi_Minh\",\"America/St_Thomas\",\"America/Tortola\",\"America/Caracas\",\"America/St_Vincent\",\"Europe/Vatican\",\"Asia/Samarkand\",\"Asia/Tashkent\",\"America/Montevideo\",\"America/Adak\",\"America/Anchorage\",\"America/Boise\",\"America/Chicago\",\"America/Denver\",\"America/Detroit\",\"America/Indiana/Indianapolis\",\"America/Indiana/Knox\",\"America/Indiana/Marengo\",\"America/Indiana/Petersburg\",\"America/Indiana/Tell_City\",\"America/Indiana/Vevay\",\"America/Indiana/Vincennes\",\"America/Indiana/Winamac\",\"America/Juneau\",\"America/Kentucky/Louisville\",\"America/Kentucky/Monticello\",\"America/Los_Angeles\",\"America/Menominee\",\"America/Metlakatla\",\"America/New_York\",\"America/Nome\",\"America/North_Dakota/Beulah\",\"America/North_Dakota/Center\",\"America/North_Dakota/New_Salem\",\"America/Phoenix\",\"America/Sitka\",\"America/Yakutat\",\"Pacific/Honolulu\",\"Pacific/Midway\",\"Pacific/Wake\",\"Africa/Kampala\",\"Europe/Kiev\",\"Europe/Uzhgorod\",\"Europe/Zaporozhye\",\"Africa/Dar_es_Salaam\",\"Asia/Taipei\",\"Pacific/Funafuti\",\"America/Port_of_Spain\",\"Europe/Istanbul\",\"Pacific/Tongatapu\",\"Africa/Tunis\",\"Asia/Ashgabat\",\"Asia/Dili\",\"Pacific/Fakaofo\",\"Asia/Dushanbe\",\"Asia/Bangkok\",\"Africa/Lome\",\"Indian/Kerguelen\",\"Africa/Ndjamena\",\"America/Grand_Turk\",\"Africa/Mbabane\",\"Asia/Damascus\",\"America/Lower_Princes\",\"America/El_Salvador\",\"Africa/Sao_Tome\",\"Africa/Juba\",\"America/Paramaribo\",\"Africa/Mogadishu\",\"Africa/Dakar\",\"Europe/San_Marino\",\"Africa/Freetown\",\"Europe/Bratislava\",\"Arctic/Longyearbyen\",\"Europe/Ljubljana\",\"Atlantic/St_Helena\",\"Asia/Singapore\",\"Europe/Stockholm\",\"Africa/Khartoum\",\"Indian/Mahe\",\"Pacific/Guadalcanal\",\"Asia/Riyadh\",\"Africa/Kigali\",\"Asia/Anadyr\",\"Asia/Barnaul\",\"Asia/Chita\",\"Asia/Irkutsk\",\"Asia/Kamchatka\",\"Asia/Khandyga\",\"Asia/Krasnoyarsk\",\"Asia/Magadan\",\"Asia/Novokuznetsk\",\"Asia/Novosibirsk\",\"Asia/Omsk\",\"Asia/Sakhalin\",\"Asia/Srednekolymsk\",\"Asia/Tomsk\",\"Asia/Ust-Nera\",\"Asia/Vladivostok\",\"Asia/Yakutsk\",\"Asia/Yekaterinburg\",\"Europe/Astrakhan\",\"Europe/Kaliningrad\",\"Europe/Kirov\",\"Europe/Moscow\",\"Europe/Samara\",\"Europe/Saratov\",\"Europe/Simferopol\",\"Europe/Ulyanovsk\",\"Europe/Volgograd\",\"Europe/Belgrade\",\"Europe/Bucharest\",\"Indian/Reunion\",\"Asia/Qatar\",\"America/Asuncion\",\"Pacific/Palau\",\"Atlantic/Azores\",\"Atlantic/Madeira\",\"Europe/Lisbon\",\"Asia/Gaza\",\"Asia/Hebron\",\"America/Puerto_Rico\",\"Pacific/Pitcairn\",\"America/Miquelon\",\"Europe/Warsaw\",\"Asia/Karachi\",\"Asia/Manila\",\"Pacific/Bougainville\",\"Pacific/Port_Moresby\",\"Pacific/Gambier\",\"Pacific/Marquesas\",\"Pacific/Tahiti\",\"America/Lima\",\"America/Panama\",\"Asia/Muscat\",\"Pacific/Auckland\",\"Pacific/Chatham\",\"Pacific/Niue\",\"Pacific/Nauru\",\"Asia/Kathmandu\",\"Europe/Oslo\",\"Europe/Amsterdam\",\"America/Managua\",\"Africa/Lagos\",\"Pacific/Norfolk\",\"Africa/Niamey\",\"Pacific/Noumea\",\"Africa/Windhoek\",\"Africa/Maputo\",\"Asia/Kuala_Lumpur\",\"Asia/Kuching\",\"America/Bahia_Banderas\",\"America/Cancun\",\"America/Chihuahua\",\"America/Hermosillo\",\"America/Matamoros\",\"America/Mazatlan\",\"America/Merida\",\"America/Mexico_City\",\"America/Monterrey\",\"America/Ojinaga\",\"America/Tijuana\",\"Africa/Blantyre\",\"Indian/Maldives\",\"Indian/Mauritius\",\"Europe/Malta\",\"America/Montserrat\",\"Africa/Nouakchott\",\"America/Martinique\",\"Pacific/Saipan\",\"Asia/Macau\",\"Asia/Choibalsan\",\"Asia/Hovd\",\"Asia/Ulaanbaatar\",\"Asia/Yangon\",\"Africa/Bamako\",\"Europe/Skopje\",\"Pacific/Kwajalein\",\"Pacific/Majuro\",\"Indian/Antananarivo\",\"America/Marigot\",\"Europe/Podgorica\",\"Europe/Chisinau\",\"Europe/Monaco\",\"Africa/Casablanca\",\"Africa/Tripoli\",\"Europe/Riga\",\"Europe/Luxembourg\",\"Europe/Vilnius\",\"Africa/Maseru\",\"Africa/Monrovia\",\"Asia/Colombo\",\"Europe/Vaduz\",\"America/St_Lucia\",\"Asia/Beirut\",\"Asia/Vientiane\",\"Asia/Almaty\",\"Asia/Aqtau\",\"Asia/Aqtobe\",\"Asia/Atyrau\",\"Asia/Oral\",\"Asia/Qyzylorda\",\"America/Cayman\",\"Asia/Kuwait\",\"Asia/Seoul\",\"Asia/Pyongyang\",\"America/St_Kitts\",\"Indian/Comoro\",\"Pacific/Enderbury\",\"Pacific/Kiritimati\",\"Pacific/Tarawa\",\"Asia/Phnom_Penh\",\"Asia/Bishkek\",\"Africa/Nairobi\",\"Asia/Tokyo\",\"Asia/Amman\",\"America/Jamaica\",\"Europe/Jersey\",\"Europe/Rome\",\"Atlantic/Reykjavik\",\"Asia/Tehran\",\"Asia/Baghdad\",\"Indian/Chagos\",\"Asia/Kolkata\",\"Europe/Isle_of_Man\",\"Asia/Jerusalem\",\"Europe/Dublin\",\"Asia/Jakarta\",\"Asia/Jayapura\",\"Asia/Makassar\",\"Asia/Pontianak\",\"Europe/Budapest\",\"America/Port-au-Prince\",\"Europe/Zagreb\",\"America/Tegucigalpa\",\"Asia/Hong_Kong\",\"America/Guyana\",\"Africa/Bissau\",\"Pacific/Guam\",\"America/Guatemala\",\"Atlantic/South_Georgia\",\"Europe/Athens\",\"Africa/Malabo\",\"America/Guadeloupe\",\"Africa/Conakry\",\"Africa/Banjul\",\"America/Danmarkshavn\",\"America/Godthab\",\"America/Scoresbysund\",\"America/Thule\",\"Europe/Gibraltar\",\"Africa/Accra\",\"Europe/Guernsey\",\"America/Cayenne\",\"Asia/Tbilisi\",\"America/Grenada\",\"Europe/London\",\"Africa/Libreville\",\"Europe/Paris\",\"Atlantic/Faroe\",\"Pacific/Chuuk\",\"Pacific/Kosrae\",\"Pacific/Pohnpei\",\"Atlantic/Stanley\",\"Pacific/Fiji\",\"Europe/Helsinki\",\"Africa/Addis_Ababa\",\"Africa/Ceuta\",\"Atlantic/Canary\",\"Europe/Madrid\",\"Africa/Asmara\",\"Africa/El_Aaiun\",\"Africa/Cairo\",\"Europe/Tallinn\",\"America/Guayaquil\",\"Pacific/Galapagos\",\"Africa/Algiers\",\"America/Santo_Domingo\",\"America/Dominica\",\"Europe/Copenhagen\",\"Africa/Djibouti\",\"Europe/Berlin\",\"Europe/Busingen\",\"Europe/Prague\",\"Asia/Famagusta\",\"Asia/Nicosia\",\"Indian/Christmas\",\"America/Curacao\",\"Atlantic/Cape_Verde\",\"America/Havana\",\"America/Costa_Rica\",\"America/Bogota\",\"Asia/Shanghai\",\"Asia/Urumqi\",\"Africa/Douala\",\"America/Punta_Arenas\",\"America/Santiago\",\"Pacific/Easter\",\"Pacific/Rarotonga\",\"Africa/Abidjan\",\"Europe/Zurich\",\"Africa/Brazzaville\",\"Africa/Bangui\",\"Africa/Kinshasa\",\"Africa/Lubumbashi\",\"Indian/Cocos\",\"America/Atikokan\",\"America/Blanc-Sablon\",\"America/Cambridge_Bay\",\"America/Creston\",\"America/Dawson\",\"America/Dawson_Creek\",\"America/Edmonton\",\"America/Fort_Nelson\",\"America/Glace_Bay\",\"America/Goose_Bay\",\"America/Halifax\",\"America/Inuvik\",\"America/Iqaluit\",\"America/Moncton\",\"America/Nipigon\",\"America/Pangnirtung\",\"America/Rainy_River\",\"America/Rankin_Inlet\",\"America/Regina\",\"America/Resolute\",\"America/St_Johns\",\"America/Swift_Current\",\"America/Thunder_Bay\",\"America/Toronto\",\"America/Vancouver\",\"America/Whitehorse\",\"America/Winnipeg\",\"America/Yellowknife\",\"America/Belize\",\"Europe/Minsk\",\"Africa/Gaborone\",\"Asia/Thimphu\",\"America/Nassau\",\"America/Araguaina\",\"America/Bahia\",\"America/Belem\",\"America/Boa_Vista\",\"America/Campo_Grande\",\"America/Cuiaba\",\"America/Eirunepe\",\"America/Fortaleza\",\"America/Maceio\",\"America/Manaus\",\"America/Noronha\",\"America/Porto_Velho\",\"America/Recife\",\"America/Rio_Branco\",\"America/Santarem\",\"America/Sao_Paulo\",\"America/Kralendijk\",\"America/La_Paz\",\"Asia/Brunei\",\"Atlantic/Bermuda\",\"America/St_Barthelemy\",\"Africa/Porto-Novo\",\"Africa/Bujumbura\",\"Asia/Bahrain\",\"Europe/Sofia\",\"Africa/Ouagadougou\",\"Europe/Brussels\",\"Asia/Dhaka\",\"America/Barbados\",\"Europe/Sarajevo\",\"Asia/Baku\",\"Europe/Mariehamn\",\"America/Aruba\",\"Antarctica/Macquarie\",\"Australia/Adelaide\",\"Australia/Brisbane\",\"Australia/Broken_Hill\",\"Australia/Currie\",\"Australia/Darwin\",\"Australia/Eucla\",\"Australia/Hobart\",\"Australia/Lindeman\",\"Australia/Lord_Howe\",\"Australia/Melbourne\",\"Australia/Perth\",\"Australia/Sydney\",\"Europe/Vienna\",\"Pacific/Pago_Pago\",\"America/Argentina/Buenos_Aires\",\"America/Argentina/Catamarca\",\"America/Argentina/Cordoba\",\"America/Argentina/Jujuy\",\"America/Argentina/La_Rioja\",\"America/Argentina/Mendoza\",\"America/Argentina/Rio_Gallegos\",\"America/Argentina/Salta\",\"America/Argentina/San_Juan\",\"America/Argentina/San_Luis\",\"America/Argentina/Tucuman\",\"America/Argentina/Ushuaia\",\"Antarctica/Casey\",\"Antarctica/Davis\",\"Antarctica/DumontDUrville\",\"Antarctica/Mawson\",\"Antarctica/McMurdo\",\"Antarctica/Palmer\",\"Antarctica/Rothera\",\"Antarctica/Syowa\",\"Antarctica/Troll\",\"Antarctica/Vostok\",\"Africa/Luanda\",\"Asia/Yerevan\",\"Europe/Tirane\",\"America/Anguilla\",\"America/Antigua\",\"Asia/Kabul\",\"Asia/Dubai\",\"Europe/Andorra\",\"Africa/Asmera\",\"Africa/Timbuktu\",\"America/Argentina/ComodRivadavia\",\"America/Atka\",\"America/Buenos_Aires\",\"America/Catamarca\",\"America/Coral_Harbour\",\"America/Cordoba\",\"America/Ensenada\",\"America/Fort_Wayne\",\"America/Indianapolis\",\"America/Jujuy\",\"America/Knox_IN\",\"America/Louisville\",\"America/Mendoza\",\"America/Montreal\",\"America/Porto_Acre\",\"America/Rosario\",\"America/Santa_Isabel\",\"America/Shiprock\",\"America/Virgin\",\"Antarctica/South_Pole\",\"Asia/Ashkhabad\",\"Asia/Calcutta\",\"Asia/Chongqing\",\"Asia/Chungking\",\"Asia/Dacca\",\"Asia/Harbin\",\"Asia/Istanbul\",\"Asia/Kashgar\",\"Asia/Katmandu\",\"Asia/Macao\",\"Asia/Rangoon\",\"Asia/Saigon\",\"Asia/Tel_Aviv\",\"Asia/Thimbu\",\"Asia/Ujung_Pandang\",\"Asia/Ulan_Bator\",\"Atlantic/Faeroe\",\"Atlantic/Jan_Mayen\",\"Australia/ACT\",\"Australia/Canberra\",\"Australia/LHI\",\"Australia/North\",\"Australia/NSW\",\"Australia/Queensland\",\"Australia/South\",\"Australia/Tasmania\",\"Australia/Victoria\",\"Australia/West\",\"Australia/Yancowinna\",\"Brazil/Acre\",\"Brazil/DeNoronha\",\"Brazil/East\",\"Brazil/West\",\"Canada/Atlantic\",\"Canada/Central\",\"Canada/East-Saskatchewan\",\"Canada/Eastern\",\"Canada/Mountain\",\"Canada/Newfoundland\",\"Canada/Pacific\",\"Canada/Saskatchewan\",\"Canada/Yukon\",\"CET\",\"Chile/Continental\",\"Chile/EasterIsland\",\"CST6CDT\",\"Cuba\",\"EET\",\"Egypt\",\"Eire\",\"EST\",\"EST5EDT\",\"Etc/GMT\",\"Etc/GMT+0\",\"Etc/GMT+1\",\"Etc/GMT+10\",\"Etc/GMT+11\",\"Etc/GMT+12\",\"Etc/GMT+2\",\"Etc/GMT+3\",\"Etc/GMT+4\",\"Etc/GMT+5\",\"Etc/GMT+6\",\"Etc/GMT+7\",\"Etc/GMT+8\",\"Etc/GMT+9\",\"Etc/GMT-0\",\"Etc/GMT-1\",\"Etc/GMT-10\",\"Etc/GMT-11\",\"Etc/GMT-12\",\"Etc/GMT-13\",\"Etc/GMT-14\",\"Etc/GMT-2\",\"Etc/GMT-3\",\"Etc/GMT-4\",\"Etc/GMT-5\",\"Etc/GMT-6\",\"Etc/GMT-7\",\"Etc/GMT-8\",\"Etc/GMT-9\",\"Etc/GMT0\",\"Etc/Greenwich\",\"Etc/UCT\",\"Etc/Universal\",\"Etc/UTC\",\"Etc/Zulu\",\"Europe/Belfast\",\"Europe/Nicosia\",\"Europe/Tiraspol\",\"GB\",\"GB-Eire\",\"GMT\",\"GMT+0\",\"GMT-0\",\"GMT0\",\"Greenwich\",\"Hongkong\",\"HST\",\"Iceland\",\"Iran\",\"Israel\",\"Jamaica\",\"Japan\",\"Kwajalein\",\"Libya\",\"MET\",\"Mexico/BajaNorte\",\"Mexico/BajaSur\",\"Mexico/General\",\"MST\",\"MST7MDT\",\"Navajo\",\"NZ\",\"NZ-CHAT\",\"Pacific/Johnston\",\"Pacific/Ponape\",\"Pacific/Samoa\",\"Pacific/Truk\",\"Pacific/Yap\",\"Poland\",\"Portugal\",\"PRC\",\"PST8PDT\",\"ROC\",\"ROK\",\"Singapore\",\"Turkey\",\"UCT\",\"Universal\",\"US/Alaska\",\"US/Aleutian\",\"US/Arizona\",\"US/Central\",\"US/East-Indiana\",\"US/Eastern\",\"US/Hawaii\",\"US/Indiana-Starke\",\"US/Michigan\",\"US/Mountain\",\"US/Pacific\",\"US/Pacific-New\",\"US/Samoa\",\"UTC\",\"W-SU\",\"WET\",\"Zulu\"];\nmsg.options = options.sort();\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1157.5,
-        "y": 1558,
+        "x": 610,
+        "y": 1600,
         "wires": [
             [
                 "9bb86c18.f0deb"
@@ -2650,8 +2662,8 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1609.5,
-        "y": 1552,
+        "x": 1062,
+        "y": 1594,
         "wires": [
             [
                 "a6b43763.a12aa8"
@@ -2669,8 +2681,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 683.5,
-        "y": 1552,
+        "x": 136,
+        "y": 1594,
         "wires": [
             [
                 "9fa076ac.17f568",
@@ -2685,8 +2697,8 @@
         "name": "",
         "filename": "/etc/timezone",
         "format": "utf8",
-        "x": 1163.5,
-        "y": 1651,
+        "x": 616,
+        "y": 1693,
         "wires": [
             [
                 "6547f655.0621e8"
@@ -2701,8 +2713,8 @@
         "func": "msg.payload = msg.payload.replace(/(\\r\\n|\\n|\\r)/gm,\"\");\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1370.5,
-        "y": 1650,
+        "x": 823,
+        "y": 1692,
         "wires": [
             [
                 "9bb86c18.f0deb"
@@ -2718,8 +2730,8 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1825.5,
-        "y": 1561,
+        "x": 1278,
+        "y": 1603,
         "wires": []
     },
     {
@@ -2739,8 +2751,8 @@
         "payload": "go",
         "payloadType": "str",
         "topic": "",
-        "x": 1165.5,
-        "y": 1733,
+        "x": 618,
+        "y": 1775,
         "wires": [
             [
                 "c542fa3.77cb308"
@@ -2757,8 +2769,8 @@
         "useSpawn": "",
         "timer": "",
         "name": "set timezone file",
-        "x": 1371.5,
-        "y": 1723.5,
+        "x": 824,
+        "y": 1765.5,
         "wires": [
             [
                 "c21dbb0e.93a778"
@@ -2777,8 +2789,8 @@
         "useSpawn": "",
         "timer": "",
         "name": "confirm update",
-        "x": 1612.5,
-        "y": 1728.5,
+        "x": 1065,
+        "y": 1770.5,
         "wires": [
             [
                 "be6c33c3.62e8a"
@@ -2799,8 +2811,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 2030.5,
-        "y": 1694,
+        "x": 1483,
+        "y": 1736,
         "wires": []
     },
     {
@@ -2829,8 +2841,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1816.5,
-        "y": 1708,
+        "x": 1269,
+        "y": 1750,
         "wires": [
             [
                 "8ee3b7e3.1833a8",
@@ -2850,8 +2862,8 @@
         "label": "",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1991.5,
-        "y": 1751,
+        "x": 1444,
+        "y": 1793,
         "wires": []
     },
     {
@@ -2916,8 +2928,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "ifconfig",
-        "x": 899,
-        "y": 1879,
+        "x": 320,
+        "y": 1880,
         "wires": [
             [
                 "14ae9022.89c4b"
@@ -2937,8 +2949,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 710,
-        "y": 1878.5,
+        "x": 131,
+        "y": 1879.5,
         "wires": [
             [
                 "7496a044.dd719"
@@ -2953,8 +2965,8 @@
         "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nflow.set('ipaddress',outString);\nreturn {payload: outString};\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1126,
-        "y": 1864,
+        "x": 547,
+        "y": 1865,
         "wires": [
             [
                 "a4a5a7ed.d59958"
@@ -2973,8 +2985,8 @@
         "label": "Tilt Pi Local Address",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1447,
-        "y": 1884,
+        "x": 868,
+        "y": 1885,
         "wires": []
     },
     {
@@ -2999,8 +3011,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1009,
-        "y": 316,
+        "x": 1890,
+        "y": 1680,
         "wires": [
             [
                 "b58e5805.5d5928"
@@ -3015,8 +3027,8 @@
         "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\")\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\")\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 1237,
-        "y": 310,
+        "x": 2110,
+        "y": 1680,
         "wires": [
             []
         ]
@@ -3031,8 +3043,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Shutdown",
-        "x": 1298,
-        "y": 1380,
+        "x": 463,
+        "y": 2063,
         "wires": [
             [
                 "f2bdbc36.5644d"
@@ -3058,8 +3070,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 1058,
-        "y": 1377,
+        "x": 223,
+        "y": 2060,
         "wires": [
             [
                 "5a69b142.f96b6"
@@ -3078,8 +3090,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1514,
-        "y": 1371,
+        "x": 679,
+        "y": 2054,
         "wires": []
     },
     {
@@ -3132,8 +3144,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Download Update from GitHub",
-        "x": 1198,
-        "y": 1308,
+        "x": 363,
+        "y": 1991,
         "wires": [
             [],
             [],
@@ -3159,8 +3171,8 @@
         "payload": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
         "payloadType": "str",
         "topic": "",
-        "x": 947,
-        "y": 1310,
+        "x": 112,
+        "y": 1993,
         "wires": [
             [
                 "13f0085a.0d5178"
@@ -3175,8 +3187,8 @@
         "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1482.5,
-        "y": 1313,
+        "x": 647.5,
+        "y": 1996,
         "wires": [
             [
                 "b0fab2cd.d77d4"
@@ -3194,8 +3206,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Update App",
-        "x": 1708,
-        "y": 1313,
+        "x": 873,
+        "y": 1996,
         "wires": [
             [
                 "69a120c2.08e33"
@@ -3212,8 +3224,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 1890.7142857142856,
-        "y": 1314.2857142857142,
+        "x": 1055.7142857142856,
+        "y": 1997.2857142857142,
         "wires": []
     },
     {
@@ -3224,8 +3236,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 2508.5,
-        "y": 999,
+        "x": 2389.5,
+        "y": 1163,
         "wires": [
             []
         ]
@@ -3238,8 +3250,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 2507,
-        "y": 1059,
+        "x": 2388,
+        "y": 1223,
         "wires": [
             []
         ]
@@ -3536,7 +3548,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore",
-        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nnode.warn(msg.payload.defaultCloudURL);\nif (msg.payload.defaultcloudURL !== undefined){\n   flow.set('cloudURL',msg.payload.defaultcloudURL);\n   node.send([null,null,{payload:true}]);\n}\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nif (msg.payload.logCloudDataCheck !== undefined){\n   flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\n   node.send([null,{payload:flow.get('logCloudDataCheck')},null]);\n}\nmsg.payload = \"on\";\nreturn [msg,null,null];",
+        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\n//node.warn(msg.payload.defaultCloudURL);\nif (msg.payload.defaultcloudURL !== undefined){\n   flow.set('cloudURL',msg.payload.defaultcloudURL);\n   node.send([null,null,{payload:true}]);\n}\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nif (msg.payload.logCloudDataCheck !== undefined){\n   flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\n   node.send([null,{payload:flow.get('logCloudDataCheck')},null]);\n}\nmsg.payload = \"on\";\nreturn [msg,null,null];",
         "outputs": "3",
         "noerr": 0,
         "x": 689.6252517700195,
@@ -3564,8 +3576,8 @@
         "repeat": "4",
         "crontab": "",
         "once": false,
-        "x": 345.4028549194336,
-        "y": 471.4132957458496,
+        "x": 330,
+        "y": 460,
         "wires": [
             [
                 "423412c2.1b104c"
@@ -3680,18 +3692,6 @@
         "wires": []
     },
     {
-        "id": "ed713103.6cc24",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "payload",
-        "x": 1217.0061747233074,
-        "y": 205.02701653374567,
-        "wires": []
-    },
-    {
         "id": "6a77b965.400cc8",
         "type": "delay",
         "z": "a564595f.642818",
@@ -3737,8 +3737,8 @@
         "func": "//set default dropdown item if undefined\nmsg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 588.517463684082,
-        "y": 476.9063968658447,
+        "x": 570,
+        "y": 460,
         "wires": [
             [
                 "93d9202c.d9c1e",
@@ -3766,6 +3766,317 @@
         "wires": [
             [
                 "dc8e0ec5.550d"
+            ]
+        ]
+    },
+    {
+        "id": "f0097da4.edc54",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set Actual Temp Value",
+        "func": "var value = Number(msg.payload);\nflow.set('actualTemppoint',value.toFixed(1));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1400,
+        "y": 1340,
+        "wires": [
+            [
+                "a9cf2c6b.4d7f9"
+            ]
+        ]
+    },
+    {
+        "id": "a9cf2c6b.4d7f9",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Add Temp Cal Point",
+        "func": "var color = msg.payload;\nvar uncalTempcalPoint = flow.get('uncalTemppoint')||0;\nvar actualTempcalPoint = flow.get('actualTemppoint')||0;\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nuncalpointsArray.push(uncalTempcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalTemppoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualTempcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualTemppoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1714.5,
+        "y": 1346,
+        "wires": [
+            [
+                "10bda9c0.3dcf66"
+            ],
+            [
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "17e6c4c8.0d7e1b",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "c12bcb12.dbd0d8",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clear Calibration",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 1472.5,
+        "y": 1466,
+        "wires": [
+            [
+                "721c929.10edb6c"
+            ]
+        ]
+    },
+    {
+        "id": "721c929.10edb6c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "clear calibration",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1684.5,
+        "y": 1467,
+        "wires": [
+            [
+                "10bda9c0.3dcf66",
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "5933654f.572e0c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update display",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1483.5,
+        "y": 1403,
+        "wires": [
+            [
+                "10bda9c0.3dcf66"
+            ],
+            [
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "4b7531fb.46829",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Actual [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 1089,
+        "y": 1337,
+        "wires": [
+            [
+                "f0097da4.edc54"
+            ]
+        ]
+    },
+    {
+        "id": "10bda9c0.3dcf66",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Uncalibrated Points [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2086,
+        "y": 1386,
+        "wires": [
+            [
+                "a5ca25c7.fd8c98"
+            ]
+        ]
+    },
+    {
+        "id": "d521fc1b.3653a",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Actual Points [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2078,
+        "y": 1453,
+        "wires": [
+            [
+                "19ca9195.29599e"
+            ]
+        ]
+    },
+    {
+        "id": "a5ca25c7.fd8c98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Uncal Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalTemppoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2389.5,
+        "y": 1383,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "19ca9195.29599e",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Actual Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualTemppoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2388,
+        "y": 1443,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6de2020.56974",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Get Current Temp",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalTemp.toFixed(1);\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1350,
+        "y": 900,
+        "wires": [
+            [
+                "854dec23.fee5f",
+                "67b168fa.e90078"
+            ]
+        ]
+    },
+    {
+        "id": "854dec23.fee5f",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c12bcb12.dbd0d8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Current Measurement (Uncal.)",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "x": 1670,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "67b168fa.e90078",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set Uncal Temp Value",
+        "func": "flow.set('uncalTemppoint',Number(msg.payload).toFixed(1));",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1840,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15afce7c.5604d2",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Change Temp Units",
+        "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\")\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\")\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2130,
+        "y": 1780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88a56bea.b66268",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Use Plato",
+        "group": "6fabad8a.3909f4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "plato",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "SG",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1920,
+        "y": 1740,
+        "wires": [
+            [
+                "3c18b104.de8f2e"
+            ]
+        ]
+    },
+    {
+        "id": "3c18b104.de8f2e",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Use Brix",
+        "group": "6fabad8a.3909f4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "brix",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "plato",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1920,
+        "y": 1820,
+        "wires": [
+            [
+                "88a56bea.b66268"
             ]
         ]
     }
