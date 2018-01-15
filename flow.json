@@ -1,302 +1,5 @@
 [
     {
-        "id": "a564595f.642818",
-        "type": "tab",
-        "label": "Main"
-    },
-    {
-        "id": "81394fa6.f9523",
-        "type": "ui_group",
-        "z": "",
-        "name": "Quick Start",
-        "tab": "6529e313.74108c",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b642e71.9697318",
-        "type": "ui_group",
-        "z": "",
-        "name": "1",
-        "tab": "4ede131f.f2e09c",
-        "order": 1,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "b914fb40.bc5c78",
-        "type": "ui_group",
-        "z": "",
-        "name": "5",
-        "tab": "4ede131f.f2e09c",
-        "order": 5,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "4a85df35.41e16",
-        "type": "ui_group",
-        "z": "",
-        "name": "6",
-        "tab": "4ede131f.f2e09c",
-        "order": 6,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "19fab5c2.199ffa",
-        "type": "ui_group",
-        "z": "",
-        "name": "Cloud Settings",
-        "tab": "6529e313.74108c",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "307e2bd0.e69514",
-        "type": "ui_group",
-        "z": "",
-        "name": "2",
-        "tab": "4ede131f.f2e09c",
-        "order": 2,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "8de27cf2.dbd6a",
-        "type": "ui_group",
-        "z": "",
-        "name": "3",
-        "tab": "4ede131f.f2e09c",
-        "order": 3,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "6acae0b0.a184",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set SG/°P/°Bx Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b8d3bbbf.2c9cb8",
-        "type": "ui_group",
-        "z": "",
-        "name": "4",
-        "tab": "4ede131f.f2e09c",
-        "order": 4,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "ab6da67f.a47fa8",
-        "type": "ui_group",
-        "z": "",
-        "name": "8",
-        "tab": "4ede131f.f2e09c",
-        "order": 8,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "a510f969.f28538",
-        "type": "ui_group",
-        "z": "",
-        "name": "7",
-        "tab": "4ede131f.f2e09c",
-        "order": 7,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "82607108.c5be8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Tilt Pi Settings",
-        "tab": "6529e313.74108c",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "eb4ab3d5.7b3f1",
-        "type": "ui_group",
-        "z": "",
-        "name": "Calibrate",
-        "tab": "75f710f5.16d2e",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "5ca7d250.c3938c",
-        "type": "ui_group",
-        "z": "",
-        "name": "Time Zone",
-        "tab": "c9c26b4a.4cde78",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "c8854cd2.f1773",
-        "type": "ui_group",
-        "z": "",
-        "name": "App Admin",
-        "tab": "c9c26b4a.4cde78",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6fabad8a.3909f4",
-        "type": "ui_group",
-        "z": "",
-        "name": "Units",
-        "tab": "c9c26b4a.4cde78",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6529e313.74108c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Logging",
-        "icon": "fa-line-chart",
-        "order": 2
-    },
-    {
-        "id": "4ede131f.f2e09c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Tilt Pi v.2",
-        "icon": "fa-tachometer",
-        "order": 1
-    },
-    {
-        "id": "75f710f5.16d2e",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Calibration",
-        "icon": "fa-bullseye",
-        "order": 3
-    },
-    {
-        "id": "c9c26b4a.4cde78",
-        "type": "ui_tab",
-        "z": "",
-        "name": "System",
-        "icon": "fa-clock-o",
-        "order": 4
-    },
-    {
-        "id": "5fec9a11.37a164",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-custom",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "customTheme": {
-                "name": "",
-                "default": "#4B7930",
-                "baseColor": "#666666",
-                "baseFont": "Tahoma,Geneva,sans-serif",
-                "reset": false
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#4B7930",
-                    "value": "#4B7930",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#666666",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#000000",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#8c8c8c",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#555555",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#eeeeee",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#666666",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "Tahoma,Geneva,sans-serif"
-                }
-            }
-        },
-        "site": {
-            "name": "Tilt Pi v.2",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 50,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "c12bcb12.dbd0d8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set Temperature Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 4,
-        "disp": true,
-        "width": "6"
-    },
-    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -304,8 +7,8 @@
         "beacon_uuid": "",
         "beacon_major": "",
         "beacon_minor": "",
-        "x": 368.00001525878906,
-        "y": 122.00000667572021,
+        "x": 372.00004959106445,
+        "y": 124.00001430511475,
         "wires": [
             [
                 "8dc4fe46.fc364"
@@ -323,11 +26,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 96,
-        "y": 245,
+        "x": 79.00001525878906,
+        "y": 200.00000381469727,
         "wires": [
             [
-                "b42102fe.e4abd"
+                "b42102fe.e4abd",
+                "c0f36d.ab686c9"
             ]
         ]
     },
@@ -531,7 +235,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nif (flow.get('cloudURL') === undefined){\n   msg.payload.customcloudURL = flow.get(\"cloudURL-\" + color);\n   msg.payload.defaultcloudURL = undefined;\n}else{\n       msg.payload.customcloudURL = undefined;\n       msg.payload.defaultcloudURL = flow.get('cloudURL');\n   }\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck');\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major = msg.payload.major / 10;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL');\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||false;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||false;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1048.666732788086,
@@ -598,8 +302,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 111.00000381469727,
-        "y": 122.00000095367432,
+        "x": 95.00000762939453,
+        "y": 122.00000190734863,
         "wires": [
             [
                 "45fc2eae.52e02"
@@ -985,7 +689,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.url = flow.get('cloudURL')||flow.get('cloudURL-' + msg.payload.Color);\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -1976,12 +1680,12 @@
         "decouple": "false",
         "topic": "",
         "style": "",
-        "onvalue": "https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec",
-        "onvalueType": "str",
+        "onvalue": "true",
+        "onvalueType": "bool",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "colordropdownSelect",
-        "offvalueType": "flow",
+        "offvalue": "false",
+        "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
         "x": 706,
@@ -2527,37 +2231,18 @@
         ]
     },
     {
-        "id": "249f1e9c.6a1d42",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "",
-        "topic": "",
-        "payload": "15",
-        "payloadType": "num",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "x": 1130,
-        "y": 960,
-        "wires": [
-            [
-                "7b1370e2.6e8c9"
-            ]
-        ]
-    },
-    {
         "id": "f9e2fc12.8340c",
         "type": "inject",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Logging Interval",
         "topic": "",
-        "payload": "15",
-        "payloadType": "num",
-        "repeat": "",
+        "payload": "loggingInterval",
+        "payloadType": "flow",
+        "repeat": "15",
         "crontab": "",
-        "once": true,
-        "x": 1406,
-        "y": 814,
+        "once": false,
+        "x": 1263.0002059936523,
+        "y": 815.0000438690186,
         "wires": [
             [
                 "88a2c98f.f38b08"
@@ -3424,7 +3109,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Custom CloudURL",
-        "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === color){\n   msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   flow.set(\"cloudURL\",undefined);\n   }\nelse {\n   flow.set(\"cloudURL\",msg.payload);\n   }\nreturn msg;",
+        "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === true){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\n       msg.payload = flow.get(\"cloudURL\")[0];  \n}\nif (msg.payload === false){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",false]);\n       msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 967.0000381469727,
@@ -3505,8 +3190,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 406.30566787719727,
-        "y": 327.27447509765625,
+        "x": 392.3056640625,
+        "y": 283.2745132446289,
         "wires": [
             [
                 "543d2dd7.2fe974"
@@ -3521,8 +3206,8 @@
         "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\n//var colors = [\"BLUE\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    msg.filename = \"/home/pi/\" + colors[i] + \".json\";\n    node.send(msg);\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 229.51390075683594,
-        "y": 326.13548469543457,
+        "x": 228.5138931274414,
+        "y": 283.1354990005493,
         "wires": [
             [
                 "cdc2a491.47b908"
@@ -3535,8 +3220,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 547.5243225097656,
-        "y": 324.87160205841064,
+        "x": 526.5243682861328,
+        "y": 281.87162017822266,
         "wires": [
             [
                 "a2f14292.5b0f3"
@@ -3547,21 +3232,15 @@
         "id": "a2f14292.5b0f3",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Restore",
-        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\n//node.warn(msg.payload.defaultCloudURL);\nif (msg.payload.defaultcloudURL !== undefined){\n   flow.set('cloudURL',msg.payload.defaultcloudURL);\n   node.send([null,null,{payload:true}]);\n}\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nif (msg.payload.logCloudDataCheck !== undefined){\n   flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\n   node.send([null,{payload:flow.get('logCloudDataCheck')},null]);\n}\nmsg.payload = \"on\";\nreturn [msg,null,null];",
-        "outputs": "3",
+        "name": "Restore Tilt Settings",
+        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nmsg.payload = \"on\";\nreturn msg;",
+        "outputs": "1",
         "noerr": 0,
-        "x": 689.6252517700195,
-        "y": 324.4618339538574,
+        "x": 702.6252746582031,
+        "y": 281.4618320465088,
         "wires": [
             [
                 "45fc2eae.52e02"
-            ],
-            [
-                "7d4b5c42.e71fb4"
-            ],
-            [
-                "b1836d66.f976c"
             ]
         ]
     },
@@ -3654,13 +3333,13 @@
         "id": "e56d18b9.6cbc88",
         "type": "file",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Backup Tilt Specific Settings",
         "filename": "",
-        "appendNewline": true,
+        "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1435.056510925293,
-        "y": 88.44753837585449,
+        "x": 1440.056381225586,
+        "y": 24.000001907348633,
         "wires": []
     },
     {
@@ -3668,7 +3347,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set filename",
-        "func": "msg.filename = \"/home/pi/\" + msg.req.params.color;\nreturn msg;",
+        "func": "if (msg.req.params.color === undefined){\n    msg.req.params.color = \"global\";\n}\nmsg.filename = \"/home/pi/\" + msg.req.params.color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 2255.3934783935547,
@@ -3700,17 +3379,18 @@
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "2",
+        "nbRateUnits": "5",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 1251.7465362548828,
-        "y": 85.6180648803711,
+        "x": 1161.7468643188477,
+        "y": 26.618066787719727,
         "wires": [
             [
-                "e56d18b9.6cbc88"
+                "e56d18b9.6cbc88",
+                "c6fd016d.ab4a7"
             ]
         ]
     },
@@ -3743,29 +3423,6 @@
             [
                 "93d9202c.d9c1e",
                 "b418ce11.8981a"
-            ]
-        ]
-    },
-    {
-        "id": "7d4b5c42.e71fb4",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "Send Once",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "10",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 873.7466201782227,
-        "y": 346.395938873291,
-        "wires": [
-            [
-                "dc8e0ec5.550d"
             ]
         ]
     },
@@ -4079,5 +3736,318 @@
                 "88a56bea.b66268"
             ]
         ]
+    },
+    {
+        "id": "2bb152f1.d1cbee",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Local Logging Interval",
+        "topic": "",
+        "payload": "localloggingInterval",
+        "payloadType": "flow",
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "x": 1116.7953567504883,
+        "y": 960.0105171203613,
+        "wires": [
+            [
+                "7b1370e2.6e8c9"
+            ]
+        ]
+    },
+    {
+        "id": "c0f36d.ab686c9",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/global.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 234.1875228881836,
+        "y": 339.385458946228,
+        "wires": [
+            [
+                "326af4b8.42494c"
+            ]
+        ]
+    },
+    {
+        "id": "326af4b8.42494c",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 424.1909866333008,
+        "y": 340.2048625946045,
+        "wires": [
+            [
+                "59df1198.a2519"
+            ]
+        ]
+    },
+    {
+        "id": "59df1198.a2519",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Restore System",
+        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nflow.set('logLocalDataCheck',msg.payload.logCloudDataCheck);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\n//return msg;",
+        "outputs": "3",
+        "noerr": 0,
+        "x": 621.8611297607422,
+        "y": 344.5764636993408,
+        "wires": [
+            [
+                "b1836d66.f976c",
+                "fb6e2a7b.359068"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c6fd016d.ab4a7",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Back Up Global Settings",
+        "filename": "/home/pi/global.json",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1432.2395095825195,
+        "y": 69.01042652130127,
+        "wires": []
+    },
+    {
+        "id": "dc0ffeac.632b6",
+        "type": "http in",
+        "z": "a564595f.642818",
+        "name": "",
+        "url": "/data/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 2052.6841583251953,
+        "y": 618.4548597335815,
+        "wires": [
+            [
+                "dc9ecd32.25037"
+            ]
+        ]
+    },
+    {
+        "id": "fb6e2a7b.359068",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 840.0764274597168,
+        "y": 340.0833559036255,
+        "wires": []
+    },
+    {
+        "id": "81394fa6.f9523",
+        "type": "ui_group",
+        "z": "",
+        "name": "Quick Start",
+        "tab": "6529e313.74108c",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b642e71.9697318",
+        "type": "ui_group",
+        "z": "",
+        "name": "1",
+        "tab": "4ede131f.f2e09c",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b914fb40.bc5c78",
+        "type": "ui_group",
+        "z": "",
+        "name": "5",
+        "tab": "4ede131f.f2e09c",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "4a85df35.41e16",
+        "type": "ui_group",
+        "z": "",
+        "name": "6",
+        "tab": "4ede131f.f2e09c",
+        "order": 6,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "19fab5c2.199ffa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Cloud Settings",
+        "tab": "6529e313.74108c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "307e2bd0.e69514",
+        "type": "ui_group",
+        "z": "",
+        "name": "2",
+        "tab": "4ede131f.f2e09c",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "8de27cf2.dbd6a",
+        "type": "ui_group",
+        "z": "",
+        "name": "3",
+        "tab": "4ede131f.f2e09c",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "6acae0b0.a184",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set SG/°P/°Bx Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b8d3bbbf.2c9cb8",
+        "type": "ui_group",
+        "z": "",
+        "name": "4",
+        "tab": "4ede131f.f2e09c",
+        "order": 4,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "ab6da67f.a47fa8",
+        "type": "ui_group",
+        "z": "",
+        "name": "8",
+        "tab": "4ede131f.f2e09c",
+        "order": 8,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "a510f969.f28538",
+        "type": "ui_group",
+        "z": "",
+        "name": "7",
+        "tab": "4ede131f.f2e09c",
+        "order": 7,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "82607108.c5be8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Pi Settings",
+        "tab": "6529e313.74108c",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Calibrate",
+        "tab": "75f710f5.16d2e",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5ca7d250.c3938c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Time Zone",
+        "tab": "c9c26b4a.4cde78",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c8854cd2.f1773",
+        "type": "ui_group",
+        "z": "",
+        "name": "App Admin",
+        "tab": "c9c26b4a.4cde78",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6fabad8a.3909f4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c12bcb12.dbd0d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Temperature Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 4,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6529e313.74108c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Logging",
+        "icon": "fa-line-chart",
+        "order": 2
+    },
+    {
+        "id": "4ede131f.f2e09c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tilt Pi v.2",
+        "icon": "fa-tachometer",
+        "order": 1
+    },
+    {
+        "id": "75f710f5.16d2e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Calibration",
+        "icon": "fa-bullseye",
+        "order": 3
+    },
+    {
+        "id": "c9c26b4a.4cde78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "System",
+        "icon": "fa-clock-o",
+        "order": 4
     }
 ]
