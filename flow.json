@@ -1,5 +1,302 @@
 [
     {
+        "id": "a564595f.642818",
+        "type": "tab",
+        "label": "Main"
+    },
+    {
+        "id": "81394fa6.f9523",
+        "type": "ui_group",
+        "z": "",
+        "name": "Quick Start",
+        "tab": "6529e313.74108c",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b642e71.9697318",
+        "type": "ui_group",
+        "z": "",
+        "name": "1",
+        "tab": "4ede131f.f2e09c",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b914fb40.bc5c78",
+        "type": "ui_group",
+        "z": "",
+        "name": "5",
+        "tab": "4ede131f.f2e09c",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "4a85df35.41e16",
+        "type": "ui_group",
+        "z": "",
+        "name": "6",
+        "tab": "4ede131f.f2e09c",
+        "order": 6,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "19fab5c2.199ffa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Cloud Settings",
+        "tab": "6529e313.74108c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "307e2bd0.e69514",
+        "type": "ui_group",
+        "z": "",
+        "name": "2",
+        "tab": "4ede131f.f2e09c",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "8de27cf2.dbd6a",
+        "type": "ui_group",
+        "z": "",
+        "name": "3",
+        "tab": "4ede131f.f2e09c",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "6acae0b0.a184",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set SG/°P/°Bx Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b8d3bbbf.2c9cb8",
+        "type": "ui_group",
+        "z": "",
+        "name": "4",
+        "tab": "4ede131f.f2e09c",
+        "order": 4,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "ab6da67f.a47fa8",
+        "type": "ui_group",
+        "z": "",
+        "name": "8",
+        "tab": "4ede131f.f2e09c",
+        "order": 8,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "a510f969.f28538",
+        "type": "ui_group",
+        "z": "",
+        "name": "7",
+        "tab": "4ede131f.f2e09c",
+        "order": 7,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "82607108.c5be8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Pi Settings",
+        "tab": "6529e313.74108c",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Calibrate",
+        "tab": "75f710f5.16d2e",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5ca7d250.c3938c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Time Zone",
+        "tab": "c9c26b4a.4cde78",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c8854cd2.f1773",
+        "type": "ui_group",
+        "z": "",
+        "name": "App Admin",
+        "tab": "c9c26b4a.4cde78",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6fabad8a.3909f4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6529e313.74108c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Logging",
+        "icon": "fa-line-chart",
+        "order": 2
+    },
+    {
+        "id": "4ede131f.f2e09c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tilt Pi v.2",
+        "icon": "fa-tachometer",
+        "order": 1
+    },
+    {
+        "id": "75f710f5.16d2e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Calibration",
+        "icon": "fa-bullseye",
+        "order": 3
+    },
+    {
+        "id": "c9c26b4a.4cde78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "System",
+        "icon": "fa-clock-o",
+        "order": 4
+    },
+    {
+        "id": "5fec9a11.37a164",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-custom",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "",
+                "default": "#4B7930",
+                "baseColor": "#666666",
+                "baseFont": "Tahoma,Geneva,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#4B7930",
+                    "value": "#4B7930",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#666666",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#8c8c8c",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#666666",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Tahoma,Geneva,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Tilt Pi v.2",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 50,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "c12bcb12.dbd0d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Temperature Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 4,
+        "disp": true,
+        "width": "6"
+    },
+    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -256,7 +553,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:4}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -601,7 +898,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(4);\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
         "x": 1233.2778091430664,
@@ -884,7 +1181,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:4}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -3283,7 +3580,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Update",
-        "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL') === undefined){\n   return msg; \n}\n",
+        "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL')[1] === false){\n   return msg; \n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 463.74999237060547,
@@ -3792,18 +4089,21 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore System",
-        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nflow.set('logLocalDataCheck',msg.payload.logCloudDataCheck);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\n//return msg;",
+        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nnode.send([null,{'payload':msg.payload.logCloudDataCheck},null]);\nflow.set('logLocalDataCheck',msg.payload.logLocalDataCheck);\nnode.send([null,null,{'payload':msg.payload.logLocalDataCheck}]);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\n//return msg;",
         "outputs": "3",
         "noerr": 0,
         "x": 621.8611297607422,
         "y": 344.5764636993408,
         "wires": [
             [
-                "b1836d66.f976c",
-                "fb6e2a7b.359068"
+                "b1836d66.f976c"
             ],
-            [],
-            []
+            [
+                "dc8e0ec5.550d"
+            ],
+            [
+                "c7601414.73cf68"
+            ]
         ]
     },
     {
@@ -3835,219 +4135,5 @@
                 "dc9ecd32.25037"
             ]
         ]
-    },
-    {
-        "id": "fb6e2a7b.359068",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 840.0764274597168,
-        "y": 340.0833559036255,
-        "wires": []
-    },
-    {
-        "id": "81394fa6.f9523",
-        "type": "ui_group",
-        "z": "",
-        "name": "Quick Start",
-        "tab": "6529e313.74108c",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b642e71.9697318",
-        "type": "ui_group",
-        "z": "",
-        "name": "1",
-        "tab": "4ede131f.f2e09c",
-        "order": 1,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "b914fb40.bc5c78",
-        "type": "ui_group",
-        "z": "",
-        "name": "5",
-        "tab": "4ede131f.f2e09c",
-        "order": 5,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "4a85df35.41e16",
-        "type": "ui_group",
-        "z": "",
-        "name": "6",
-        "tab": "4ede131f.f2e09c",
-        "order": 6,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "19fab5c2.199ffa",
-        "type": "ui_group",
-        "z": "",
-        "name": "Cloud Settings",
-        "tab": "6529e313.74108c",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "307e2bd0.e69514",
-        "type": "ui_group",
-        "z": "",
-        "name": "2",
-        "tab": "4ede131f.f2e09c",
-        "order": 2,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "8de27cf2.dbd6a",
-        "type": "ui_group",
-        "z": "",
-        "name": "3",
-        "tab": "4ede131f.f2e09c",
-        "order": 3,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "6acae0b0.a184",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set SG/°P/°Bx Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b8d3bbbf.2c9cb8",
-        "type": "ui_group",
-        "z": "",
-        "name": "4",
-        "tab": "4ede131f.f2e09c",
-        "order": 4,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "ab6da67f.a47fa8",
-        "type": "ui_group",
-        "z": "",
-        "name": "8",
-        "tab": "4ede131f.f2e09c",
-        "order": 8,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "a510f969.f28538",
-        "type": "ui_group",
-        "z": "",
-        "name": "7",
-        "tab": "4ede131f.f2e09c",
-        "order": 7,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "82607108.c5be8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Tilt Pi Settings",
-        "tab": "6529e313.74108c",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "eb4ab3d5.7b3f1",
-        "type": "ui_group",
-        "z": "",
-        "name": "Calibrate",
-        "tab": "75f710f5.16d2e",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "5ca7d250.c3938c",
-        "type": "ui_group",
-        "z": "",
-        "name": "Time Zone",
-        "tab": "c9c26b4a.4cde78",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "c8854cd2.f1773",
-        "type": "ui_group",
-        "z": "",
-        "name": "App Admin",
-        "tab": "c9c26b4a.4cde78",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6fabad8a.3909f4",
-        "type": "ui_group",
-        "z": "",
-        "name": "Units",
-        "tab": "c9c26b4a.4cde78",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "c12bcb12.dbd0d8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set Temperature Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 4,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6529e313.74108c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Logging",
-        "icon": "fa-line-chart",
-        "order": 2
-    },
-    {
-        "id": "4ede131f.f2e09c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Tilt Pi v.2",
-        "icon": "fa-tachometer",
-        "order": 1
-    },
-    {
-        "id": "75f710f5.16d2e",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Calibration",
-        "icon": "fa-bullseye",
-        "order": 3
-    },
-    {
-        "id": "c9c26b4a.4cde78",
-        "type": "ui_tab",
-        "z": "",
-        "name": "System",
-        "icon": "fa-clock-o",
-        "order": 4
     }
 ]
