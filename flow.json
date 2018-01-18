@@ -1,302 +1,5 @@
 [
     {
-        "id": "a564595f.642818",
-        "type": "tab",
-        "label": "Main"
-    },
-    {
-        "id": "81394fa6.f9523",
-        "type": "ui_group",
-        "z": "",
-        "name": "Quick Start",
-        "tab": "6529e313.74108c",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b642e71.9697318",
-        "type": "ui_group",
-        "z": "",
-        "name": "1",
-        "tab": "4ede131f.f2e09c",
-        "order": 1,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "b914fb40.bc5c78",
-        "type": "ui_group",
-        "z": "",
-        "name": "5",
-        "tab": "4ede131f.f2e09c",
-        "order": 5,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "4a85df35.41e16",
-        "type": "ui_group",
-        "z": "",
-        "name": "6",
-        "tab": "4ede131f.f2e09c",
-        "order": 6,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "19fab5c2.199ffa",
-        "type": "ui_group",
-        "z": "",
-        "name": "Cloud Settings",
-        "tab": "6529e313.74108c",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "307e2bd0.e69514",
-        "type": "ui_group",
-        "z": "",
-        "name": "2",
-        "tab": "4ede131f.f2e09c",
-        "order": 2,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "8de27cf2.dbd6a",
-        "type": "ui_group",
-        "z": "",
-        "name": "3",
-        "tab": "4ede131f.f2e09c",
-        "order": 3,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "6acae0b0.a184",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set SG/°P/°Bx Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "b8d3bbbf.2c9cb8",
-        "type": "ui_group",
-        "z": "",
-        "name": "4",
-        "tab": "4ede131f.f2e09c",
-        "order": 4,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "ab6da67f.a47fa8",
-        "type": "ui_group",
-        "z": "",
-        "name": "8",
-        "tab": "4ede131f.f2e09c",
-        "order": 8,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "a510f969.f28538",
-        "type": "ui_group",
-        "z": "",
-        "name": "7",
-        "tab": "4ede131f.f2e09c",
-        "order": 7,
-        "disp": false,
-        "width": "6"
-    },
-    {
-        "id": "82607108.c5be8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Tilt Pi Settings",
-        "tab": "6529e313.74108c",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "eb4ab3d5.7b3f1",
-        "type": "ui_group",
-        "z": "",
-        "name": "Calibrate",
-        "tab": "75f710f5.16d2e",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "5ca7d250.c3938c",
-        "type": "ui_group",
-        "z": "",
-        "name": "Time Zone",
-        "tab": "c9c26b4a.4cde78",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "c8854cd2.f1773",
-        "type": "ui_group",
-        "z": "",
-        "name": "App Admin",
-        "tab": "c9c26b4a.4cde78",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6fabad8a.3909f4",
-        "type": "ui_group",
-        "z": "",
-        "name": "Units",
-        "tab": "c9c26b4a.4cde78",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6529e313.74108c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Logging",
-        "icon": "fa-line-chart",
-        "order": 2
-    },
-    {
-        "id": "4ede131f.f2e09c",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Tilt Pi v.2",
-        "icon": "fa-tachometer",
-        "order": 1
-    },
-    {
-        "id": "75f710f5.16d2e",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Calibration",
-        "icon": "fa-bullseye",
-        "order": 3
-    },
-    {
-        "id": "c9c26b4a.4cde78",
-        "type": "ui_tab",
-        "z": "",
-        "name": "System",
-        "icon": "fa-clock-o",
-        "order": 4
-    },
-    {
-        "id": "5fec9a11.37a164",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-custom",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "customTheme": {
-                "name": "",
-                "default": "#4B7930",
-                "baseColor": "#666666",
-                "baseFont": "Tahoma,Geneva,sans-serif",
-                "reset": false
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#4B7930",
-                    "value": "#4B7930",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#666666",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#000000",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#8c8c8c",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#555555",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#eeeeee",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#666666",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "Tahoma,Geneva,sans-serif"
-                }
-            }
-        },
-        "site": {
-            "name": "Tilt Pi v.2",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 50,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "c12bcb12.dbd0d8",
-        "type": "ui_group",
-        "z": "",
-        "name": "Set Temperature Calibration Points",
-        "tab": "75f710f5.16d2e",
-        "order": 4,
-        "disp": true,
-        "width": "6"
-    },
-    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -532,7 +235,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major = msg.payload.major / 10;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL');\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||false;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||false;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL');\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||false;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||false;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1048.666732788086,
@@ -553,7 +256,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:4}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -575,7 +278,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -660,7 +363,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -898,7 +601,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(4);\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
         "x": 1233.2778091430664,
@@ -1181,7 +884,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:4}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1228,7 +931,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1284,7 +987,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//backup to disk\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2181.0000534057617,
@@ -1581,7 +1284,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1665,7 +1368,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1749,7 +1452,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncalibrated SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -2976,12 +2679,12 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Celsius",
+        "label": "Celsius",
         "group": "6fabad8a.3909f4",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "decouple": "false",
         "topic": "",
         "style": "",
@@ -2993,11 +2696,12 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1890,
+        "x": 1880,
         "y": 1680,
         "wires": [
             [
-                "b58e5805.5d5928"
+                "b58e5805.5d5928",
+                "8951ba9f.798ae8"
             ]
         ]
     },
@@ -3006,11 +2710,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Change Temp Units",
-        "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\")\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\")\n}",
+        "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\");\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\");\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2110,
-        "y": 1680,
+        "x": 2167.99991607666,
+        "y": 1635.0002250671387,
         "wires": [
             []
         ]
@@ -3569,8 +3273,8 @@
             "640f9404.72d27c",
             "cdc2a491.47b908"
         ],
-        "x": 86.14199447631836,
-        "y": 377.9552745819092,
+        "x": 65,
+        "y": 395.9552745819092,
         "wires": [
             []
         ]
@@ -3964,14 +3668,22 @@
         "id": "15afce7c.5604d2",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Change Temp Units",
-        "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\")\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\")\n}",
-        "outputs": 1,
+        "name": "Change Ferm Units",
+        "func": "if (msg.payload === \"sg\"){\nflow.set('fermdisplayUnits',\"\");\nnode.send([{'payload':'sg'},{'payload':false},{'payload':false}]);\n}\nif (msg.payload === \"plato\"){\nflow.set('fermdisplayUnits',\"°P\");\nnode.send([{'payload':false},{'payload':'plato'},{'payload':false}]);\n}\nif (msg.payload === \"brix\"){\nflow.set('fermdisplayUnits',\"°Bx\");\nnode.send([{'payload':false},{'payload':false},{'payload':'brix'}]);\n}",
+        "outputs": "3",
         "noerr": 0,
-        "x": 2130,
-        "y": 1780,
+        "x": 2132.9998931884766,
+        "y": 1808.0000171661377,
         "wires": [
-            []
+            [
+                "d66a9036.7565"
+            ],
+            [
+                "88a56bea.b66268"
+            ],
+            [
+                "3c18b104.de8f2e"
+            ]
         ]
     },
     {
@@ -3979,9 +3691,9 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Plato",
-        "group": "6fabad8a.3909f4",
-        "order": 0,
+        "label": "Plato",
+        "group": "b0619070.ac95d",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3992,15 +3704,15 @@
         "onvalueType": "str",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "SG",
-        "offvalueType": "str",
+        "offvalue": "false",
+        "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1920,
-        "y": 1740,
+        "x": 1951.0005645751953,
+        "y": 1850.499963760376,
         "wires": [
             [
-                "3c18b104.de8f2e"
+                "15afce7c.5604d2"
             ]
         ]
     },
@@ -4009,9 +3721,9 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Brix",
-        "group": "6fabad8a.3909f4",
-        "order": 0,
+        "label": "Brix",
+        "group": "b0619070.ac95d",
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -4022,15 +3734,15 @@
         "onvalueType": "str",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "plato",
-        "offvalueType": "str",
+        "offvalue": "false",
+        "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1920,
-        "y": 1820,
+        "x": 1949.750244140625,
+        "y": 1945.7500495910645,
         "wires": [
             [
-                "88a56bea.b66268"
+                "15afce7c.5604d2"
             ]
         ]
     },
@@ -4135,5 +3847,278 @@
                 "dc9ecd32.25037"
             ]
         ]
+    },
+    {
+        "id": "d66a9036.7565",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "SG 15°C/59°F (default)",
+        "group": "b0619070.ac95d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "sg",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 2009.6884803771973,
+        "y": 1738.2627878189087,
+        "wires": [
+            [
+                "15afce7c.5604d2"
+            ]
+        ]
+    },
+    {
+        "id": "8951ba9f.798ae8",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Fahrenheit (default)",
+        "group": "6fabad8a.3909f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1886.3508224487305,
+        "y": 1599.01047706604,
+        "wires": [
+            [
+                "b58e5805.5d5928",
+                "5312bf4.09fd44"
+            ]
+        ]
+    },
+    {
+        "id": "81394fa6.f9523",
+        "type": "ui_group",
+        "z": "",
+        "name": "Quick Start",
+        "tab": "6529e313.74108c",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b642e71.9697318",
+        "type": "ui_group",
+        "z": "",
+        "name": "1",
+        "tab": "4ede131f.f2e09c",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "b914fb40.bc5c78",
+        "type": "ui_group",
+        "z": "",
+        "name": "5",
+        "tab": "4ede131f.f2e09c",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "4a85df35.41e16",
+        "type": "ui_group",
+        "z": "",
+        "name": "6",
+        "tab": "4ede131f.f2e09c",
+        "order": 6,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "19fab5c2.199ffa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Cloud Settings",
+        "tab": "6529e313.74108c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "307e2bd0.e69514",
+        "type": "ui_group",
+        "z": "",
+        "name": "2",
+        "tab": "4ede131f.f2e09c",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "8de27cf2.dbd6a",
+        "type": "ui_group",
+        "z": "",
+        "name": "3",
+        "tab": "4ede131f.f2e09c",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "6acae0b0.a184",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set SG/°P/°Bx Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b8d3bbbf.2c9cb8",
+        "type": "ui_group",
+        "z": "",
+        "name": "4",
+        "tab": "4ede131f.f2e09c",
+        "order": 4,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "ab6da67f.a47fa8",
+        "type": "ui_group",
+        "z": "",
+        "name": "8",
+        "tab": "4ede131f.f2e09c",
+        "order": 8,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "a510f969.f28538",
+        "type": "ui_group",
+        "z": "",
+        "name": "7",
+        "tab": "4ede131f.f2e09c",
+        "order": 7,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "82607108.c5be8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Pi Settings",
+        "tab": "6529e313.74108c",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "eb4ab3d5.7b3f1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Calibrate",
+        "tab": "75f710f5.16d2e",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5ca7d250.c3938c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Time Zone",
+        "tab": "c9c26b4a.4cde78",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c8854cd2.f1773",
+        "type": "ui_group",
+        "z": "",
+        "name": "App Admin",
+        "tab": "c9c26b4a.4cde78",
+        "order": 4,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6fabad8a.3909f4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Temperature Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c12bcb12.dbd0d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Temperature Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 4,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b0619070.ac95d",
+        "type": "ui_group",
+        "z": "",
+        "name": "Fermentation Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6529e313.74108c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Logging",
+        "icon": "fa-line-chart",
+        "order": 2
+    },
+    {
+        "id": "4ede131f.f2e09c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tilt Pi v.2",
+        "icon": "fa-tachometer",
+        "order": 1
+    },
+    {
+        "id": "75f710f5.16d2e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Calibration",
+        "icon": "fa-bullseye",
+        "order": 3
+    },
+    {
+        "id": "c9c26b4a.4cde78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "System",
+        "icon": "fa-clock-o",
+        "order": 4
     }
 ]
