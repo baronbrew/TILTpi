@@ -3202,24 +3202,10 @@
         "x": 873,
         "y": 1996,
         "wires": [
-            [
-                "69a120c2.08e33"
-            ],
+            [],
             [],
             []
         ]
-    },
-    {
-        "id": "69a120c2.08e33",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 1055.7142857142856,
-        "y": 1997.2857142857142,
-        "wires": []
     },
     {
         "id": "88f0f33d.110ab",
@@ -4491,6 +4477,74 @@
         "complete": "false",
         "x": 3101.520835876465,
         "y": 290.19447898864746,
+        "wires": []
+    },
+    {
+        "id": "5525821a.3f541c",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo cp /home/pi/log.csv /boot/",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1064.8542785644531,
+        "y": 2449.6387901306152,
+        "wires": [
+            [
+                "b4a13ac1.b49478"
+            ],
+            [
+                "b4a13ac1.b49478"
+            ],
+            [
+                "b4a13ac1.b49478"
+            ]
+        ]
+    },
+    {
+        "id": "ede5cc8f.1a6c2",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "Copy to SD",
+        "payloadType": "str",
+        "repeat": "1800",
+        "crontab": "",
+        "once": false,
+        "x": 832.7502059936523,
+        "y": 2450.6252002716064,
+        "wires": [
+            [
+                "5525821a.3f541c"
+            ]
+        ]
+    },
+    {
+        "id": "2a1cffc5.8c941",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1710,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "b4a13ac1.b49478",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1378.2917022705078,
+        "y": 2403.0834732055664,
         "wires": []
     }
 ]
