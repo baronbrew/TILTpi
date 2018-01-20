@@ -140,7 +140,7 @@
         "z": "",
         "name": "Time Zone",
         "tab": "c9c26b4a.4cde78",
-        "order": 1,
+        "order": 2,
         "disp": true,
         "width": "6"
     },
@@ -150,7 +150,7 @@
         "z": "",
         "name": "App Admin",
         "tab": "c9c26b4a.4cde78",
-        "order": 4,
+        "order": 3,
         "disp": true,
         "width": "6"
     },
@@ -292,7 +292,7 @@
         "z": "",
         "name": "Tilt Pi Display Units",
         "tab": "c9c26b4a.4cde78",
-        "order": 2,
+        "order": 1,
         "disp": true,
         "width": "6"
     },
@@ -310,9 +310,9 @@
         "id": "2f8a7619.951f3a",
         "type": "ui_group",
         "z": "",
-        "name": "Cross Talk Management",
+        "name": "Filter Tilt by Signal Strength",
         "tab": "c9c26b4a.4cde78",
-        "order": 6,
+        "order": 4,
         "disp": true,
         "width": "6"
     },
@@ -4512,8 +4512,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 956.5277328491211,
-        "y": 2233.194929122925,
+        "x": 965.5279159545898,
+        "y": 2291.1949005126953,
         "wires": []
     },
     {
@@ -4606,14 +4606,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "setup mount",
-        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device + \" /mnt/usb\";\nreturn msg;",
+        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device.substring(0,8) + \"2 /mnt/usb\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 660.4063110351562,
         "y": 2305.4691047668457,
         "wires": [
             [
-                "32967fe2.78f"
+                "32967fe2.78f",
+                "d7844e47.d5152"
             ]
         ]
     },
