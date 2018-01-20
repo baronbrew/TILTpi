@@ -4621,14 +4621,16 @@
         "id": "d9e2bf6d.bccc7",
         "type": "catch",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "No URL Provided Errors",
         "scope": [
             "2836e0e1.4ea9c"
         ],
-        "x": 3214.517433166504,
+        "x": 3254.517433166504,
         "y": 184.9272117614746,
         "wires": [
-            []
+            [
+                "34ef6654.47916a"
+            ]
         ]
     },
     {
@@ -4895,5 +4897,21 @@
                 "a4d1964e.cb4f78"
             ]
         ]
+    },
+    {
+        "id": "34ef6654.47916a",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 3490,
+        "y": 200,
+        "wires": []
     }
 ]
