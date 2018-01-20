@@ -4478,5 +4478,314 @@
         "x": 3101.520835876465,
         "y": 290.19447898864746,
         "wires": []
+    },
+    {
+        "id": "c908bac9.7cfc38",
+        "type": "watch",
+        "z": "a564595f.642818",
+        "name": "watch for USB drive",
+        "files": "/dev",
+        "recursive": "",
+        "x": 95,
+        "y": 2370.0626363754272,
+        "wires": [
+            [
+                "4f15c7d8.51d078"
+            ]
+        ]
+    },
+    {
+        "id": "d7844e47.d5152",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 956.5277328491211,
+        "y": 2233.194929122925,
+        "wires": []
+    },
+    {
+        "id": "4f15c7d8.51d078",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "1",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "name": "",
+        "x": 276.5278511047363,
+        "y": 2366.5869970321655,
+        "wires": [
+            [
+                "bc55cff6.44c8d"
+            ]
+        ]
+    },
+    {
+        "id": "bc55cff6.44c8d",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "filter for usb drive inserted",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "sd",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "outputs": 1,
+        "x": 455.5242462158203,
+        "y": 2304.225610733032,
+        "wires": [
+            [
+                "c80707fb.c9ff98"
+            ]
+        ]
+    },
+    {
+        "id": "32967fe2.78f",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "mount usb drive",
+        "x": 815.6322784423828,
+        "y": 2373.7571334838867,
+        "wires": [
+            [],
+            [],
+            [
+                "b2e261f0.d1861"
+            ]
+        ]
+    },
+    {
+        "id": "c83e4803.8db528",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo umount /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1445.129051208496,
+        "y": 2368.4559745788574,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c80707fb.c9ff98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "setup mount",
+        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device + \" /mnt/usb\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660.4063110351562,
+        "y": 2305.4691047668457,
+        "wires": [
+            [
+                "32967fe2.78f"
+            ]
+        ]
+    },
+    {
+        "id": "d9e2bf6d.bccc7",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "",
+        "scope": [
+            "2836e0e1.4ea9c"
+        ],
+        "x": 3214.517433166504,
+        "y": 184.9272117614746,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c10d9b6d.0b1098",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo cp /home/pi/log.csv /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1113.684310913086,
+        "y": 2369.6776008605957,
+        "wires": [
+            [],
+            [],
+            [
+                "e9bea5b5.0883e8"
+            ]
+        ]
+    },
+    {
+        "id": "b2e261f0.d1861",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 926.4617309570312,
+        "y": 2474.011266708374,
+        "wires": [
+            [
+                "c10d9b6d.0b1098"
+            ]
+        ]
+    },
+    {
+        "id": "e9bea5b5.0883e8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1306.1284408569336,
+        "y": 2449.010994911194,
+        "wires": [
+            [
+                "c83e4803.8db528"
+            ]
+        ]
+    },
+    {
+        "id": "11f93581.985a8a",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Configure Mount Point",
+        "func": "node.send({'payload':'sudo chown -R pi:pi /mnt/usb'});\nnode.send({'payload':'sudo chmod -R 775 /mnt/usb'});\nnode.send({'payload':'sudo setfacl -Rdm g:pi:rwx /mnt/usb'});\nnode.send({'payload':'sudo setfacl -Rm g:pi:rwx /mnt/usb'});",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580.5173492431641,
+        "y": 2623.125386238098,
+        "wires": [
+            [
+                "1c2730c3.d43b4f"
+            ]
+        ]
+    },
+    {
+        "id": "34b160f1.5b1ee",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo mkdir /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 274.52085876464844,
+        "y": 2441.4202003479004,
+        "wires": [
+            [],
+            [],
+            [
+                "b69d2560.934d18"
+            ]
+        ]
+    },
+    {
+        "id": "b69d2560.934d18",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 443.01746368408203,
+        "y": 2537.1220836639404,
+        "wires": [
+            [
+                "11f93581.985a8a"
+            ]
+        ]
+    },
+    {
+        "id": "39a9e291.1fe1fe",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "Mount Point",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 75,
+        "y": 2439.0731925964355,
+        "wires": [
+            [
+                "34b160f1.5b1ee"
+            ]
+        ]
+    },
+    {
+        "id": "235307e4.347e18",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 929.0173301696777,
+        "y": 2619.1218185424805,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1c2730c3.d43b4f",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 778.5139389038086,
+        "y": 2620.732711791992,
+        "wires": [
+            [
+                "235307e4.347e18"
+            ]
+        ]
     }
 ]
