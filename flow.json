@@ -4629,7 +4629,7 @@
         "y": 184.9272117614746,
         "wires": [
             [
-                "34ef6654.47916a"
+                "ffdc5060.780ca"
             ]
         ]
     },
@@ -4910,8 +4910,27 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 3490,
-        "y": 200,
+        "x": 3627.999954223633,
+        "y": 206.00000953674316,
         "wires": []
+    },
+    {
+        "id": "ffdc5060.780ca",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Alert",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Alert: {{error.message}}",
+        "output": "str",
+        "x": 3440.6319465637207,
+        "y": 196.31249809265137,
+        "wires": [
+            [
+                "34ef6654.47916a"
+            ]
+        ]
     }
 ]
