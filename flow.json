@@ -372,7 +372,7 @@
         "y": 125.00001239776611,
         "wires": [
             [
-                "b30cf889.27ec18"
+                "d504d607.384f48"
             ]
         ]
     },
@@ -4421,30 +4421,6 @@
         ]
     },
     {
-        "id": "b30cf889.27ec18",
-        "type": "switch",
-        "z": "a564595f.642818",
-        "name": "RSSI",
-        "property": "payload.rssi",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "gte",
-                "v": "minRSSI",
-                "vt": "flow"
-            }
-        ],
-        "checkall": "true",
-        "outputs": 1,
-        "x": 620.0173416137695,
-        "y": 130.01040172576904,
-        "wires": [
-            [
-                "e5652ef0.acaaf"
-            ]
-        ]
-    },
-    {
         "id": "3505363e.8a498a",
         "type": "ui_text",
         "z": "a564595f.642818",
@@ -4493,15 +4469,14 @@
         "id": "c908bac9.7cfc38",
         "type": "watch",
         "z": "a564595f.642818",
-        "name": "watch for USB dev",
+        "name": "watch for USB drive",
         "files": "/dev",
         "recursive": "",
         "x": 95,
         "y": 2370.0626363754272,
         "wires": [
             [
-                "bc55cff6.44c8d",
-                "8b3626a1.adbff8"
+                "bc55cff6.44c8d"
             ]
         ]
     },
@@ -4515,7 +4490,7 @@
         "rules": [
             {
                 "t": "regex",
-                "v": "/dev/sd.",
+                "v": "/dev/sd.1",
                 "vt": "str",
                 "case": false
             }
@@ -4526,7 +4501,7 @@
         "y": 2312.2256088256836,
         "wires": [
             [
-                "48f6a48.9919a5c"
+                "88456b1d.b5fdd8"
             ]
         ]
     },
@@ -4545,9 +4520,7 @@
         "y": 2373.7571334838867,
         "wires": [
             [],
-            [
-                "d18d560b.75d068"
-            ],
+            [],
             [
                 "b2e261f0.d1861"
             ]
@@ -4577,15 +4550,14 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "setup mount",
-        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device.substring(0,8) + \"1 /mnt/usb\";\nreturn msg;",
+        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device + \" /mnt/usb\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 697.4063987731934,
         "y": 2308.469259262085,
         "wires": [
             [
-                "32967fe2.78f",
-                "d18d560b.75d068"
+                "32967fe2.78f"
             ]
         ]
     },
@@ -4620,9 +4592,7 @@
         "y": 2369.6776008605957,
         "wires": [
             [],
-            [
-                "d18d560b.75d068"
-            ],
+            [],
             [
                 "e9bea5b5.0883e8"
             ]
@@ -4908,49 +4878,39 @@
         ]
     },
     {
-        "id": "d18d560b.75d068",
-        "type": "debug",
+        "id": "88456b1d.b5fdd8",
+        "type": "trigger",
         "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 1250,
-        "y": 2280,
-        "wires": []
-    },
-    {
-        "id": "8b3626a1.adbff8",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 356.5,
-        "y": 2366,
-        "wires": []
-    },
-    {
-        "id": "48f6a48.9919a5c",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "Send Once",
-        "pauseType": "rate",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 490,
-        "y": 2300,
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "1",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "name": "send once",
+        "x": 489.62857818603516,
+        "y": 2310.687494277954,
         "wires": [
             [
                 "c80707fb.c9ff98"
+            ]
+        ]
+    },
+    {
+        "id": "d504d607.384f48",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "RSSI",
+        "func": "var minRSSI = flow.get('minRSSI')||-105;\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 622.1944885253906,
+        "y": 128.69444465637207,
+        "wires": [
+            [
+                "e5652ef0.acaaf"
             ]
         ]
     }
