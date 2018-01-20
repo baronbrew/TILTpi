@@ -4493,14 +4493,15 @@
         "id": "c908bac9.7cfc38",
         "type": "watch",
         "z": "a564595f.642818",
-        "name": "watch for USB drive",
+        "name": "watch for USB dev",
         "files": "/dev",
         "recursive": "",
         "x": 95,
         "y": 2370.0626363754272,
         "wires": [
             [
-                "bc55cff6.44c8d"
+                "bc55cff6.44c8d",
+                "8b3626a1.adbff8"
             ]
         ]
     },
@@ -4514,7 +4515,7 @@
         "rules": [
             {
                 "t": "regex",
-                "v": "/dev/sd.1",
+                "v": "/dev/sd.",
                 "vt": "str",
                 "case": false
             }
@@ -4525,7 +4526,7 @@
         "y": 2312.2256088256836,
         "wires": [
             [
-                "88456b1d.b5fdd8"
+                "48f6a48.9919a5c"
             ]
         ]
     },
@@ -4544,7 +4545,9 @@
         "y": 2373.7571334838867,
         "wires": [
             [],
-            [],
+            [
+                "d18d560b.75d068"
+            ],
             [
                 "b2e261f0.d1861"
             ]
@@ -4574,14 +4577,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "setup mount",
-        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device + \" /mnt/usb\";\nreturn msg;",
+        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device.substring(0,8) + \"1 /mnt/usb\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 697.4063987731934,
         "y": 2308.469259262085,
         "wires": [
             [
-                "32967fe2.78f"
+                "32967fe2.78f",
+                "d18d560b.75d068"
             ]
         ]
     },
@@ -4616,7 +4620,9 @@
         "y": 2369.6776008605957,
         "wires": [
             [],
-            [],
+            [
+                "d18d560b.75d068"
+            ],
             [
                 "e9bea5b5.0883e8"
             ]
@@ -4902,20 +4908,46 @@
         ]
     },
     {
-        "id": "88456b1d.b5fdd8",
-        "type": "trigger",
+        "id": "d18d560b.75d068",
+        "type": "debug",
         "z": "a564595f.642818",
-        "op1": "",
-        "op2": "",
-        "op1type": "nul",
-        "op2type": "payl",
-        "duration": "1",
-        "extend": true,
-        "units": "s",
-        "reset": "",
-        "name": "send once",
-        "x": 489.62857818603516,
-        "y": 2310.687494277954,
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1250,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "8b3626a1.adbff8",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 356.5,
+        "y": 2366,
+        "wires": []
+    },
+    {
+        "id": "48f6a48.9919a5c",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "Send Once",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 490,
+        "y": 2300,
         "wires": [
             [
                 "c80707fb.c9ff98"
