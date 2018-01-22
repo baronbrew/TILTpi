@@ -15,6 +15,7 @@
 .demo-card-wide.mdl-card {
   width: 512px;
   background-color: whitesmoke;
+  margin: auto;
 }
 .demo-card-wide > .mdl-card__title {
   color: black;
@@ -26,13 +27,21 @@
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
 }
+
+.mdl-cell.mdl-cell--3-col{
+  margin: auto;
+}
+
+h6 {
+  font-weight: bold;
+}
 </style>
 </head>
 
 <body>
 <div class="demo-card-wide mdl-card mdl-shadow--8dp">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Tilt Pi Set Up</h2>
+    <h2 class="mdl-card__title-text">Set Up WiFi</h2>
   </div>
   <p><center>Works with Firefox on PC and Safari or Chrome on Mac.</center></p>
  <center>
@@ -60,27 +69,75 @@ Clicking the button below will create a new "wpa_supplicant.conf" configuration 
 <center><input type="button" id="dwn-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Create WiFi Configuration File"></center>
 <div class="mdl-card__supporting-text">
 </div>
+<div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Set Up Cloud Logging</h2>
+  </div>
 <center>
 <h6>
-Email Address (GMAIL only)
+<span id="tiltcolor">Tilt Color</span><span class="mdl-tooltip" for="tiltcolor">Note: Create one configuration file per Tilt color.</span>
 </h6>
 </center>
-<center>
-<div class="mdl-textfield mdl-js-textfield">
-  <input class="mdl-textfield__input" type="text" id="email">     <label class="mdl-textfield__label" for="email">example@gmail.com</label>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col">
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="red">
+    <input checked class="mdl-radio__button" id="red" name="color" type="radio"
+     value="red">
+    <span class="mdl-radio__label">RED</span>
+  </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="green">
+    <input class="mdl-radio__button" id="green" name="color" type="radio" value="green">
+    <span class="mdl-radio__label">GREEN</span>
+  </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="black">
+    <input class="mdl-radio__button" id="black" name="color" type="radio" value="black">
+    <span class="mdl-radio__label">BLACK</span>
+  </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="purple">
+      <input class="mdl-radio__button" id="purple" name="color" type="radio" value="purple">
+      <span class="mdl-radio__label">PURPLE</span>
+    </label>
   </div>
-  </center>
+  <div class="mdl-cell mdl-cell--3-col">
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="orange">
+    <input class="mdl-radio__button" id="orange" name="color" type="radio" value="orange">
+    <span class="mdl-radio__label">ORANGE</span>
+  </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="blue">
+      <input class="mdl-radio__button" id="blue" name="color" type="radio" value="blue">
+      <span class="mdl-radio__label">BLUE</span>
+    </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="yellow">
+    <input class="mdl-radio__button" id="yellow" name="color" type="radio" value="yellow">
+    <span class="mdl-radio__label">YELLOW</span>
+  </label>
+  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="pink">
+    <input class="mdl-radio__button" id="pink" name="color" type="radio" value="pink">
+    <span class="mdl-radio__label">PINK</span>
+  </label>
+ </div>
+</div>
 <center><h6>
-Beer Name (optional)
+<span id="beername">Beer Name</span><span class="mdl-tooltip" for="beername">Note: Optional setting, default name is Untitled.</span>
 </h6></center>
 <center>
 <div class="mdl-textfield mdl-js-textfield">
-  <input class="mdl-textfield__input" type="text" id="beername">     
- <label class="mdl-textfield__label" for="beername">West Coast IPA</label>
+  <input class="mdl-textfield__input" type="text" id="Beer">
+ <label class="mdl-textfield__label" for="Beer">West Coast IPA</label>
   </div>
 </center>
+<center>
+    <h6>
+    Email Address (GMAIL only)
+    </h6>
+    </center>
+    <center>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" id="email">
+      <label class="mdl-textfield__label" for="email">example@gmail.com</label>
+      </div>
+      </center>
 <div class="mdl-card__supporting-text">
-Clicking the button below will create a new "cloud_log.json" configuration file. Make sure it is titled "cloud_log.json" and copy this file to your Tilt Pi SD card (called "boot"). After connecting to WiFi, the Tilt Pi will send you an email with a link to your cloud data and Tilt Pi dashboard.
+Clicking the button below will create a new "cloud_log_black.json" configuration file if setting up a black Tilt, "cloud_log_red.json" if setting up a red Tilt and so forth. Make sure it is titled "cloud_log_black.json" (or other color as selected) and copy this file to your Tilt Pi SD card (called "boot"). After connecting to WiFi, the Tilt Pi will send you an email with a link to your cloud data and Tilt Pi dashboard.
 </div>
 <center><input type="button" id="dwn-cloud-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Create Cloud Configuration File"></center>
 <div class="mdl-card__supporting-text">
@@ -106,14 +163,15 @@ function download(filename, text) {
 // Start file download.
 document.getElementById("dwn-btn").addEventListener("click", function(){
     // Generate download of wpa_supplicant.conf
-    var text = 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
+    var text = 'country=GB\n' + 'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n' + 'update_config=1\n' + 'network={\n' + '\tssid="'+ document.getElementById("wifi-val").value + '"\n' + '\tpsk="' + document.getElementById("wifi-pass").value + '"\n}';
     var filename = "wpa_supplicant.conf";
     download(filename, text);
     }, false);
     document.getElementById("dwn-cloud-btn").addEventListener("click", function(){
-    // Generate download of cloud_log.json
-    var text2 = '{"email":"' + document.getElementById("email").value + '",' + '"beer":"' + document.getElementById("beername").value + '"}';
-    var filename2 = "cloud_log.json";
+    // Generate download of cloud_log_color.json
+    var color = document.querySelector('input[name = "color"]:checked').value;
+    var text2 = '{"Color":"' + color.toUpperCase() + '","Comment":"' + document.getElementById("email").value + '",' + '"Beer":["' + document.getElementById("Beer").value + '",true]}';
+    var filename2 = "cloud_log_" + color + ".json";
     download(filename2, text2);
     }, false);
 </script>
