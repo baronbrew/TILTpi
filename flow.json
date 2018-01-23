@@ -1023,6 +1023,10 @@
         "y": 226,
         "wires": [
             [
+<<<<<<< HEAD
+=======
+                "d5884cdc.50b47",
+>>>>>>> origin/tiltpi-dev
                 "bac24b5.6a220b8"
             ]
         ]
@@ -4829,6 +4833,39 @@
         ]
     },
     {
+<<<<<<< HEAD
+=======
+        "id": "63b5ef2f.77cef",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "save config",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 3058.5,
+        "y": 71,
+        "wires": []
+    },
+    {
+        "id": "6d8fe144.ddefb",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Tilt",
+        "func": "var color = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + color + \".json\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2891.5,
+        "y": 20,
+        "wires": [
+            [
+                "63b5ef2f.77cef",
+                "3adc0c45.aa3974"
+            ]
+        ]
+    },
+    {
+>>>>>>> origin/tiltpi-dev
         "id": "68ec71d.2dec29",
         "type": "json",
         "z": "a564595f.642818",
@@ -4838,8 +4875,12 @@
         "y": 20,
         "wires": [
             [
+<<<<<<< HEAD
                 "3c8572c8.6a4b1e",
                 "7b880cec.674314"
+=======
+                "3c8572c8.6a4b1e"
+>>>>>>> origin/tiltpi-dev
             ]
         ]
     },
@@ -4851,8 +4892,13 @@
         "func": "var ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);",
         "outputs": 1,
         "noerr": 0,
+<<<<<<< HEAD
         "x": 3013,
         "y": 112,
+=======
+        "x": 3030,
+        "y": 120,
+>>>>>>> origin/tiltpi-dev
         "wires": [
             []
         ]
@@ -4897,6 +4943,7 @@
     {
         "id": "fd48b85c.2f1918",
         "type": "catch",
+<<<<<<< HEAD
         "z": "a564595f.642818",
         "name": "",
         "scope": [
@@ -4939,6 +4986,8 @@
     {
         "id": "a81ac973.c7f1a8",
         "type": "delay",
+=======
+>>>>>>> origin/tiltpi-dev
         "z": "a564595f.642818",
         "name": "",
         "pauseType": "rate",
@@ -4960,7 +5009,39 @@
         ]
     },
     {
+<<<<<<< HEAD
         "id": "2c73dfce.b79cc",
+=======
+        "id": "5006138a.18932c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send Tilt Colors",
+        "func": "//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2240,
+        "y": 20,
+        "wires": [
+            [
+                "a81ac973.c7f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "217cee5a.d3b802",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 2158,
+        "y": 862,
+        "wires": []
+    },
+    {
+        "id": "a81ac973.c7f1a8",
+>>>>>>> origin/tiltpi-dev
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
@@ -4974,15 +5055,24 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+<<<<<<< HEAD
         "x": 390,
         "y": 280,
         "wires": [
             [
                 "cdc2a491.47b908"
+=======
+        "x": 2410,
+        "y": 20,
+        "wires": [
+            [
+                "640f9404.72d27c"
+>>>>>>> origin/tiltpi-dev
             ]
         ]
     },
     {
+<<<<<<< HEAD
         "id": "d5884cdc.50b47",
         "type": "debug",
         "z": "a564595f.642818",
@@ -4999,6 +5089,12 @@
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
+=======
+        "id": "2c73dfce.b79cc",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+>>>>>>> origin/tiltpi-dev
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
@@ -5010,11 +5106,30 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 390,
+<<<<<<< HEAD
         "y": 340,
         "wires": [
             [
                 "326af4b8.42494c"
+=======
+        "y": 280,
+        "wires": [
+            [
+                "cdc2a491.47b908"
+>>>>>>> origin/tiltpi-dev
             ]
         ]
+    },
+    {
+        "id": "d5884cdc.50b47",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 3190,
+        "y": 220,
+        "wires": []
     }
 ]
