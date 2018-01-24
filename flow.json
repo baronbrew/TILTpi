@@ -78,7 +78,7 @@
         "id": "6acae0b0.a184",
         "type": "ui_group",
         "z": "",
-        "name": "Edit SG Calibration Points",
+        "name": "Set SG Calibration Points (SG only)",
         "tab": "75f710f5.16d2e",
         "order": 2,
         "disp": true,
@@ -128,7 +128,7 @@
         "id": "eb4ab3d5.7b3f1",
         "type": "ui_group",
         "z": "",
-        "name": "Specific Gravity",
+        "name": "Calibrate",
         "tab": "75f710f5.16d2e",
         "order": 1,
         "disp": true,
@@ -148,19 +148,9 @@
         "id": "c8854cd2.f1773",
         "type": "ui_group",
         "z": "",
-        "name": "App Admin",
+        "name": "App Admin (Tilt Pi version 2)",
         "tab": "c9c26b4a.4cde78",
-        "order": 3,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "6fabad8a.3909f4",
-        "type": "ui_group",
-        "z": "",
-        "name": "Units",
-        "tab": "c9c26b4a.4cde78",
-        "order": 2,
+        "order": 4,
         "disp": true,
         "width": "6"
     },
@@ -276,7 +266,7 @@
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
                 "sx": 48,
-                "sy": 50,
+                "sy": 53,
                 "gx": 6,
                 "gy": 6,
                 "cx": 6,
@@ -287,6 +277,56 @@
         }
     },
     {
+        "id": "c12bcb12.dbd0d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Temperature Calibration Points",
+        "tab": "75f710f5.16d2e",
+        "order": 4,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b0619070.ac95d",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Pi Display Units",
+        "tab": "c9c26b4a.4cde78",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "7e458eda.984cd",
+        "type": "ui_group",
+        "z": "",
+        "name": "Raspberry Pi",
+        "tab": "c9c26b4a.4cde78",
+        "order": 5,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "2f8a7619.951f3a",
+        "type": "ui_group",
+        "z": "",
+        "name": "Filter Tilt by Signal Strength",
+        "tab": "c9c26b4a.4cde78",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "822d1243.fc995",
+        "type": "ui_link",
+        "z": "",
+        "name": "Tilt Shop",
+        "link": "http://tilthydrometer.com",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 5
+    },
+    {
         "id": "45fc2eae.52e02",
         "type": "scanBeacon",
         "z": "a564595f.642818",
@@ -294,8 +334,8 @@
         "beacon_uuid": "",
         "beacon_major": "",
         "beacon_minor": "",
-        "x": 308,
-        "y": 206,
+        "x": 372.00004959106445,
+        "y": 124.00001430511475,
         "wires": [
             [
                 "8dc4fe46.fc364"
@@ -306,18 +346,19 @@
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
-        "name": "start scanning",
+        "name": "Start",
         "topic": "",
         "payload": "on",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 126,
-        "y": 245,
+        "x": 79.00001525878906,
+        "y": 200.00000381469727,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "b42102fe.e4abd",
+                "c0f36d.ab686c9"
             ]
         ]
     },
@@ -325,12 +366,13 @@
         "id": "8dc4fe46.fc364",
         "type": "json",
         "z": "a564595f.642818",
-        "name": "to JSON Object",
-        "x": 483,
-        "y": 206,
+        "name": "json",
+        "pretty": false,
+        "x": 498.0000114440918,
+        "y": 125.00001239776611,
         "wires": [
             [
-                "e5652ef0.acaaf"
+                "d504d607.384f48"
             ]
         ]
     },
@@ -347,9 +389,9 @@
         "y": 117.5,
         "wires": [
             [
-                "f14feb76.aebb48",
                 "6cbfa171.d2106",
-                "f1d6da3e.a43598"
+                "f14feb76.aebb48",
+                "d5884cdc.50b47"
             ]
         ]
     },
@@ -357,7 +399,7 @@
         "id": "7f2f1fbf.e1098",
         "type": "change",
         "z": "a564595f.642818",
-        "name": "Decode Color",
+        "name": "Colors",
         "rules": [
             {
                 "t": "set",
@@ -415,8 +457,8 @@
                 "t": "change",
                 "p": "payload.Color",
                 "pt": "msg",
-                "from": ".*bb80.*",
-                "fromt": "re",
+                "from": "a495bb80c5b14b44b5121370f02d74de",
+                "fromt": "str",
                 "to": "PINK",
                 "tot": "str"
             },
@@ -444,11 +486,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 842.5,
-        "y": 206.5,
+        "x": 896.2778701782227,
+        "y": 130.5000057220459,
         "wires": [
             [
-                "7c18d8fe.188168"
+                "7c18d8fe.188168",
+                "da1bccd4.ffddb"
             ]
         ]
     },
@@ -456,7 +499,7 @@
         "id": "e5652ef0.acaaf",
         "type": "switch",
         "z": "a564595f.642818",
-        "name": "Tilt Filter",
+        "name": "Tilts",
         "property": "payload.uuid",
         "propertyType": "msg",
         "rules": [
@@ -469,8 +512,8 @@
         ],
         "checkall": "true",
         "outputs": 1,
-        "x": 659.5,
-        "y": 206,
+        "x": 746.5001220703125,
+        "y": 130.00000858306885,
         "wires": [
             [
                 "7f2f1fbf.e1098"
@@ -482,14 +525,14 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Beer Name",
-        "label": "Set Beer Name",
+        "label": "Set Beer Name [use RETURN to set]",
         "group": "81394fa6.f9523",
         "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
-        "delay": "2000",
+        "delay": "0",
         "topic": "",
         "x": 3675,
         "y": 509,
@@ -504,13 +547,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n    flow.set(color + \"-URL\",\"\");\n}\nflow.set(color + \"-Beer\",beerArray);",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar beerArray = msg.payload.split(\",\");\nif (beerArray[1] === undefined){\n    beerArray[1] = true;\n    flow.set(color + \"-URL\",\"\");\n}\nflow.set(color + \"-Beer\",beerArray);\n\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n    msg.topic = \"Beer name set for \" + color;\n} else {\n    msg.payload = beerArray[0] + \",\" + beerArray[1];\n    msg.topic = \"[Beer name],[cloud ID] set for \" + color;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 3897,
         "y": 508,
         "wires": [
-            []
+            [
+                "2f84bf9f.847b6"
+            ]
         ]
     },
     {
@@ -518,14 +563,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    flow.set('options',options);\n}\n//set cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter\nmsg.payload.SG = msg.payload.minor;\nmsg.payload.SG/=1000;\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||true;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI')||-105;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1069,
-        "y": 205,
+        "x": 1048.666732788086,
+        "y": 129.6666898727417,
         "wires": [
             [
-                "86447ba5.5d5b68"
+                "86447ba5.5d5b68",
+                "b90d01ad.44d08"
             ]
         ]
     },
@@ -538,7 +584,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<style>\n    .nr-dashboard-template h1 {\n    font-size: .875em;\n    font-weight: normal;\n    margin-top: .1;\n    margin-bottom: .1;\n    }\n    \n    .nr-dashboard-template h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    margin-top: 0;\n    margin-bottom: 0;\n    }\n    \n    h5 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n        margin-top: .2em;\n        margin-bottom: 0;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -547,9 +593,7 @@
         "wires": [
             [
                 "394a5d3d.92fa72",
-                "1ee5d27c.fa4e8e",
-                "fcd6778b.dcc9f8",
-                "2267309d.95b65"
+                "1ee5d27c.fa4e8e"
             ]
         ]
     },
@@ -562,7 +606,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -579,15 +623,15 @@
         "id": "2ddd6c1f.7838e4",
         "type": "inject",
         "z": "a564595f.642818",
-        "name": "stop scanning",
+        "name": "Stop",
         "topic": "",
         "payload": "off",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 121,
-        "y": 186,
+        "x": 95.00000762939453,
+        "y": 122.00000190734863,
         "wires": [
             [
                 "45fc2eae.52e02"
@@ -647,7 +691,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -711,8 +755,8 @@
         ],
         "checkall": "false",
         "outputs": 8,
-        "x": 1432,
-        "y": 207,
+        "x": 1426.4443740844727,
+        "y": 235.88890075683594,
         "wires": [
             [
                 "64f10179.474c9"
@@ -872,8 +916,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2013,
-        "y": 71,
+        "x": 2021.0000190734863,
+        "y": 64,
         "wires": [
             [
                 "14d297fb.15dbc8"
@@ -885,11 +929,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//requires msg.payload.SG, msg.payload.actualSGPoints (a comma separated string of the actual values), and msg.payload.unCalSGPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.SG = calSG.toFixed(3);\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(0, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(0, Number.MAX_VALUE);\nactualTempPoints.push(0, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nmsg.payload.uncalTemp = Temp;\nmsg.payload.Temp = calTemp.toFixed(1);\n\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
-        "x": 1255.5,
-        "y": 206,
+        "x": 1233.2778091430664,
+        "y": 130.44444465637207,
         "wires": [
             [
                 "c4b0f249.af093"
@@ -907,7 +951,7 @@
         "order": 1,
         "width": 0,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "options": [
             {
                 "label": "",
@@ -917,12 +961,12 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1032.5,
-        "y": 553,
+        "x": 911.5000762939453,
+        "y": 489.0000104904175,
         "wires": [
             [
                 "6aa75852.1e3068",
-                "b418ce11.8981a"
+                "d5439ed.a8afa6"
             ]
         ]
     },
@@ -947,11 +991,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send Comment",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nmsg.payload = \"Sending: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar comment = msg.payload;\nflow.set(color + \"-Comment\",comment);\nflow.set('lastpost-' + color,0);\nflow.set('lastlocalpost-' + color,0);\nmsg.payload = \"Sending: \" + comment;\nmsg.topic = \"TILT | \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1521.5,
-        "y": 671,
+        "x": 1668.5,
+        "y": 609,
         "wires": [
             [
                 "8dec8962.63e398"
@@ -973,7 +1017,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.url = flow.get('cloudURL');\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\"\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.tempunits === \"°C\"){\n            msg.payload.Temp = msg.payload.Temp * 1.8 + 32;\n        }\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -989,17 +1033,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Cloud URL",
-        "label": "Set Cloud URL",
+        "label": "Cloud URL [use RETURN to save]",
         "group": "19fab5c2.199ffa",
         "order": 1,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "mode": "text",
-        "delay": "1000",
+        "delay": "0",
         "topic": "",
-        "x": 1262.5,
-        "y": 721,
+        "x": 1179.5003280639648,
+        "y": 699.000057220459,
         "wires": [
             [
                 "c79f0193.2a7c7"
@@ -1040,14 +1084,16 @@
         "id": "c79f0193.2a7c7",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Set Current CloudURL",
-        "func": "flow.set(\"cloudURL\",msg.payload);\n",
+        "name": "Set CloudURL",
+        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1527,
-        "y": 719,
+        "x": 1367.0002326965332,
+        "y": 694.0000705718994,
         "wires": [
-            []
+            [
+                "ecffbfac.2fc53"
+            ]
         ]
     },
     {
@@ -1055,7 +1101,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to Cloud",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging request sent. Waiting for response.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logCloudDataCheck',msg.payload);\nflow.set('lastpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging request sent. Waiting for response.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1596.5,
@@ -1088,37 +1134,27 @@
         "func": "flow.set('colordropdownSelect',msg.payload);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1302,
-        "y": 552,
+        "x": 1255.1428833007812,
+        "y": 468.0000057220459,
         "wires": [
             [
                 "971574e0.783ba8",
                 "df1c3ed0.bd3a9",
-                "df1ac3a9.c4472",
-                "de92b02f.5ebe1"
+                "de92b02f.5ebe1",
+                "5933654f.572e0c"
             ]
         ]
-    },
-    {
-        "id": "c7a566a0.651948",
-        "type": "comment",
-        "z": "a564595f.642818",
-        "name": "Set Current Time for Display",
-        "info": "",
-        "x": 2180,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "3eb6f3c4.588d1c",
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG.toFixed(3);\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG;\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 1333,
-        "y": 859,
+        "x": 1340,
+        "y": 860,
         "wires": [
             [
                 "777f1a14.1b3e44",
@@ -1134,8 +1170,8 @@
         "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(3));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1519,
-        "y": 956,
+        "x": 1400,
+        "y": 1120,
         "wires": [
             [
                 "6c6270ad.ae742"
@@ -1176,7 +1212,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1223,7 +1259,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1279,11 +1315,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2220,
-        "y": 87,
+        "x": 2181.0000534057617,
+        "y": 70.00000476837158,
         "wires": [
             [
                 "1aee8aa4.c92885"
@@ -1298,8 +1334,8 @@
         "func": "var color = msg.payload;\nvar uncalSGcalPoint = flow.get('uncalSGpoint')||0;\nvar actualSGcalPoint = flow.get('actualSGpoint')||0;\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nuncalpointsArray.push(uncalSGcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalSGpoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualSGcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualSGpoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 1823.5,
-        "y": 962,
+        "x": 1704.5,
+        "y": 1126,
         "wires": [
             [
                 "1be76b3b.e111e5"
@@ -1315,7 +1351,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "6acae0b0.a184",
-        "order": 3,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -1326,8 +1362,8 @@
         "payload": "colordropdownSelect",
         "payloadType": "flow",
         "topic": "",
-        "x": 1591.5,
-        "y": 1082,
+        "x": 1472.5,
+        "y": 1246,
         "wires": [
             [
                 "e38fab7c.6f34e8"
@@ -1342,8 +1378,8 @@
         "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1803.5,
-        "y": 1083,
+        "x": 1684.5,
+        "y": 1247,
         "wires": [
             [
                 "1be76b3b.e111e5",
@@ -1359,8 +1395,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 1602.5,
-        "y": 1019,
+        "x": 1483.5,
+        "y": 1183,
         "wires": [
             [
                 "1be76b3b.e111e5"
@@ -1390,8 +1426,7 @@
         "wires": [
             [
                 "2836e0e1.4ea9c",
-                "6cbfa171.d2106",
-                "f1d6da3e.a43598"
+                "6cbfa171.d2106"
             ]
         ]
     },
@@ -1414,8 +1449,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2017,
-        "y": 110,
+        "x": 2019.00004196167,
+        "y": 106.0000057220459,
         "wires": [
             [
                 "c9e125df.66b318"
@@ -1427,11 +1462,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2218,
-        "y": 127,
+        "x": 2183.0001068115234,
+        "y": 113.00000047683716,
         "wires": [
             [
                 "4dbe6177.1028"
@@ -1457,8 +1492,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2009,
-        "y": 159,
+        "x": 2017.000015258789,
+        "y": 153.00000476837158,
         "wires": [
             [
                 "3fc07c6.f563084"
@@ -1470,11 +1505,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2225,
-        "y": 167,
+        "x": 2187.0000534057617,
+        "y": 158.00001621246338,
         "wires": [
             [
                 "7c6f1c01.297234"
@@ -1500,8 +1535,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2014,
-        "y": 251,
+        "x": 2021.999984741211,
+        "y": 251.00000190734863,
         "wires": [
             [
                 "a6fc7026.3943f"
@@ -1513,11 +1548,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2222,
-        "y": 256,
+        "x": 2198.000102996826,
+        "y": 255.00001525878906,
         "wires": [
             [
                 "79bac478.35317c"
@@ -1543,8 +1578,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2018,
-        "y": 305,
+        "x": 2021.0000686645508,
+        "y": 300.00002574920654,
         "wires": [
             [
                 "822668cd.451b98"
@@ -1556,11 +1591,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2222,
-        "y": 311,
+        "x": 2193.9999961853027,
+        "y": 313.00002670288086,
         "wires": [
             [
                 "e0d6a855.d4e018"
@@ -1576,7 +1611,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1608,8 +1643,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2012,
-        "y": 210,
+        "x": 2028.00004196167,
+        "y": 203.0000057220459,
         "wires": [
             [
                 "10fa6d83.b3b1b2"
@@ -1621,11 +1656,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2221,
-        "y": 208,
+        "x": 2189.0000495910645,
+        "y": 205.00000953674316,
         "wires": [
             [
                 "dd81e411.1cdd78"
@@ -1660,7 +1695,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1711,8 +1746,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2010,
-        "y": 420,
+        "x": 2027.00004196167,
+        "y": 421.0000276565552,
         "wires": [
             [
                 "ba5663bf.b7cd6"
@@ -1724,11 +1759,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2225,
-        "y": 416,
+        "x": 2198.0000228881836,
+        "y": 421.00000762939453,
         "wires": [
             [
                 "228b94fc.188afc"
@@ -1744,7 +1779,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    h1 {\n    font-size: .875em;\n    font-weight: normal;\n        \n    }\n    h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    line-height: .5em;\n        \n    }\n    h3 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n    }\n    \n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Specific Gravity: {{msg.payload.uncalSG | number:3}} (uncal.)</h1>\n<h2>{{msg.payload.SG | number:3}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.Temp | number:1}} (uncal.)</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h3>{{msg.payload.formatteddate}}</h3>\n<h3>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h3>\n</div>\n\n\n",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. SG/Concentration: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.uncalTemp | number:1}}</h1>\n<h2>{{msg.payload.Temp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1776,8 +1811,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2013,
-        "y": 360,
+        "x": 2029.00004196167,
+        "y": 356.00001525878906,
         "wires": [
             [
                 "68f079f0.789e18"
@@ -1789,11 +1824,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\nmsg.topic = msg.payload.Color;\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2225,
-        "y": 363,
+        "x": 2199.0001068115234,
+        "y": 360.00000286102295,
         "wires": [
             [
                 "2cbc023f.86f2de"
@@ -1827,8 +1862,8 @@
         "name": "Cloud Response",
         "order": 5,
         "width": "6",
-        "height": "3",
-        "format": "<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.cloudwait\"></div>",
+        "height": "4",
+        "format": "<!DOCTYPE HTML>\n<style>\n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<div ng-bind-html=\"'<strong>Cloud Status: </strong>' + msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1928,14 +1963,14 @@
         "label": "Comment [use RETURN to send]",
         "group": "19fab5c2.199ffa",
         "order": 6,
-        "width": 0,
-        "height": 0,
+        "width": "6",
+        "height": "2",
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1247.5,
-        "y": 640,
+        "x": 1337.5,
+        "y": 605,
         "wires": [
             [
                 "e899ac8f.ec903"
@@ -1947,7 +1982,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter cloud response",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    msg.cloudlink = flow.get(color + \"-URL\");\n    return msg;\n}\nif (msg.topic === color){\n    msg.cloudwait = \"\";\n    return msg;\n}\n",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\n//delete cloud wait message\nif (msg.payload.tiltcolor === color){\n    msg.cloudwait = \"\";\n    msg.cloudlink = flow.get(color + \"-URL\");\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 3418,
@@ -1963,7 +1998,7 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Default Cloud URL",
+        "label": "Use Default Cloud URL for All",
         "group": "19fab5c2.199ffa",
         "order": 2,
         "width": 0,
@@ -1980,49 +2015,11 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 770,
-        "y": 700,
+        "x": 706,
+        "y": 688.0000095367432,
         "wires": [
             [
-                "5d331f4.1bed9e"
-            ]
-        ]
-    },
-    {
-        "id": "5d331f4.1bed9e",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "default cloud url",
-        "rules": [
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "true",
-                "fromt": "bool",
-                "to": "https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec",
-                "tot": "str"
-            },
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "false",
-                "fromt": "bool",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1079.5,
-        "y": 689,
-        "wires": [
-            [
-                "edb75c90.8414"
+                "d599e3c9.1ae09"
             ]
         ]
     },
@@ -2062,8 +2059,8 @@
         "label": "Minutes:",
         "format": "{{msg.payload}}",
         "layout": "row-left",
-        "x": 1789.5,
-        "y": 802,
+        "x": 1980,
+        "y": 800,
         "wires": []
     },
     {
@@ -2089,8 +2086,8 @@
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
-        "x": 2977.5,
-        "y": 301,
+        "x": 3129.5007934570312,
+        "y": 331.00007247924805,
         "wires": []
     },
     {
@@ -2107,11 +2104,12 @@
         "type": "http in",
         "z": "a564595f.642818",
         "name": "",
-        "url": "/csv",
+        "url": "/log.csv",
         "method": "get",
+        "upload": false,
         "swaggerDoc": "",
-        "x": 2750.5,
-        "y": 377,
+        "x": 2740.5,
+        "y": 374,
         "wires": [
             [
                 "898ef56a.365648"
@@ -2124,32 +2122,14 @@
         "z": "a564595f.642818",
         "name": "",
         "filename": "/home/pi/log.csv",
-        "format": "utf8",
-        "x": 2935.5,
-        "y": 376,
+        "format": "",
+        "sendError": false,
+        "x": 2931.5,
+        "y": 372,
         "wires": [
             [
                 "6af4a20b.f5f3cc"
             ]
-        ]
-    },
-    {
-        "id": "681c2428.1c3a5c",
-        "type": "ui_template",
-        "z": "a564595f.642818",
-        "group": "82607108.c5be8",
-        "name": "Download Log Button",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "format": "<style>\n    a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\n    a:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<script>\nfunction download(filename, text) {\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n    element.click();\n    document.body.removeChild(element);\n}\n\n     // Start file download.\n    document.getElementById(\"dwn-btn\").addEventListener(\"click\", function(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n    if (this.readyState == 4 && this.status == 200) {\n      var text = this.responseText;\n      var filename = \"log.csv\";\n      download(filename, text);\n    }\n  };\n    xhttp.open(\"GET\", \"/csv\", true);\n    xhttp.send();\n }, false);\n</script>\n<center><a href=\"/csv\" target=\"_blank\">View Log (to copy/paste as CSV)</a></center><br>\n<input type=\"button\" id=\"dwn-btn\" value=\"Download Log\"/>\n\n",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 2955.5,
-        "y": 428,
-        "wires": [
-            []
         ]
     },
     {
@@ -2161,11 +2141,11 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Minutes:",
+        "label": "Minimum Minutes:",
         "format": "{{msg.payload}}",
         "layout": "row-left",
-        "x": 1799,
-        "y": 1186,
+        "x": 1570,
+        "y": 980,
         "wires": []
     },
     {
@@ -2180,11 +2160,11 @@
         "height": 0,
         "passthru": true,
         "topic": "",
-        "min": "0.25",
+        "min": ".1",
         "max": "60",
-        "step": ".25",
-        "x": 1553,
-        "y": 1161,
+        "step": ".1",
+        "x": 1350,
+        "y": 960,
         "wires": [
             [
                 "2cabe65a.14f1ba",
@@ -2200,8 +2180,8 @@
         "func": "flow.set('localloggingInterval',msg.payload);",
         "outputs": 1,
         "noerr": 0,
-        "x": 1785.5,
-        "y": 1137,
+        "x": 1550,
+        "y": 940,
         "wires": [
             []
         ]
@@ -2211,15 +2191,15 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||false;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'))||true;\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        //unsigned bonus byte\n        var uint8 = new Uint8Array(1);\n        uint8[0] = msg.payload.measuredPower;\n        msg.payload.measuredPower = uint8[0];\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment + \",\" + msg.payload.rssi + \",\" + msg.payload.measuredPower;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2747,
-        "y": 301,
+        "x": 2740,
+        "y": 280,
         "wires": [
             [
-                "2f5685a6.76e34a",
-                "dcc41bde.fc7208"
+                "dcc41bde.fc7208",
+                "9b32b69b.089738"
             ]
         ]
     },
@@ -2231,8 +2211,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Tilt Pi enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1829,
-        "y": 1256,
+        "x": 1769,
+        "y": 1036,
         "wires": [
             [
                 "cd2573a4.64137"
@@ -2261,8 +2241,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1544,
-        "y": 1253,
+        "x": 1484,
+        "y": 1033,
         "wires": [
             [
                 "2316593.5ec70a6"
@@ -2281,8 +2261,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 2051,
-        "y": 1255,
+        "x": 1991,
+        "y": 1035,
         "wires": []
     },
     {
@@ -2308,11 +2288,12 @@
         "command": "stat",
         "addpay": false,
         "append": "log.csv",
-        "useSpawn": true,
+        "useSpawn": "true",
         "timer": "5",
+        "oldrc": false,
         "name": "",
-        "x": 2927.5,
-        "y": 244.5,
+        "x": 2930,
+        "y": 260,
         "wires": [
             [
                 "5c5d0dab.293cc4"
@@ -2327,6 +2308,11 @@
         "z": "a564595f.642818",
         "name": "",
         "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": "1",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
         "x": 3075,
         "y": 253,
         "wires": [
@@ -2410,12 +2396,12 @@
         "order": 7,
         "width": 0,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "label": "Delete Log",
         "color": "white",
         "bgcolor": "red",
         "icon": "",
-        "payload": "Time,Timepoint,Temp,SG,Beer,Color,Comment",
+        "payload": "Time,Timepoint,Temp,SG,Beer,Color,Comment,RSSI,Uptime",
         "payloadType": "str",
         "topic": "",
         "x": 2727.5,
@@ -2448,13 +2434,11 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1124,
-        "y": 446,
+        "x": 927.7778167724609,
+        "y": 401.6666793823242,
         "wires": [
             [
-                "93d9202c.d9c1e",
-                "6aa75852.1e3068",
-                "3eb6f3c4.588d1c"
+                "6aa75852.1e3068"
             ]
         ]
     },
@@ -2463,17 +2447,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual SG [use RETURN to set]",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 4,
+        "label": "Actual [use RETURN to set]",
+        "group": "6acae0b0.a184",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": true,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1218,
-        "y": 953,
+        "x": 1089,
+        "y": 1117,
         "wires": [
             [
                 "84ffe685.150d58"
@@ -2484,15 +2468,15 @@
         "id": "ecfbe772.ba4cb8",
         "type": "ui_text",
         "z": "a564595f.642818",
-        "group": "eb4ab3d5.7b3f1",
-        "order": 3,
+        "group": "6acae0b0.a184",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncalibrated SG",
-        "format": "{{msg.payload | number:3}}",
+        "label": "Uncal. SG",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 1625,
+        "x": 1605,
         "y": 865,
         "wires": []
     },
@@ -2511,7 +2495,8 @@
         "y": 878,
         "wires": [
             [
-                "3eb6f3c4.588d1c"
+                "3eb6f3c4.588d1c",
+                "d6de2020.56974"
             ]
         ]
     },
@@ -2520,17 +2505,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated [use RETURN to set]",
+        "label": "Uncalibrated Points [use RETURN to set]",
         "group": "6acae0b0.a184",
-        "order": 1,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2185,
-        "y": 1002,
+        "x": 2086,
+        "y": 1166,
         "wires": [
             [
                 "88f0f33d.110ab"
@@ -2544,15 +2529,15 @@
         "name": "",
         "label": "Actual Points [use RETURN to set]",
         "group": "6acae0b0.a184",
-        "order": 2,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2197,
-        "y": 1069,
+        "x": 2078,
+        "y": 1233,
         "wires": [
             [
                 "b36a946.3813e68"
@@ -2560,37 +2545,18 @@
         ]
     },
     {
-        "id": "249f1e9c.6a1d42",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "",
-        "topic": "",
-        "payload": "15",
-        "payloadType": "num",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "x": 1302,
-        "y": 1025,
-        "wires": [
-            [
-                "7b1370e2.6e8c9"
-            ]
-        ]
-    },
-    {
         "id": "f9e2fc12.8340c",
         "type": "inject",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Logging Interval",
         "topic": "",
-        "payload": "15",
-        "payloadType": "num",
-        "repeat": "",
+        "payload": "loggingInterval",
+        "payloadType": "flow",
+        "repeat": "15",
         "crontab": "",
-        "once": true,
-        "x": 1406,
-        "y": 814,
+        "once": false,
+        "x": 1263.0002059936523,
+        "y": 815.0000438690186,
         "wires": [
             [
                 "88a2c98f.f38b08"
@@ -2607,8 +2573,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Reboot",
-        "x": 1295,
-        "y": 1457,
+        "x": 460,
+        "y": 2140,
         "wires": [
             [
                 "2a36a03c.47d1f"
@@ -2622,8 +2588,8 @@
         "type": "ui_button",
         "z": "a564595f.642818",
         "name": "",
-        "group": "5ca7d250.c3938c",
-        "order": 4,
+        "group": "7e458eda.984cd",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -2634,8 +2600,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 1055,
-        "y": 1454,
+        "x": 220,
+        "y": 2137,
         "wires": [
             [
                 "b13cb5ba.f355b8"
@@ -2654,8 +2620,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1521,
-        "y": 1448,
+        "x": 686,
+        "y": 2131,
         "wires": []
     },
     {
@@ -2666,8 +2632,8 @@
         "func": "var options = [\"Africa/Harare\",\"Africa/Lusaka\",\"Africa/Johannesburg\",\"Indian/Mayotte\",\"Asia/Aden\",\"Pacific/Apia\",\"Pacific/Wallis\",\"Pacific/Efate\",\"Asia/Ho_Chi_Minh\",\"America/St_Thomas\",\"America/Tortola\",\"America/Caracas\",\"America/St_Vincent\",\"Europe/Vatican\",\"Asia/Samarkand\",\"Asia/Tashkent\",\"America/Montevideo\",\"America/Adak\",\"America/Anchorage\",\"America/Boise\",\"America/Chicago\",\"America/Denver\",\"America/Detroit\",\"America/Indiana/Indianapolis\",\"America/Indiana/Knox\",\"America/Indiana/Marengo\",\"America/Indiana/Petersburg\",\"America/Indiana/Tell_City\",\"America/Indiana/Vevay\",\"America/Indiana/Vincennes\",\"America/Indiana/Winamac\",\"America/Juneau\",\"America/Kentucky/Louisville\",\"America/Kentucky/Monticello\",\"America/Los_Angeles\",\"America/Menominee\",\"America/Metlakatla\",\"America/New_York\",\"America/Nome\",\"America/North_Dakota/Beulah\",\"America/North_Dakota/Center\",\"America/North_Dakota/New_Salem\",\"America/Phoenix\",\"America/Sitka\",\"America/Yakutat\",\"Pacific/Honolulu\",\"Pacific/Midway\",\"Pacific/Wake\",\"Africa/Kampala\",\"Europe/Kiev\",\"Europe/Uzhgorod\",\"Europe/Zaporozhye\",\"Africa/Dar_es_Salaam\",\"Asia/Taipei\",\"Pacific/Funafuti\",\"America/Port_of_Spain\",\"Europe/Istanbul\",\"Pacific/Tongatapu\",\"Africa/Tunis\",\"Asia/Ashgabat\",\"Asia/Dili\",\"Pacific/Fakaofo\",\"Asia/Dushanbe\",\"Asia/Bangkok\",\"Africa/Lome\",\"Indian/Kerguelen\",\"Africa/Ndjamena\",\"America/Grand_Turk\",\"Africa/Mbabane\",\"Asia/Damascus\",\"America/Lower_Princes\",\"America/El_Salvador\",\"Africa/Sao_Tome\",\"Africa/Juba\",\"America/Paramaribo\",\"Africa/Mogadishu\",\"Africa/Dakar\",\"Europe/San_Marino\",\"Africa/Freetown\",\"Europe/Bratislava\",\"Arctic/Longyearbyen\",\"Europe/Ljubljana\",\"Atlantic/St_Helena\",\"Asia/Singapore\",\"Europe/Stockholm\",\"Africa/Khartoum\",\"Indian/Mahe\",\"Pacific/Guadalcanal\",\"Asia/Riyadh\",\"Africa/Kigali\",\"Asia/Anadyr\",\"Asia/Barnaul\",\"Asia/Chita\",\"Asia/Irkutsk\",\"Asia/Kamchatka\",\"Asia/Khandyga\",\"Asia/Krasnoyarsk\",\"Asia/Magadan\",\"Asia/Novokuznetsk\",\"Asia/Novosibirsk\",\"Asia/Omsk\",\"Asia/Sakhalin\",\"Asia/Srednekolymsk\",\"Asia/Tomsk\",\"Asia/Ust-Nera\",\"Asia/Vladivostok\",\"Asia/Yakutsk\",\"Asia/Yekaterinburg\",\"Europe/Astrakhan\",\"Europe/Kaliningrad\",\"Europe/Kirov\",\"Europe/Moscow\",\"Europe/Samara\",\"Europe/Saratov\",\"Europe/Simferopol\",\"Europe/Ulyanovsk\",\"Europe/Volgograd\",\"Europe/Belgrade\",\"Europe/Bucharest\",\"Indian/Reunion\",\"Asia/Qatar\",\"America/Asuncion\",\"Pacific/Palau\",\"Atlantic/Azores\",\"Atlantic/Madeira\",\"Europe/Lisbon\",\"Asia/Gaza\",\"Asia/Hebron\",\"America/Puerto_Rico\",\"Pacific/Pitcairn\",\"America/Miquelon\",\"Europe/Warsaw\",\"Asia/Karachi\",\"Asia/Manila\",\"Pacific/Bougainville\",\"Pacific/Port_Moresby\",\"Pacific/Gambier\",\"Pacific/Marquesas\",\"Pacific/Tahiti\",\"America/Lima\",\"America/Panama\",\"Asia/Muscat\",\"Pacific/Auckland\",\"Pacific/Chatham\",\"Pacific/Niue\",\"Pacific/Nauru\",\"Asia/Kathmandu\",\"Europe/Oslo\",\"Europe/Amsterdam\",\"America/Managua\",\"Africa/Lagos\",\"Pacific/Norfolk\",\"Africa/Niamey\",\"Pacific/Noumea\",\"Africa/Windhoek\",\"Africa/Maputo\",\"Asia/Kuala_Lumpur\",\"Asia/Kuching\",\"America/Bahia_Banderas\",\"America/Cancun\",\"America/Chihuahua\",\"America/Hermosillo\",\"America/Matamoros\",\"America/Mazatlan\",\"America/Merida\",\"America/Mexico_City\",\"America/Monterrey\",\"America/Ojinaga\",\"America/Tijuana\",\"Africa/Blantyre\",\"Indian/Maldives\",\"Indian/Mauritius\",\"Europe/Malta\",\"America/Montserrat\",\"Africa/Nouakchott\",\"America/Martinique\",\"Pacific/Saipan\",\"Asia/Macau\",\"Asia/Choibalsan\",\"Asia/Hovd\",\"Asia/Ulaanbaatar\",\"Asia/Yangon\",\"Africa/Bamako\",\"Europe/Skopje\",\"Pacific/Kwajalein\",\"Pacific/Majuro\",\"Indian/Antananarivo\",\"America/Marigot\",\"Europe/Podgorica\",\"Europe/Chisinau\",\"Europe/Monaco\",\"Africa/Casablanca\",\"Africa/Tripoli\",\"Europe/Riga\",\"Europe/Luxembourg\",\"Europe/Vilnius\",\"Africa/Maseru\",\"Africa/Monrovia\",\"Asia/Colombo\",\"Europe/Vaduz\",\"America/St_Lucia\",\"Asia/Beirut\",\"Asia/Vientiane\",\"Asia/Almaty\",\"Asia/Aqtau\",\"Asia/Aqtobe\",\"Asia/Atyrau\",\"Asia/Oral\",\"Asia/Qyzylorda\",\"America/Cayman\",\"Asia/Kuwait\",\"Asia/Seoul\",\"Asia/Pyongyang\",\"America/St_Kitts\",\"Indian/Comoro\",\"Pacific/Enderbury\",\"Pacific/Kiritimati\",\"Pacific/Tarawa\",\"Asia/Phnom_Penh\",\"Asia/Bishkek\",\"Africa/Nairobi\",\"Asia/Tokyo\",\"Asia/Amman\",\"America/Jamaica\",\"Europe/Jersey\",\"Europe/Rome\",\"Atlantic/Reykjavik\",\"Asia/Tehran\",\"Asia/Baghdad\",\"Indian/Chagos\",\"Asia/Kolkata\",\"Europe/Isle_of_Man\",\"Asia/Jerusalem\",\"Europe/Dublin\",\"Asia/Jakarta\",\"Asia/Jayapura\",\"Asia/Makassar\",\"Asia/Pontianak\",\"Europe/Budapest\",\"America/Port-au-Prince\",\"Europe/Zagreb\",\"America/Tegucigalpa\",\"Asia/Hong_Kong\",\"America/Guyana\",\"Africa/Bissau\",\"Pacific/Guam\",\"America/Guatemala\",\"Atlantic/South_Georgia\",\"Europe/Athens\",\"Africa/Malabo\",\"America/Guadeloupe\",\"Africa/Conakry\",\"Africa/Banjul\",\"America/Danmarkshavn\",\"America/Godthab\",\"America/Scoresbysund\",\"America/Thule\",\"Europe/Gibraltar\",\"Africa/Accra\",\"Europe/Guernsey\",\"America/Cayenne\",\"Asia/Tbilisi\",\"America/Grenada\",\"Europe/London\",\"Africa/Libreville\",\"Europe/Paris\",\"Atlantic/Faroe\",\"Pacific/Chuuk\",\"Pacific/Kosrae\",\"Pacific/Pohnpei\",\"Atlantic/Stanley\",\"Pacific/Fiji\",\"Europe/Helsinki\",\"Africa/Addis_Ababa\",\"Africa/Ceuta\",\"Atlantic/Canary\",\"Europe/Madrid\",\"Africa/Asmara\",\"Africa/El_Aaiun\",\"Africa/Cairo\",\"Europe/Tallinn\",\"America/Guayaquil\",\"Pacific/Galapagos\",\"Africa/Algiers\",\"America/Santo_Domingo\",\"America/Dominica\",\"Europe/Copenhagen\",\"Africa/Djibouti\",\"Europe/Berlin\",\"Europe/Busingen\",\"Europe/Prague\",\"Asia/Famagusta\",\"Asia/Nicosia\",\"Indian/Christmas\",\"America/Curacao\",\"Atlantic/Cape_Verde\",\"America/Havana\",\"America/Costa_Rica\",\"America/Bogota\",\"Asia/Shanghai\",\"Asia/Urumqi\",\"Africa/Douala\",\"America/Punta_Arenas\",\"America/Santiago\",\"Pacific/Easter\",\"Pacific/Rarotonga\",\"Africa/Abidjan\",\"Europe/Zurich\",\"Africa/Brazzaville\",\"Africa/Bangui\",\"Africa/Kinshasa\",\"Africa/Lubumbashi\",\"Indian/Cocos\",\"America/Atikokan\",\"America/Blanc-Sablon\",\"America/Cambridge_Bay\",\"America/Creston\",\"America/Dawson\",\"America/Dawson_Creek\",\"America/Edmonton\",\"America/Fort_Nelson\",\"America/Glace_Bay\",\"America/Goose_Bay\",\"America/Halifax\",\"America/Inuvik\",\"America/Iqaluit\",\"America/Moncton\",\"America/Nipigon\",\"America/Pangnirtung\",\"America/Rainy_River\",\"America/Rankin_Inlet\",\"America/Regina\",\"America/Resolute\",\"America/St_Johns\",\"America/Swift_Current\",\"America/Thunder_Bay\",\"America/Toronto\",\"America/Vancouver\",\"America/Whitehorse\",\"America/Winnipeg\",\"America/Yellowknife\",\"America/Belize\",\"Europe/Minsk\",\"Africa/Gaborone\",\"Asia/Thimphu\",\"America/Nassau\",\"America/Araguaina\",\"America/Bahia\",\"America/Belem\",\"America/Boa_Vista\",\"America/Campo_Grande\",\"America/Cuiaba\",\"America/Eirunepe\",\"America/Fortaleza\",\"America/Maceio\",\"America/Manaus\",\"America/Noronha\",\"America/Porto_Velho\",\"America/Recife\",\"America/Rio_Branco\",\"America/Santarem\",\"America/Sao_Paulo\",\"America/Kralendijk\",\"America/La_Paz\",\"Asia/Brunei\",\"Atlantic/Bermuda\",\"America/St_Barthelemy\",\"Africa/Porto-Novo\",\"Africa/Bujumbura\",\"Asia/Bahrain\",\"Europe/Sofia\",\"Africa/Ouagadougou\",\"Europe/Brussels\",\"Asia/Dhaka\",\"America/Barbados\",\"Europe/Sarajevo\",\"Asia/Baku\",\"Europe/Mariehamn\",\"America/Aruba\",\"Antarctica/Macquarie\",\"Australia/Adelaide\",\"Australia/Brisbane\",\"Australia/Broken_Hill\",\"Australia/Currie\",\"Australia/Darwin\",\"Australia/Eucla\",\"Australia/Hobart\",\"Australia/Lindeman\",\"Australia/Lord_Howe\",\"Australia/Melbourne\",\"Australia/Perth\",\"Australia/Sydney\",\"Europe/Vienna\",\"Pacific/Pago_Pago\",\"America/Argentina/Buenos_Aires\",\"America/Argentina/Catamarca\",\"America/Argentina/Cordoba\",\"America/Argentina/Jujuy\",\"America/Argentina/La_Rioja\",\"America/Argentina/Mendoza\",\"America/Argentina/Rio_Gallegos\",\"America/Argentina/Salta\",\"America/Argentina/San_Juan\",\"America/Argentina/San_Luis\",\"America/Argentina/Tucuman\",\"America/Argentina/Ushuaia\",\"Antarctica/Casey\",\"Antarctica/Davis\",\"Antarctica/DumontDUrville\",\"Antarctica/Mawson\",\"Antarctica/McMurdo\",\"Antarctica/Palmer\",\"Antarctica/Rothera\",\"Antarctica/Syowa\",\"Antarctica/Troll\",\"Antarctica/Vostok\",\"Africa/Luanda\",\"Asia/Yerevan\",\"Europe/Tirane\",\"America/Anguilla\",\"America/Antigua\",\"Asia/Kabul\",\"Asia/Dubai\",\"Europe/Andorra\",\"Africa/Asmera\",\"Africa/Timbuktu\",\"America/Argentina/ComodRivadavia\",\"America/Atka\",\"America/Buenos_Aires\",\"America/Catamarca\",\"America/Coral_Harbour\",\"America/Cordoba\",\"America/Ensenada\",\"America/Fort_Wayne\",\"America/Indianapolis\",\"America/Jujuy\",\"America/Knox_IN\",\"America/Louisville\",\"America/Mendoza\",\"America/Montreal\",\"America/Porto_Acre\",\"America/Rosario\",\"America/Santa_Isabel\",\"America/Shiprock\",\"America/Virgin\",\"Antarctica/South_Pole\",\"Asia/Ashkhabad\",\"Asia/Calcutta\",\"Asia/Chongqing\",\"Asia/Chungking\",\"Asia/Dacca\",\"Asia/Harbin\",\"Asia/Istanbul\",\"Asia/Kashgar\",\"Asia/Katmandu\",\"Asia/Macao\",\"Asia/Rangoon\",\"Asia/Saigon\",\"Asia/Tel_Aviv\",\"Asia/Thimbu\",\"Asia/Ujung_Pandang\",\"Asia/Ulan_Bator\",\"Atlantic/Faeroe\",\"Atlantic/Jan_Mayen\",\"Australia/ACT\",\"Australia/Canberra\",\"Australia/LHI\",\"Australia/North\",\"Australia/NSW\",\"Australia/Queensland\",\"Australia/South\",\"Australia/Tasmania\",\"Australia/Victoria\",\"Australia/West\",\"Australia/Yancowinna\",\"Brazil/Acre\",\"Brazil/DeNoronha\",\"Brazil/East\",\"Brazil/West\",\"Canada/Atlantic\",\"Canada/Central\",\"Canada/East-Saskatchewan\",\"Canada/Eastern\",\"Canada/Mountain\",\"Canada/Newfoundland\",\"Canada/Pacific\",\"Canada/Saskatchewan\",\"Canada/Yukon\",\"CET\",\"Chile/Continental\",\"Chile/EasterIsland\",\"CST6CDT\",\"Cuba\",\"EET\",\"Egypt\",\"Eire\",\"EST\",\"EST5EDT\",\"Etc/GMT\",\"Etc/GMT+0\",\"Etc/GMT+1\",\"Etc/GMT+10\",\"Etc/GMT+11\",\"Etc/GMT+12\",\"Etc/GMT+2\",\"Etc/GMT+3\",\"Etc/GMT+4\",\"Etc/GMT+5\",\"Etc/GMT+6\",\"Etc/GMT+7\",\"Etc/GMT+8\",\"Etc/GMT+9\",\"Etc/GMT-0\",\"Etc/GMT-1\",\"Etc/GMT-10\",\"Etc/GMT-11\",\"Etc/GMT-12\",\"Etc/GMT-13\",\"Etc/GMT-14\",\"Etc/GMT-2\",\"Etc/GMT-3\",\"Etc/GMT-4\",\"Etc/GMT-5\",\"Etc/GMT-6\",\"Etc/GMT-7\",\"Etc/GMT-8\",\"Etc/GMT-9\",\"Etc/GMT0\",\"Etc/Greenwich\",\"Etc/UCT\",\"Etc/Universal\",\"Etc/UTC\",\"Etc/Zulu\",\"Europe/Belfast\",\"Europe/Nicosia\",\"Europe/Tiraspol\",\"GB\",\"GB-Eire\",\"GMT\",\"GMT+0\",\"GMT-0\",\"GMT0\",\"Greenwich\",\"Hongkong\",\"HST\",\"Iceland\",\"Iran\",\"Israel\",\"Jamaica\",\"Japan\",\"Kwajalein\",\"Libya\",\"MET\",\"Mexico/BajaNorte\",\"Mexico/BajaSur\",\"Mexico/General\",\"MST\",\"MST7MDT\",\"Navajo\",\"NZ\",\"NZ-CHAT\",\"Pacific/Johnston\",\"Pacific/Ponape\",\"Pacific/Samoa\",\"Pacific/Truk\",\"Pacific/Yap\",\"Poland\",\"Portugal\",\"PRC\",\"PST8PDT\",\"ROC\",\"ROK\",\"Singapore\",\"Turkey\",\"UCT\",\"Universal\",\"US/Alaska\",\"US/Aleutian\",\"US/Arizona\",\"US/Central\",\"US/East-Indiana\",\"US/Eastern\",\"US/Hawaii\",\"US/Indiana-Starke\",\"US/Michigan\",\"US/Mountain\",\"US/Pacific\",\"US/Pacific-New\",\"US/Samoa\",\"UTC\",\"W-SU\",\"WET\",\"Zulu\"];\nmsg.options = options.sort();\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1157.5,
-        "y": 1558,
+        "x": 610,
+        "y": 1600,
         "wires": [
             [
                 "9bb86c18.f0deb"
@@ -2695,8 +2661,8 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 1609.5,
-        "y": 1552,
+        "x": 1062,
+        "y": 1594,
         "wires": [
             [
                 "a6b43763.a12aa8"
@@ -2714,8 +2680,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 683.5,
-        "y": 1552,
+        "x": 136,
+        "y": 1594,
         "wires": [
             [
                 "9fa076ac.17f568",
@@ -2730,8 +2696,8 @@
         "name": "",
         "filename": "/etc/timezone",
         "format": "utf8",
-        "x": 1163.5,
-        "y": 1651,
+        "x": 616,
+        "y": 1693,
         "wires": [
             [
                 "6547f655.0621e8"
@@ -2746,8 +2712,8 @@
         "func": "msg.payload = msg.payload.replace(/(\\r\\n|\\n|\\r)/gm,\"\");\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1370.5,
-        "y": 1650,
+        "x": 823,
+        "y": 1692,
         "wires": [
             [
                 "9bb86c18.f0deb"
@@ -2763,8 +2729,8 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1825.5,
-        "y": 1561,
+        "x": 1278,
+        "y": 1603,
         "wires": []
     },
     {
@@ -2784,8 +2750,8 @@
         "payload": "go",
         "payloadType": "str",
         "topic": "",
-        "x": 1165.5,
-        "y": 1733,
+        "x": 618,
+        "y": 1775,
         "wires": [
             [
                 "c542fa3.77cb308"
@@ -2802,8 +2768,8 @@
         "useSpawn": "",
         "timer": "",
         "name": "set timezone file",
-        "x": 1371.5,
-        "y": 1723.5,
+        "x": 824,
+        "y": 1765.5,
         "wires": [
             [
                 "c21dbb0e.93a778"
@@ -2822,8 +2788,8 @@
         "useSpawn": "",
         "timer": "",
         "name": "confirm update",
-        "x": 1612.5,
-        "y": 1728.5,
+        "x": 1065,
+        "y": 1770.5,
         "wires": [
             [
                 "be6c33c3.62e8a"
@@ -2844,8 +2810,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 2030.5,
-        "y": 1694,
+        "x": 1483,
+        "y": 1736,
         "wires": []
     },
     {
@@ -2874,8 +2840,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1816.5,
-        "y": 1708,
+        "x": 1269,
+        "y": 1750,
         "wires": [
             [
                 "8ee3b7e3.1833a8",
@@ -2895,8 +2861,8 @@
         "label": "",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1991.5,
-        "y": 1751,
+        "x": 1444,
+        "y": 1793,
         "wires": []
     },
     {
@@ -2947,7 +2913,8 @@
         "wires": [
             [
                 "dc8e0ec5.550d",
-                "c7601414.73cf68"
+                "c7601414.73cf68",
+                "b1836d66.f976c"
             ]
         ]
     },
@@ -2961,8 +2928,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "ifconfig",
-        "x": 899,
-        "y": 1879,
+        "x": 320,
+        "y": 1880,
         "wires": [
             [
                 "14ae9022.89c4b"
@@ -2982,8 +2949,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 710,
-        "y": 1878.5,
+        "x": 131,
+        "y": 1879.5,
         "wires": [
             [
                 "7496a044.dd719"
@@ -2998,8 +2965,8 @@
         "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nflow.set('ipaddress',outString);\nreturn {payload: outString};\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1126,
-        "y": 1864,
+        "x": 547,
+        "y": 1865,
         "wires": [
             [
                 "a4a5a7ed.d59958"
@@ -3018,8 +2985,8 @@
         "label": "Tilt Pi Local Address",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1447,
-        "y": 1884,
+        "x": 868,
+        "y": 1885,
         "wires": []
     },
     {
@@ -3027,25 +2994,25 @@
         "type": "ui_switch",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Use Celsius",
-        "group": "6fabad8a.3909f4",
-        "order": 0,
+        "label": "Celsius",
+        "group": "b0619070.ac95d",
+        "order": 2,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "decouple": "false",
         "topic": "",
         "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
+        "onvalue": "°C",
+        "onvalueType": "str",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
+        "offvalue": "°F",
+        "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 1009,
-        "y": 316,
+        "x": 1914.0002632141113,
+        "y": 1670.0005922317505,
         "wires": [
             [
                 "b58e5805.5d5928"
@@ -3057,13 +3024,16 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Change Temp Units",
-        "func": "if (msg.payload){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\")\n}\nif (!msg.payload){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\")\n}",
-        "outputs": 1,
+        "func": "if (msg.payload === \"°C\"){\nflow.set('tempUnits',[-32,0.555]);\nflow.set('displayUnits',\"°C\");\nreturn msg;\n}\nif (msg.payload === \"°F\"){\nflow.set('tempUnits',[0,1]);\nflow.set('displayUnits',\"°F\");\nreturn msg;\n}",
+        "outputs": "1",
         "noerr": 0,
-        "x": 1237,
-        "y": 310,
+        "x": 2167.99991607666,
+        "y": 1635.0002250671387,
         "wires": [
-            []
+            [
+                "5312bf4.09fd44",
+                "8951ba9f.798ae8"
+            ]
         ]
     },
     {
@@ -3076,8 +3046,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Shutdown",
-        "x": 1298,
-        "y": 1380,
+        "x": 463,
+        "y": 2063,
         "wires": [
             [
                 "f2bdbc36.5644d"
@@ -3091,8 +3061,8 @@
         "type": "ui_button",
         "z": "a564595f.642818",
         "name": "",
-        "group": "5ca7d250.c3938c",
-        "order": 5,
+        "group": "7e458eda.984cd",
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3103,8 +3073,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 1058,
-        "y": 1377,
+        "x": 223,
+        "y": 2060,
         "wires": [
             [
                 "5a69b142.f96b6"
@@ -3123,8 +3093,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1514,
-        "y": 1371,
+        "x": 679,
+        "y": 2054,
         "wires": []
     },
     {
@@ -3170,15 +3140,15 @@
         "id": "13f0085a.0d5178",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
+        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/tiltpi-dev/flow.json",
         "addpay": false,
         "append": "",
         "useSpawn": "true",
         "timer": "",
         "oldrc": false,
         "name": "Download Update from GitHub",
-        "x": 1198,
-        "y": 1308,
+        "x": 363,
+        "y": 1991,
         "wires": [
             [],
             [],
@@ -3204,8 +3174,8 @@
         "payload": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
         "payloadType": "str",
         "topic": "",
-        "x": 947,
-        "y": 1310,
+        "x": 112,
+        "y": 1993,
         "wires": [
             [
                 "13f0085a.0d5178"
@@ -3220,8 +3190,8 @@
         "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1482.5,
-        "y": 1313,
+        "x": 647.5,
+        "y": 1996,
         "wires": [
             [
                 "b0fab2cd.d77d4"
@@ -3239,27 +3209,13 @@
         "timer": "",
         "oldrc": false,
         "name": "Update App",
-        "x": 1708,
-        "y": 1313,
+        "x": 873,
+        "y": 1996,
         "wires": [
-            [
-                "69a120c2.08e33"
-            ],
+            [],
             [],
             []
         ]
-    },
-    {
-        "id": "69a120c2.08e33",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 1890.7142857142856,
-        "y": 1314.2857142857142,
-        "wires": []
     },
     {
         "id": "88f0f33d.110ab",
@@ -3269,8 +3225,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 2508.5,
-        "y": 999,
+        "x": 2389.5,
+        "y": 1163,
         "wires": [
             []
         ]
@@ -3283,50 +3239,25 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 2507,
-        "y": 1059,
+        "x": 2388,
+        "y": 1223,
         "wires": [
             []
         ]
     },
     {
-        "id": "f1d6da3e.a43598",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 3417.5,
-        "y": 58,
-        "wires": []
-    },
-    {
         "id": "640f9404.72d27c",
         "type": "file in",
         "z": "a564595f.642818",
-        "name": "Cloud Log Config",
+        "name": "cloud_log_color",
         "filename": "",
         "format": "utf8",
         "sendError": false,
-        "x": 2645.5,
-        "y": 20,
-        "wires": [
-            [
-                "a4b482e4.388e7"
-            ]
-        ]
-    },
-    {
-        "id": "a4b482e4.388e7",
-        "type": "json",
-        "z": "a564595f.642818",
-        "name": "",
-        "x": 2804.5,
+        "x": 2580.5,
         "y": 21,
         "wires": [
             [
-                "3c8572c8.6a4b1e"
+                "68ec71d.2dec29"
             ]
         ]
     },
@@ -3335,14 +3266,17 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Up Tilt Pi",
-        "func": "//load context storage from text file\nvar count = flow.get('setupmanager')||0;\n//node.warn(count);\n//allow 60 seconds for beer name to be updated, then send IP address\nif (count < 60 ){\nif (msg.payload.beer !== undefined){\ncontext.set('beerArray',[msg.payload.beer,true]);\ncontext.set('comment',msg.payload.email);\n}\nif (msg.payload.Color !== undefined){\nvar beerArray = context.get('beerArray');\nvar comment = context.get('comment');\ncount++;\nif (count === 1){\n    flow.set('cloudURL',\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\");\n    flow.set(msg.payload.Color + \"-Comment\",comment);\n    flow.set('logCloudDataCheck',true);\n    flow.set(msg.payload.Color + \"-Beer\",beerArray);\n    flow.set('lastpost-' + msg.payload.Color,0);\n}\nif (count > 1 && count < 61 && flow.get(msg.payload.Color + \"-Beer\")[1] !== true){\n//node.warn(count);\nvar ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);\ncount = 61;\nmsg.payload = \"success\"\nnode.send(msg);\n}\nflow.set('setupmanager',count);\n}\n}",
-        "outputs": 1,
+        "func": "flow.set('cloudURL',[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\nflow.set(msg.payload.Color + \"-Comment\",msg.payload.Comment);\nflow.set('logCloudDataCheck',true);\nflow.set('loggingInterval',15);\nflow.set(msg.payload.Color + \"-Beer\",msg.payload.Beer);\n//initialize local logging\nflow.set('logLocalDataCheck',true);\nflow.set('localloggingInterval',15);\nmsg2 = {};\nmsg2.payload = \"Time,Timepoint,Temp,SG,Beer,Color,Comment,RSSI,Uptime\";\n//post now\nflow.set('lastpost-' + msg.payload.Color,0);\nreturn [msg,msg2];",
+        "outputs": "2",
         "noerr": 0,
-        "x": 2988.5,
-        "y": 76,
+        "x": 2686.5,
+        "y": 132,
         "wires": [
             [
-                "7b880cec.674314"
+                "cdf7a5f1.e44358"
+            ],
+            [
+                "da1dd72.c86df28"
             ]
         ]
     },
@@ -3352,58 +3286,32 @@
         "z": "a564595f.642818",
         "name": "",
         "topic": "",
-        "payload": "/boot/cloud_log.json",
+        "payload": "boot",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 2220,
+        "x": 2101,
         "y": 20,
         "wires": [
             [
-                "4a3d87ba.8dff08",
-                "cd073a.aab1a8c8"
+                "5006138a.18932c"
             ]
-        ]
-    },
-    {
-        "id": "cd073a.aab1a8c8",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "setupmanager",
-                "pt": "flow",
-                "to": "0",
-                "tot": "num"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2440,
-        "y": 60,
-        "wires": [
-            []
         ]
     },
     {
         "id": "7b880cec.674314",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo rm /boot/cloud_log.json",
-        "addpay": false,
+        "command": "sudo rm",
+        "addpay": true,
         "append": "",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
-        "name": "Remove Cloud Config File",
-        "x": 3220,
-        "y": 20,
+        "name": "Remove Config File",
+        "x": 3120,
+        "y": 27.5,
         "wires": [
             [],
             [],
@@ -3411,60 +3319,292 @@
         ]
     },
     {
-        "id": "4a3d87ba.8dff08",
-        "type": "change",
+        "id": "d599e3c9.1ae09",
+        "type": "function",
         "z": "a564595f.642818",
-        "name": "filename",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "filename",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2440,
-        "y": 20,
+        "name": "Custom CloudURL",
+        "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === true){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\n       msg.payload = flow.get(\"cloudURL\")[0];  \n}\nif (msg.payload === false){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",false]);\n       msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 967.0000381469727,
+        "y": 690.0000305175781,
         "wires": [
             [
-                "640f9404.72d27c"
+                "edb75c90.8414"
             ]
         ]
     },
     {
-        "id": "f663d5d8.9f9448",
-        "type": "change",
+        "id": "ecffbfac.2fc53",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "Cloud URL Status",
+        "x": 1577.5000076293945,
+        "y": 688.0000019073486,
+        "wires": []
+    },
+    {
+        "id": "5b24e16f.7eab",
+        "type": "http in",
         "z": "a564595f.642818",
         "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "options",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "colordropdownSelect",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 840,
-        "y": 480,
+        "url": "/data/:color",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 2065.75057220459,
+        "y": 552.57643699646,
+        "wires": [
+            [
+                "dc9ecd32.25037"
+            ]
+        ]
+    },
+    {
+        "id": "bdb5caad.d3dba8",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 2419.9690017700195,
+        "y": 557.607741355896,
+        "wires": [
+            [
+                "7b788221.059a2c"
+            ]
+        ]
+    },
+    {
+        "id": "60f15c0d.04a0b4",
+        "type": "http response",
+        "z": "a564595f.642818",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 2711.861789703369,
+        "y": 557.6458740234375,
+        "wires": []
+    },
+    {
+        "id": "cdc2a491.47b908",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "Tilt Color",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 608,
+        "y": 276,
+        "wires": [
+            [
+                "543d2dd7.2fe974"
+            ]
+        ]
+    },
+    {
+        "id": "b42102fe.e4abd",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send Tilt Colors",
+        "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/home/pi/\" + colors[i] + \".json\"});\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 285,
+        "y": 279,
+        "wires": [
+            [
+                "2c73dfce.b79cc"
+            ]
+        ]
+    },
+    {
+        "id": "543d2dd7.2fe974",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 739,
+        "y": 276,
+        "wires": [
+            [
+                "a2f14292.5b0f3"
+            ]
+        ]
+    },
+    {
+        "id": "a2f14292.5b0f3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Restore Tilt Settings",
+        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nmsg.payload = \"on\";\nreturn msg;",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 914,
+        "y": 277,
+        "wires": [
+            [
+                "45fc2eae.52e02"
+            ]
+        ]
+    },
+    {
+        "id": "be46656.b2ed298",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Check Active Tilts",
+        "topic": "",
+        "payload": "options",
+        "payloadType": "flow",
+        "repeat": "4",
+        "crontab": "",
+        "once": false,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "423412c2.1b104c"
+            ]
+        ]
+    },
+    {
+        "id": "d5439ed.a8afa6",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Update",
+        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1];\nif (check === true){\n}else{\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 463.74999237060547,
+        "y": 683.9097318649292,
+        "wires": [
+            [
+                "b1836d66.f976c"
+            ]
+        ]
+    },
+    {
+        "id": "2f84bf9f.847b6",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "Beer Name Status",
+        "x": 4135.181529998779,
+        "y": 507.5486431121826,
+        "wires": []
+    },
+    {
+        "id": "982240ba.f2f5",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Clear Responses",
+        "topic": "",
+        "payload": "{\"result\":\"Waiting for next time point...\"}",
+        "payloadType": "json",
+        "repeat": "20",
+        "crontab": "",
+        "once": false,
+        "x": 3210.2008361816406,
+        "y": 566.4970045089722,
+        "wires": [
+            [
+                "df1ac3a9.c4472"
+            ]
+        ]
+    },
+    {
+        "id": "e56d18b9.6cbc88",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Backup Tilt Specific Settings",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1429.0565185546875,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "dc9ecd32.25037",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set filename",
+        "func": "if (msg.req.params.color === undefined){\n    msg.req.params.color = \"global\";\n}\nmsg.filename = \"/home/pi/\" + msg.req.params.color;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2255.3934783935547,
+        "y": 555.4592838287354,
+        "wires": [
+            [
+                "bdb5caad.d3dba8"
+            ]
+        ]
+    },
+    {
+        "id": "6a77b965.400cc8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "15",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1180.746826171875,
+        "y": 32.618064880371094,
+        "wires": [
+            [
+                "c6fd016d.ab4a7",
+                "e56d18b9.6cbc88"
+            ]
+        ]
+    },
+    {
+        "id": "7b788221.059a2c",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 2558.406379699707,
+        "y": 557.3056106567383,
+        "wires": [
+            [
+                "60f15c0d.04a0b4"
+            ]
+        ]
+    },
+    {
+        "id": "423412c2.1b104c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set options",
+        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 460,
         "wires": [
             [
                 "93d9202c.d9c1e",
@@ -3473,50 +3613,1435 @@
         ]
     },
     {
-        "id": "c7d23677.6a67f8",
-        "type": "inject",
+        "id": "f0097da4.edc54",
+        "type": "function",
         "z": "a564595f.642818",
-        "name": "update options",
-        "topic": "",
-        "payload": "options",
-        "payloadType": "flow",
-        "repeat": "10",
-        "crontab": "",
-        "once": false,
-        "x": 580,
-        "y": 480,
+        "name": "set Actual Temp Value",
+        "func": "var value = Number(msg.payload);\nflow.set('actualTemppoint',value.toFixed(1));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1400,
+        "y": 1340,
         "wires": [
             [
-                "f663d5d8.9f9448"
+                "a9cf2c6b.4d7f9"
             ]
         ]
     },
     {
-        "id": "fcd6778b.dcc9f8",
+        "id": "a9cf2c6b.4d7f9",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Add Temp Cal Point",
+        "func": "var color = msg.payload;\nvar uncalTempcalPoint = flow.get('uncalTemppoint')||0;\nvar actualTempcalPoint = flow.get('actualTemppoint')||0;\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nuncalpointsArray.push(uncalTempcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalTemppoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualTempcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualTemppoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1714.5,
+        "y": 1346,
+        "wires": [
+            [
+                "10bda9c0.3dcf66"
+            ],
+            [
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "17e6c4c8.0d7e1b",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "c12bcb12.dbd0d8",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clear Calibration",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 1472.5,
+        "y": 1466,
+        "wires": [
+            [
+                "721c929.10edb6c"
+            ]
+        ]
+    },
+    {
+        "id": "721c929.10edb6c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "clear calibration",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1684.5,
+        "y": 1467,
+        "wires": [
+            [
+                "10bda9c0.3dcf66",
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "5933654f.572e0c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update display",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 1483.5,
+        "y": 1403,
+        "wires": [
+            [
+                "10bda9c0.3dcf66"
+            ],
+            [
+                "d521fc1b.3653a"
+            ]
+        ]
+    },
+    {
+        "id": "4b7531fb.46829",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Actual [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 1089,
+        "y": 1337,
+        "wires": [
+            [
+                "f0097da4.edc54"
+            ]
+        ]
+    },
+    {
+        "id": "10bda9c0.3dcf66",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Uncalibrated Points [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2086,
+        "y": 1386,
+        "wires": [
+            [
+                "a5ca25c7.fd8c98"
+            ]
+        ]
+    },
+    {
+        "id": "d521fc1b.3653a",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Actual Points [use RETURN to set]",
+        "group": "c12bcb12.dbd0d8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 2078,
+        "y": 1453,
+        "wires": [
+            [
+                "19ca9195.29599e"
+            ]
+        ]
+    },
+    {
+        "id": "a5ca25c7.fd8c98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Uncal Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalTemppoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2389.5,
+        "y": 1383,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "19ca9195.29599e",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Actual Calibration Array",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualTemppoints-' + color,uncalArray);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2388,
+        "y": 1443,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6de2020.56974",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Get Current Temp",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalTemp.toFixed(1);\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1350,
+        "y": 900,
+        "wires": [
+            [
+                "854dec23.fee5f",
+                "67b168fa.e90078"
+            ]
+        ]
+    },
+    {
+        "id": "854dec23.fee5f",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c12bcb12.dbd0d8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uncal. Temperature",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "x": 1630,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "67b168fa.e90078",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set Uncal Temp Value",
+        "func": "flow.set('uncalTemppoint',Number(msg.payload).toFixed(1));",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1840,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15afce7c.5604d2",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Change Ferm Units",
+        "func": "if (msg.payload === \"sg\"){\nflow.set('fermdisplayUnits',\"\");\nnode.send([{'payload':'sg'},{'payload':false},{'payload':false}]);\n}\nif (msg.payload === \"plato\"){\nflow.set('fermdisplayUnits',\"°P\");\nnode.send([{'payload':false},{'payload':'plato'},{'payload':false}]);\n}\nif (msg.payload === \"brix\"){\nflow.set('fermdisplayUnits',\"°Bx\");\nnode.send([{'payload':false},{'payload':false},{'payload':'brix'}]);\n}",
+        "outputs": "3",
+        "noerr": 0,
+        "x": 2204,
+        "y": 1803.0002098083496,
+        "wires": [
+            [
+                "d66a9036.7565"
+            ],
+            [
+                "88a56bea.b66268"
+            ],
+            [
+                "3c18b104.de8f2e"
+            ]
+        ]
+    },
+    {
+        "id": "88a56bea.b66268",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Plato",
+        "group": "b0619070.ac95d",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "plato",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 2025.000690460205,
+        "y": 1892.5001878738403,
+        "wires": [
+            [
+                "15afce7c.5604d2"
+            ]
+        ]
+    },
+    {
+        "id": "3c18b104.de8f2e",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Brix",
+        "group": "b0619070.ac95d",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "brix",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 2029.7503128051758,
+        "y": 1979.7501392364502,
+        "wires": [
+            [
+                "15afce7c.5604d2"
+            ]
+        ]
+    },
+    {
+        "id": "2bb152f1.d1cbee",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Local Logging Interval",
+        "topic": "",
+        "payload": "localloggingInterval",
+        "payloadType": "flow",
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "x": 1116.7953567504883,
+        "y": 960.0105171203613,
+        "wires": [
+            [
+                "7b1370e2.6e8c9"
+            ]
+        ]
+    },
+    {
+        "id": "c0f36d.ab686c9",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/global.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 253,
+        "y": 336,
+        "wires": [
+            [
+                "aa94ced8.4cb66"
+            ]
+        ]
+    },
+    {
+        "id": "326af4b8.42494c",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 581,
+        "y": 338,
+        "wires": [
+            [
+                "59df1198.a2519"
+            ]
+        ]
+    },
+    {
+        "id": "59df1198.a2519",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Restore Global",
+        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nnode.send([null,{'payload':msg.payload.logCloudDataCheck},null]);\nflow.set('logLocalDataCheck',msg.payload.logLocalDataCheck);\nnode.send([null,null,{'payload':msg.payload.logLocalDataCheck}]);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\nflow.set('fermdisplayUnits',msg.payload.fermunits);\nflow.set('displayUnits',msg.payload.tempunits);\nflow.set('minRSSI',msg.payload.minRSSI);\n//return msg;",
+        "outputs": "3",
+        "noerr": 0,
+        "x": 728,
+        "y": 338,
+        "wires": [
+            [
+                "b1836d66.f976c"
+            ],
+            [
+                "dc8e0ec5.550d"
+            ],
+            [
+                "c7601414.73cf68"
+            ]
+        ]
+    },
+    {
+        "id": "c6fd016d.ab4a7",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Back Up Global Settings",
+        "filename": "/home/pi/global.json",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1418.239501953125,
+        "y": 68.01043319702148,
+        "wires": []
+    },
+    {
+        "id": "dc0ffeac.632b6",
+        "type": "http in",
+        "z": "a564595f.642818",
+        "name": "",
+        "url": "/data/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 2052.6841583251953,
+        "y": 618.4548597335815,
+        "wires": [
+            [
+                "dc9ecd32.25037"
+            ]
+        ]
+    },
+    {
+        "id": "d66a9036.7565",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "SG 15°C/59°F (default)",
+        "group": "b0619070.ac95d",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "sg",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 2132.688522338867,
+        "y": 1702.2629280090332,
+        "wires": [
+            [
+                "15afce7c.5604d2"
+            ]
+        ]
+    },
+    {
+        "id": "8951ba9f.798ae8",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Fahrenheit (default)",
+        "group": "b0619070.ac95d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "°F",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "°C",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1920.3509521484375,
+        "y": 1596.010766029358,
+        "wires": [
+            [
+                "b58e5805.5d5928"
+            ]
+        ]
+    },
+    {
+        "id": "681c2428.1c3a5c",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "82607108.c5be8",
+        "name": "Download Log Button",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "<script>\nfunction download(){\n        window.location='/log.csv';\n    }\n</script>\n\n<button onclick=\"download();\" class=\"md-raised md-button md-ink-ripple\" type=\"button\">Download Log</button>\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2703.5,
+        "y": 338,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ba245bd3.026ab8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "displayUnits",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 1496.520896911621,
+        "y": 1644.8508930206299,
+        "wires": [
+            [
+                "cd091791.668ca8"
+            ]
+        ]
+    },
+    {
+        "id": "69cfcfd8.b2018",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "fermdisplayUnits",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 1472.7951202392578,
+        "y": 1916.6775169372559,
+        "wires": [
+            [
+                "3c9890f9.04d5f"
+            ]
+        ]
+    },
+    {
+        "id": "cd091791.668ca8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1696.3023719787598,
+        "y": 1644.0592279434204,
+        "wires": [
+            [
+                "8951ba9f.798ae8",
+                "5312bf4.09fd44"
+            ]
+        ]
+    },
+    {
+        "id": "e0d9c78e.ee0138",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1815.2396240234375,
+        "y": 1916.6771240234375,
+        "wires": [
+            [
+                "88a56bea.b66268",
+                "3c18b104.de8f2e",
+                "d66a9036.7565"
+            ]
+        ]
+    },
+    {
+        "id": "3c9890f9.04d5f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "if (msg.payload === \"\"){\n    msg.payload = \"sg\";\n}\nif (msg.payload === \"°P\"){\n    msg.payload = \"plato\";\n}\nif (msg.payload === \"°Bx\"){\n    msg.payload = \"brix\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1652.6249198913574,
+        "y": 1917.458415031433,
+        "wires": [
+            [
+                "e0d9c78e.ee0138"
+            ]
+        ]
+    },
+    {
+        "id": "b90d01ad.44d08",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Changed?",
+        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.SG + \nmsg.payload.Temp + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 974.8472900390625,
+        "y": 35.68404006958008,
+        "wires": [
+            [
+                "6a77b965.400cc8"
+            ]
+        ]
+    },
+    {
+        "id": "a4d1964e.cb4f78",
+        "type": "ui_slider",
+        "z": "a564595f.642818",
+        "name": "RSSI Filter",
+        "label": "RSSI Filter",
+        "group": "2f8a7619.951f3a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "min": "-105",
+        "max": "-35",
+        "step": 1,
+        "x": 290,
+        "y": 2200,
+        "wires": [
+            [
+                "99ac3bca.7a1868"
+            ]
+        ]
+    },
+    {
+        "id": "99ac3bca.7a1868",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "minRSSI",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 2200,
+        "wires": [
+            [
+                "3505363e.8a498a"
+            ]
+        ]
+    },
+    {
+        "id": "3505363e.8a498a",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "2f8a7619.951f3a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Minimum RSSI in dBm",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 685.017333984375,
+        "y": 2212.232798576355,
+        "wires": []
+    },
+    {
+        "id": "9b32b69b.089738",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "changed?",
+        "func": "var previous = context.get('data-' + msg.topic)||[];\nvar currentArray = msg.payload.split(\",\");\nvar current = currentArray[2] + currentArray[3] + currentArray[4] + currentArray[6];\nvar time = context.get('time-' + msg.topic)||Date.now();\n//node.warn(current);\n//node.warn(Date.now() - time);\nif (previous !== current || Date.now() - time > 900000 ){\n    context.set('time-' + msg.topic,Date.now());\n    context.set('data-' + msg.topic,current);\n    flow.set(msg.topic + \"-Comment\",\"\");\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2940.96915435791,
+        "y": 318.01389932632446,
+        "wires": [
+            [
+                "2f5685a6.76e34a"
+            ]
+        ]
+    },
+    {
+        "id": "c908bac9.7cfc38",
+        "type": "watch",
+        "z": "a564595f.642818",
+        "name": "watch for USB drive",
+        "files": "/dev",
+        "recursive": "",
+        "x": 95,
+        "y": 2370.0626363754272,
+        "wires": [
+            [
+                "bc55cff6.44c8d"
+            ]
+        ]
+    },
+    {
+        "id": "bc55cff6.44c8d",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "get device ID",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "/dev/sd.",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "false",
+        "outputs": 1,
+        "x": 286.52423095703125,
+        "y": 2312.2256088256836,
+        "wires": [
+            [
+                "27555620.4af91a"
+            ]
+        ]
+    },
+    {
+        "id": "32967fe2.78f",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "mount usb drive",
+        "x": 815.6322784423828,
+        "y": 2373.7571334838867,
+        "wires": [
+            [],
+            [
+                "eef04124.0438f"
+            ],
+            [
+                "b2e261f0.d1861"
+            ]
+        ]
+    },
+    {
+        "id": "c83e4803.8db528",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo umount /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1413.8790435791016,
+        "y": 2369.706090927124,
+        "wires": [
+            [],
+            [
+                "eef04124.0438f"
+            ],
+            [
+                "801bdfa2.e1664"
+            ]
+        ]
+    },
+    {
+        "id": "c80707fb.c9ff98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "setup mount",
+        "func": "var device = msg.payload;\nmsg.payload = \"sudo mount -o uid=pi,gid=pi \" + device.substring(0,8) + \"1 /mnt/usb\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 697.4063987731934,
+        "y": 2308.469259262085,
+        "wires": [
+            [
+                "32967fe2.78f"
+            ]
+        ]
+    },
+    {
+        "id": "d9e2bf6d.bccc7",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "No URL Provided Errors",
+        "scope": [
+            "2836e0e1.4ea9c"
+        ],
+        "x": 3254.517433166504,
+        "y": 184.9272117614746,
+        "wires": [
+            [
+                "ffdc5060.780ca"
+            ]
+        ]
+    },
+    {
+        "id": "c10d9b6d.0b1098",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo cp /home/pi/log.csv /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1113.684310913086,
+        "y": 2369.6776008605957,
+        "wires": [
+            [],
+            [
+                "eef04124.0438f"
+            ],
+            [
+                "e9bea5b5.0883e8"
+            ]
+        ]
+    },
+    {
+        "id": "b2e261f0.d1861",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 926.4617309570312,
+        "y": 2474.011266708374,
+        "wires": [
+            [
+                "c10d9b6d.0b1098"
+            ]
+        ]
+    },
+    {
+        "id": "e9bea5b5.0883e8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1306.1284408569336,
+        "y": 2449.010994911194,
+        "wires": [
+            [
+                "c83e4803.8db528"
+            ]
+        ]
+    },
+    {
+        "id": "11f93581.985a8a",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Configure Mount Point",
+        "func": "node.send({'payload':'sudo chown -R pi:pi /mnt/usb'});\nnode.send({'payload':'sudo chmod -R 775 /mnt/usb'});\nnode.send({'payload':'sudo setfacl -Rdm g:pi:rwx /mnt/usb'});\nnode.send({'payload':'sudo setfacl -Rm g:pi:rwx /mnt/usb'});",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580.5173492431641,
+        "y": 2623.125386238098,
+        "wires": [
+            [
+                "1c2730c3.d43b4f"
+            ]
+        ]
+    },
+    {
+        "id": "34b160f1.5b1ee",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo mkdir /mnt/usb",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 274.52085876464844,
+        "y": 2441.4202003479004,
+        "wires": [
+            [],
+            [],
+            [
+                "b69d2560.934d18"
+            ]
+        ]
+    },
+    {
+        "id": "b69d2560.934d18",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 424.01747131347656,
+        "y": 2535.12242603302,
+        "wires": [
+            [
+                "11f93581.985a8a"
+            ]
+        ]
+    },
+    {
+        "id": "39a9e291.1fe1fe",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "Mount Point",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 75,
+        "y": 2439.0731925964355,
+        "wires": [
+            [
+                "34b160f1.5b1ee"
+            ]
+        ]
+    },
+    {
+        "id": "235307e4.347e18",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 929.0173301696777,
+        "y": 2619.1218185424805,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1c2730c3.d43b4f",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 778.5139389038086,
+        "y": 2620.732711791992,
+        "wires": [
+            [
+                "235307e4.347e18"
+            ]
+        ]
+    },
+    {
+        "id": "e37566b2.2c78f8",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "",
+        "scope": [
+            "c0f36d.ab686c9"
+        ],
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "410f235c.c1f2ac"
+            ]
+        ]
+    },
+    {
+        "id": "410f235c.c1f2ac",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "on",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "45fc2eae.52e02"
+            ]
+        ]
+    },
+    {
+        "id": "6308b03a.25d4a",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "",
+        "scope": [
+            "c0f36d.ab686c9"
+        ],
+        "x": 60,
+        "y": 2180,
+        "wires": [
+            [
+                "6ccc73b5.86205c"
+            ]
+        ]
+    },
+    {
+        "id": "6ccc73b5.86205c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "-105",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 162.5,
+        "y": 2255,
+        "wires": [
+            [
+                "a4d1964e.cb4f78"
+            ]
+        ]
+    },
+    {
+        "id": "34ef6654.47916a",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 3627.999954223633,
+        "y": 206.00000953674316,
+        "wires": []
+    },
+    {
+        "id": "ffdc5060.780ca",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Alert",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Alert: {{error.message}}",
+        "output": "str",
+        "x": 3440.6319465637207,
+        "y": 196.31249809265137,
+        "wires": [
+            [
+                "34ef6654.47916a"
+            ]
+        ]
+    },
+    {
+        "id": "d504d607.384f48",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "RSSI",
+        "func": "var minRSSI = flow.get('minRSSI')||-105;\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 622.1944885253906,
+        "y": 128.69444465637207,
+        "wires": [
+            [
+                "e5652ef0.acaaf"
+            ]
+        ]
+    },
+    {
+        "id": "eef04124.0438f",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "82607108.c5be8",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Download via USB",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1870.2500305175781,
+        "y": 2316.5000343322754,
+        "wires": []
+    },
+    {
+        "id": "27555620.4af91a",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "send once",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 498.5,
+        "y": 2299,
+        "wires": [
+            [
+                "c80707fb.c9ff98",
+                "113b924.25cc06e"
+            ]
+        ]
+    },
+    {
+        "id": "85296978.d8a2d8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "Insert Windows (FAT32, MBR) formatted USB drive.",
+        "payloadType": "str",
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "x": 1394.375,
+        "y": 2225,
+        "wires": [
+            [
+                "eef04124.0438f"
+            ]
+        ]
+    },
+    {
+        "id": "801bdfa2.e1664",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Check Success",
+        "func": "if (msg.payload.code === 0){\n    msg.payload = \"Success, remove USB drive.\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1646.2500228881836,
+        "y": 2381.2500343322754,
+        "wires": [
+            [
+                "eef04124.0438f"
+            ]
+        ]
+    },
+    {
+        "id": "113b924.25cc06e",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Detect USB",
+        "func": "msg.payload = msg.payload.substring(0,8) + \"1 detected\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 953.1250152587891,
+        "y": 2263.7500343322754,
+        "wires": [
+            [
+                "eef04124.0438f"
+            ]
+        ]
+    },
+    {
+        "id": "68ec71d.2dec29",
+        "type": "json",
+        "z": "a564595f.642818",
+        "name": "",
+        "pretty": false,
+        "x": 2727.5,
+        "y": 20,
+        "wires": [
+            [
+                "3c8572c8.6a4b1e",
+                "dd8b62f0.c52ca"
+            ]
+        ]
+    },
+    {
+        "id": "780b4fd0.c274b",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send IP Addr",
+        "func": "var ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3013,
+        "y": 112,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cdf7a5f1.e44358",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2844.5,
+        "y": 112,
+        "wires": [
+            [
+                "780b4fd0.c274b"
+            ]
+        ]
+    },
+    {
+        "id": "51590585.1fbfec",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "",
+        "scope": [
+            "cdc2a491.47b908"
+        ],
+        "x": 233,
+        "y": 188,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fd48b85c.2f1918",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "",
+        "scope": [
+            "640f9404.72d27c"
+        ],
+        "x": 3284,
+        "y": 48,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5006138a.18932c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send Tilt Colors",
+        "func": "//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2245,
+        "y": 20,
+        "wires": [
+            [
+                "a81ac973.c7f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "a81ac973.c7f1a8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2413,
+        "y": 20,
+        "wires": [
+            [
+                "640f9404.72d27c"
+            ]
+        ]
+    },
+    {
+        "id": "2c73dfce.b79cc",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 458,
+        "y": 275,
+        "wires": [
+            [
+                "cdc2a491.47b908"
+            ]
+        ]
+    },
+    {
+        "id": "d5884cdc.50b47",
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
         "active": false,
         "console": "false",
-        "complete": "payload.Beer",
-        "x": 2723.265625,
-        "y": 152.26953125,
+        "complete": "false",
+        "x": 3439,
+        "y": 88,
         "wires": []
     },
     {
-        "id": "2267309d.95b65",
-        "type": "function",
+        "id": "aa94ced8.4cb66",
+        "type": "delay",
         "z": "a564595f.642818",
-        "name": "Wait for Tilt Scan",
-        "func": "//wait until all colors have been scanned\nvar color = context.get('color')||\"\";\nvar counter = context.get('counter')||0;\nif(color === msg.payload.Color && counter < 5){\ncounter++;\ncontext.set('counter',counter);\n}\ncontext.set('color',msg.payload.Color);\nif (counter === 5){\n    return msg;\n}\n",
-        "outputs": "1",
-        "noerr": 0,
-        "x": 2650,
-        "y": 80,
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 443,
+        "y": 337,
         "wires": [
             [
-                "3c8572c8.6a4b1e"
+                "326af4b8.42494c"
             ]
         ]
+    },
+    {
+        "id": "dd8b62f0.c52ca",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "filename",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2907.5,
+        "y": 22,
+        "wires": [
+            [
+                "7b880cec.674314"
+            ]
+        ]
+    },
+    {
+        "id": "da1bccd4.ffddb",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 1130,
+        "y": 200,
+        "wires": []
     }
 ]
