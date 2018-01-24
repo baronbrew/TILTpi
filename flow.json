@@ -562,7 +562,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL');\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||true;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI')||-105;\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nactualArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualArray.toString();\nmsg.payload.unCalSGPoints = uncalArray.toString();\n//set Temp cal points\nactualArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nuncalArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualArray.toString();\nmsg.payload.unCalTempPoints = uncalArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck')||true;\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI')||-105;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1048.666732788086,
@@ -570,7 +570,7 @@
         "wires": [
             [
                 "86447ba5.5d5b68",
-                "6a77b965.400cc8"
+                "b90d01ad.44d08"
             ]
         ]
     },
@@ -1023,10 +1023,6 @@
         "y": 226,
         "wires": [
             [
-<<<<<<< HEAD
-=======
-                "d5884cdc.50b47",
->>>>>>> origin/tiltpi-dev
                 "bac24b5.6a220b8"
             ]
         ]
@@ -2171,7 +2167,8 @@
         "wires": [
             [
                 "2cabe65a.14f1ba",
-                "b560ab50.dc71d8"
+                "b560ab50.dc71d8",
+                "2e8b6230.e049fe"
             ]
         ]
     },
@@ -3270,7 +3267,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Up Tilt Pi",
-        "func": "flow.set('defaultcloudURL',[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\nflow.set(msg.payload.Color + \"-Comment\",msg.payload.Comment);\nflow.set('logCloudDataCheck',true);\nflow.set(msg.payload.Color + \"-Beer\",msg.payload.Beer);\nflow.set('lastpost-' + msg.payload.Color,0);\n//initialize local logging\nmsg2 = {};\nmsg2.payload = \"Time,Timepoint,Temp,SG,Beer,Color,Comment,RSSI,Uptime\";\nreturn [msg,msg2];",
+        "func": "flow.set('cloudURL',[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\nflow.set(msg.payload.Color + \"-Comment\",msg.payload.Comment);\nflow.set('logCloudDataCheck',true);\nflow.set('loggingInterval',15);\nflow.set(msg.payload.Color + \"-Beer\",msg.payload.Beer);\n//initialize local logging\nflow.set('logLocalDataCheck',true);\nflow.set('localloggingInterval',15);\nmsg2 = {};\nmsg2.payload = \"Time,Timepoint,Temp,SG,Beer,Color,Comment,RSSI,Uptime\";\n//post now\nflow.set('lastpost-' + msg.payload.Color,0);\nreturn [msg,msg2];",
         "outputs": "2",
         "noerr": 0,
         "x": 2686.5,
@@ -3294,9 +3291,9 @@
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "x": 2084,
-        "y": 21,
+        "once": true,
+        "x": 2101,
+        "y": 20,
         "wires": [
             [
                 "5006138a.18932c"
@@ -3314,8 +3311,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Remove Config File",
-        "x": 2930,
-        "y": 40,
+        "x": 3120,
+        "y": 27.5,
         "wires": [
             [],
             [],
@@ -3408,8 +3405,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 540,
-        "y": 280,
+        "x": 608,
+        "y": 276,
         "wires": [
             [
                 "543d2dd7.2fe974"
@@ -3424,8 +3421,8 @@
         "func": "//initializes settings file for each color\nvar colors = [\"RED\",\"GREEN\",\"BLACK\",\"PURPLE\",\"ORANGE\",\"BLUE\",\"YELLOW\",\"PINK\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/home/pi/\" + colors[i] + \".json\"});\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 200,
-        "y": 280,
+        "x": 285,
+        "y": 279,
         "wires": [
             [
                 "2c73dfce.b79cc"
@@ -3438,8 +3435,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 670,
-        "y": 280,
+        "x": 739,
+        "y": 276,
         "wires": [
             [
                 "a2f14292.5b0f3"
@@ -3454,8 +3451,8 @@
         "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nmsg.payload = \"on\";\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
-        "x": 840,
-        "y": 280,
+        "x": 914,
+        "y": 277,
         "wires": [
             [
                 "45fc2eae.52e02"
@@ -3486,7 +3483,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Update",
-        "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL')[1]||false === false){\n   return msg; \n}\n",
+        "func": "//only updates if custom Cloud URLs are in use\nif (flow.get('cloudURL')[1]||true){\n}else{\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 463.74999237060547,
@@ -3541,7 +3538,7 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1482.0565567016602,
+        "x": 1429.0565185546875,
         "y": 20,
         "wires": []
     },
@@ -3566,21 +3563,22 @@
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
-        "pauseType": "timed",
+        "pauseType": "queue",
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "5",
+        "nbRateUnits": "15",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 1030.7468948364258,
-        "y": 30.61806583404541,
+        "x": 1180.746826171875,
+        "y": 32.618064880371094,
         "wires": [
             [
-                "b90d01ad.44d08"
+                "c6fd016d.ab4a7",
+                "e56d18b9.6cbc88"
             ]
         ]
     },
@@ -3962,8 +3960,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 200,
-        "y": 340,
+        "x": 253,
+        "y": 336,
         "wires": [
             [
                 "aa94ced8.4cb66"
@@ -3976,8 +3974,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 530,
-        "y": 340,
+        "x": 581,
+        "y": 338,
         "wires": [
             [
                 "59df1198.a2519"
@@ -3992,8 +3990,8 @@
         "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nnode.send([null,{'payload':msg.payload.logCloudDataCheck},null]);\nflow.set('logLocalDataCheck',msg.payload.logLocalDataCheck);\nnode.send([null,null,{'payload':msg.payload.logLocalDataCheck}]);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\nflow.set('fermdisplayUnits',msg.payload.fermunits);\nflow.set('displayUnits',msg.payload.tempunits);\nflow.set('minRSSI',msg.payload.minRSSI);\n//return msg;",
         "outputs": "3",
         "noerr": 0,
-        "x": 680,
-        "y": 340,
+        "x": 728,
+        "y": 338,
         "wires": [
             [
                 "b1836d66.f976c"
@@ -4015,7 +4013,7 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1454.239501953125,
+        "x": 1418.239501953125,
         "y": 68.01043319702148,
         "wires": []
     },
@@ -4226,12 +4224,11 @@
         "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.SG + \nmsg.payload.Temp + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 1236.8473167419434,
-        "y": 33.68403911590576,
+        "x": 974.8472900390625,
+        "y": 35.68404006958008,
         "wires": [
             [
-                "e56d18b9.6cbc88",
-                "c6fd016d.ab4a7"
+                "6a77b965.400cc8"
             ]
         ]
     },
@@ -4833,39 +4830,6 @@
         ]
     },
     {
-<<<<<<< HEAD
-=======
-        "id": "63b5ef2f.77cef",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "save config",
-        "filename": "",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "x": 3058.5,
-        "y": 71,
-        "wires": []
-    },
-    {
-        "id": "6d8fe144.ddefb",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Tilt",
-        "func": "var color = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + color + \".json\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2891.5,
-        "y": 20,
-        "wires": [
-            [
-                "63b5ef2f.77cef",
-                "3adc0c45.aa3974"
-            ]
-        ]
-    },
-    {
->>>>>>> origin/tiltpi-dev
         "id": "68ec71d.2dec29",
         "type": "json",
         "z": "a564595f.642818",
@@ -4875,12 +4839,8 @@
         "y": 20,
         "wires": [
             [
-<<<<<<< HEAD
                 "3c8572c8.6a4b1e",
-                "7b880cec.674314"
-=======
-                "3c8572c8.6a4b1e"
->>>>>>> origin/tiltpi-dev
+                "dd8b62f0.c52ca"
             ]
         ]
     },
@@ -4892,13 +4852,8 @@
         "func": "var ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);",
         "outputs": 1,
         "noerr": 0,
-<<<<<<< HEAD
         "x": 3013,
         "y": 112,
-=======
-        "x": 3030,
-        "y": 120,
->>>>>>> origin/tiltpi-dev
         "wires": [
             []
         ]
@@ -4909,7 +4864,7 @@
         "z": "a564595f.642818",
         "name": "",
         "pauseType": "delay",
-        "timeout": "20",
+        "timeout": "30",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "5",
@@ -4934,8 +4889,8 @@
         "scope": [
             "cdc2a491.47b908"
         ],
-        "x": 232,
-        "y": 243,
+        "x": 233,
+        "y": 188,
         "wires": [
             []
         ]
@@ -4943,14 +4898,13 @@
     {
         "id": "fd48b85c.2f1918",
         "type": "catch",
-<<<<<<< HEAD
         "z": "a564595f.642818",
         "name": "",
         "scope": [
             "640f9404.72d27c"
         ],
-        "x": 3120,
-        "y": 40,
+        "x": 3284,
+        "y": 48,
         "wires": [
             []
         ]
@@ -4963,7 +4917,7 @@
         "func": "//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2240,
+        "x": 2245,
         "y": 20,
         "wires": [
             [
@@ -4986,21 +4940,19 @@
     {
         "id": "a81ac973.c7f1a8",
         "type": "delay",
-=======
->>>>>>> origin/tiltpi-dev
         "z": "a564595f.642818",
         "name": "",
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "1",
+        "nbRateUnits": "5",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 2410,
+        "x": 2413,
         "y": 20,
         "wires": [
             [
@@ -5009,39 +4961,7 @@
         ]
     },
     {
-<<<<<<< HEAD
         "id": "2c73dfce.b79cc",
-=======
-        "id": "5006138a.18932c",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Send Tilt Colors",
-        "func": "//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2240,
-        "y": 20,
-        "wires": [
-            [
-                "a81ac973.c7f1a8"
-            ]
-        ]
-    },
-    {
-        "id": "217cee5a.d3b802",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 2158,
-        "y": 862,
-        "wires": []
-    },
-    {
-        "id": "a81ac973.c7f1a8",
->>>>>>> origin/tiltpi-dev
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
@@ -5055,29 +4975,20 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-<<<<<<< HEAD
-        "x": 390,
-        "y": 280,
+        "x": 458,
+        "y": 275,
         "wires": [
             [
                 "cdc2a491.47b908"
-=======
-        "x": 2410,
-        "y": 20,
-        "wires": [
-            [
-                "640f9404.72d27c"
->>>>>>> origin/tiltpi-dev
             ]
         ]
     },
     {
-<<<<<<< HEAD
         "id": "d5884cdc.50b47",
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "false",
         "x": 3439,
@@ -5089,12 +5000,6 @@
         "type": "delay",
         "z": "a564595f.642818",
         "name": "",
-=======
-        "id": "2c73dfce.b79cc",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
->>>>>>> origin/tiltpi-dev
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
@@ -5105,31 +5010,51 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 390,
-<<<<<<< HEAD
-        "y": 340,
+        "x": 443,
+        "y": 337,
         "wires": [
             [
                 "326af4b8.42494c"
-=======
-        "y": 280,
-        "wires": [
-            [
-                "cdc2a491.47b908"
->>>>>>> origin/tiltpi-dev
             ]
         ]
     },
     {
-        "id": "d5884cdc.50b47",
+        "id": "dd8b62f0.c52ca",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "filename",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2907.5,
+        "y": 22,
+        "wires": [
+            [
+                "7b880cec.674314"
+            ]
+        ]
+    },
+    {
+        "id": "2e8b6230.e049fe",
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "false",
-        "x": 3190,
-        "y": 220,
+        "complete": "true",
+        "x": 1747.5,
+        "y": 987,
         "wires": []
     }
 ]
