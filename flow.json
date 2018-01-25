@@ -3139,7 +3139,7 @@
         "id": "13f0085a.0d5178",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/tiltpi-dev/flow.json",
+        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
         "addpay": false,
         "append": "",
         "useSpawn": "true",
