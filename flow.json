@@ -562,7 +562,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Add Parameters",
-        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck');\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI')||-105;\nreturn msg;",
+        "func": "//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nvar tempUnits = flow.get('tempUnits')||[0,1];\nmsg.payload.Temp = ((Number(msg.payload.major) + tempUnits[0])) * tempUnits[1];\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck');\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1048.666732788086,
@@ -656,10 +656,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1630.5,
-        "y": 73,
+        "x": 1623.5,
+        "y": 62,
         "wires": [
-            []
+            [
+                "5006138a.18932c"
+            ]
         ]
     },
     {
@@ -673,8 +675,8 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
-        "x": 1808.5,
-        "y": 68,
+        "x": 1816.5,
+        "y": 76,
         "wires": [
             [
                 "9628a72.af07d58"
@@ -1007,8 +1009,8 @@
         "z": "a564595f.642818",
         "name": "Store latest and update every x seconds",
         "info": "Saves iBeacon scans to flow database and reads back at 1 second intervals. Allows read out to continue to display last reading even if out of range.",
-        "x": 1859.5,
-        "y": 24,
+        "x": 1724.5,
+        "y": 21,
         "wires": []
     },
     {
@@ -1301,8 +1303,8 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
-        "x": 1825,
-        "y": 108,
+        "x": 1827,
+        "y": 114,
         "wires": [
             [
                 "b4de88bb.e0e148"
@@ -3290,7 +3292,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 2101,
+        "x": 1974,
         "y": 20,
         "wires": [
             [
@@ -4725,7 +4727,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "RSSI",
-        "func": "var minRSSI = flow.get('minRSSI')||-105;\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
+        "func": "var minRSSI = flow.get('minRSSI');\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 622.1944885253906,
@@ -4912,10 +4914,10 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send Tilt Colors",
-        "func": "//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}",
+        "func": "//check if system starting up and Tilts are in range.\nif (msg.payload === \"boot\"){\ncontext.set('startup',true);\n}else{\ncontext.set('tilt',true);\n}\n//contine startup if Tilt detected\nif (context.get('startup') && context.get('tilt')){\n//initializes settings file for each color\nvar colors = [\"red\",\"green\",\"black\",\"purple\",\"orange\",\"blue\",\"yellow\",\"pink\"];\nvar arrayLength = colors.length;\nfor (var i = 0; i < arrayLength; i++) {\n    node.send({filename:\"/boot/cloud_log_\" + colors[i] + \".json\"});\n}\ncontext.set('startup',false);\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 2245,
+        "x": 2189,
         "y": 20,
         "wires": [
             [
@@ -4938,7 +4940,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 2413,
+        "x": 2400,
         "y": 20,
         "wires": [
             [
