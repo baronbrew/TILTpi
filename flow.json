@@ -4120,12 +4120,12 @@
         "name": "",
         "topic": "",
         "payload": "displayUnits",
-        "payloadType": "flow",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1496.520896911621,
-        "y": 1644.8508930206299,
+        "x": 1389.5208740234375,
+        "y": 1644.8509521484375,
         "wires": [
             [
                 "cd091791.668ca8"
@@ -4139,15 +4139,15 @@
         "name": "",
         "topic": "",
         "payload": "fermdisplayUnits",
-        "payloadType": "flow",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1472.7951202392578,
+        "x": 1462.7951202392578,
         "y": 1916.6775169372559,
         "wires": [
             [
-                "3c9890f9.04d5f"
+                "e0d9c78e.ee0138"
             ]
         ]
     },
@@ -4157,7 +4157,7 @@
         "z": "a564595f.642818",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "3",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -4166,12 +4166,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 1696.3023719787598,
-        "y": 1644.0592279434204,
+        "x": 1588.3023681640625,
+        "y": 1644.0592041015625,
         "wires": [
             [
-                "8951ba9f.798ae8",
-                "5312bf4.09fd44"
+                "fd49eb70.32ff38"
             ]
         ]
     },
@@ -4181,7 +4180,7 @@
         "z": "a564595f.642818",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "3",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -4190,13 +4189,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 1815.2396240234375,
+        "x": 1644.2396240234375,
         "y": 1916.6771240234375,
         "wires": [
             [
-                "88a56bea.b66268",
-                "3c18b104.de8f2e",
-                "d66a9036.7565"
+                "3c9890f9.04d5f"
             ]
         ]
     },
@@ -4205,14 +4202,16 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter",
-        "func": "if (msg.payload === \"\"){\n    msg.payload = \"sg\";\n}\nif (msg.payload === \"°P\"){\n    msg.payload = \"plato\";\n}\nif (msg.payload === \"°Bx\"){\n    msg.payload = \"brix\";\n}\nreturn msg;",
+        "func": "msg.payload = flow.get(msg.payload);\nif (msg.payload === \"\"){\n    msg.payload = \"sg\";\n}\nif (msg.payload === \"°P\"){\n    msg.payload = \"plato\";\n}\nif (msg.payload === \"°Bx\"){\n    msg.payload = \"brix\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1652.6249198913574,
-        "y": 1917.458415031433,
+        "x": 1839.6248779296875,
+        "y": 1911.4583740234375,
         "wires": [
             [
-                "e0d9c78e.ee0138"
+                "88a56bea.b66268",
+                "d66a9036.7565",
+                "3c18b104.de8f2e"
             ]
         ]
     },
@@ -5030,6 +5029,23 @@
         "wires": [
             [
                 "7b880cec.674314"
+            ]
+        ]
+    },
+    {
+        "id": "fd49eb70.32ff38",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "msg.payload = flow.get(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1732,
+        "y": 1644,
+        "wires": [
+            [
+                "5312bf4.09fd44",
+                "8951ba9f.798ae8"
             ]
         ]
     }
