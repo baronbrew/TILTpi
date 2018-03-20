@@ -5,15 +5,19 @@ Due to an updated nodejs version used in the script "update-nodejs-and-nodered",
 
 ## Step 1
 Using SSH from another computer or from a Raspberry Pi directly, open a command line window to enter the following commands. Install node package manager, "npm".
+
 `sudo apt-get update`
+
 `sudo apt-get install npm`
 
 ## Step 2
 Install nodejs version manager, "n".
+
 `sudo npm install n -g`
 
 ## Step 3
 Install nodejs version 4.8.7 (this version will work with bleacon)
+
 `sudo n 4.8.7`
 
 ## Step 4
