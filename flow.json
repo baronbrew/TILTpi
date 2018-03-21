@@ -138,7 +138,7 @@
         "id": "5ca7d250.c3938c",
         "type": "ui_group",
         "z": "",
-        "name": "Time Zone",
+        "name": "Time",
         "tab": "c9c26b4a.4cde78",
         "order": 1,
         "disp": true,
@@ -2681,8 +2681,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 136,
-        "y": 1594,
+        "x": 75,
+        "y": 1597,
         "wires": [
             [
                 "9fa076ac.17f568",
@@ -2751,8 +2751,8 @@
         "payload": "go",
         "payloadType": "str",
         "topic": "",
-        "x": 618,
-        "y": 1775,
+        "x": 619,
+        "y": 1758,
         "wires": [
             [
                 "c542fa3.77cb308"
@@ -2789,8 +2789,8 @@
         "useSpawn": "",
         "timer": "",
         "name": "confirm update",
-        "x": 1065,
-        "y": 1770.5,
+        "x": 1063.750015258789,
+        "y": 1756.7500267028809,
         "wires": [
             [
                 "be6c33c3.62e8a"
@@ -2811,8 +2811,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1483,
-        "y": 1736,
+        "x": 1473,
+        "y": 1796,
         "wires": []
     },
     {
@@ -2855,15 +2855,15 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "5ca7d250.c3938c",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "status",
         "label": "",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1444,
-        "y": 1793,
+        "x": 1450,
+        "y": 1746,
         "wires": []
     },
     {
@@ -2914,8 +2914,7 @@
         "wires": [
             [
                 "dc8e0ec5.550d",
-                "c7601414.73cf68",
-                "b1836d66.f976c"
+                "c7601414.73cf68"
             ]
         ]
     },
@@ -2923,17 +2922,18 @@
         "id": "7496a044.dd719",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "ifconfig wlan0",
+        "command": "hostname -I",
         "addpay": false,
         "append": "",
-        "useSpawn": false,
+        "useSpawn": "false",
         "timer": "",
-        "name": "ifconfig",
+        "oldrc": false,
+        "name": "hostname",
         "x": 320,
         "y": 1880,
         "wires": [
             [
-                "14ae9022.89c4b"
+                "375008fe.27a988"
             ],
             [],
             []
@@ -2944,33 +2944,18 @@
         "type": "inject",
         "z": "a564595f.642818",
         "name": "get ip",
-        "topic": "ip",
-        "payload": "etho",
-        "payloadType": "str",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": true,
+        "onceDelay": "",
         "x": 131,
         "y": 1879.5,
         "wires": [
             [
                 "7496a044.dd719"
-            ]
-        ]
-    },
-    {
-        "id": "14ae9022.89c4b",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Extract network config",
-        "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nflow.set('ipaddress',outString);\nreturn {payload: outString};\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 547,
-        "y": 1865,
-        "wires": [
-            [
-                "a4a5a7ed.d59958"
             ]
         ]
     },
@@ -3391,7 +3376,9 @@
         "z": "a564595f.642818",
         "name": "",
         "statusCode": "",
-        "headers": {},
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        },
         "x": 2711.861789703369,
         "y": 557.6458740234375,
         "wires": []
@@ -5046,6 +5033,123 @@
             [
                 "5312bf4.09fd44",
                 "8951ba9f.798ae8"
+            ]
+        ]
+    },
+    {
+        "id": "e5905320.33efc",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "date '+%F %T'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 278.25,
+        "y": 1803.5000267028809,
+        "wires": [
+            [
+                "437432fd.79dbbc"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "437432fd.79dbbc",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "System Time [use RETURN to set manually]",
+        "group": "5ca7d250.c3938c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 574.0000076293945,
+        "y": 1809.2500267028809,
+        "wires": [
+            [
+                "f8a4aa49.743c88"
+            ]
+        ]
+    },
+    {
+        "id": "f8a4aa49.743c88",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo date -s '",
+        "addpay": true,
+        "append": "'",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 877,
+        "y": 1823.5,
+        "wires": [
+            [
+                "673f8112.35a61"
+            ],
+            [
+                "8ee3b7e3.1833a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "669c32ed.8030ac",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "x": 97.5,
+        "y": 1793.7500267028809,
+        "wires": [
+            [
+                "e5905320.33efc"
+            ]
+        ]
+    },
+    {
+        "id": "673f8112.35a61",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "topic",
+        "func": "msg.topic = \"System Time Updated\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1069.5,
+        "y": 1798,
+        "wires": [
+            [
+                "8ee3b7e3.1833a8"
+            ]
+        ]
+    },
+    {
+        "id": "375008fe.27a988",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "create URL",
+        "func": "var ipAddress = msg.payload;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 1880,
+        "wires": [
+            [
+                "a4a5a7ed.d59958"
             ]
         ]
     }
