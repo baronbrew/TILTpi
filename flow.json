@@ -2933,7 +2933,7 @@
         "y": 1880,
         "wires": [
             [
-                "375008fe.27a988"
+                "deb9c4fc.20c098"
             ],
             [],
             []
@@ -5142,14 +5142,34 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "create URL",
-        "func": "var ipAddress = msg.payload;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
+        "func": "var ipAddress = msg.payload.ipv4;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 560,
+        "x": 630,
         "y": 1880,
         "wires": [
             [
                 "a4a5a7ed.d59958"
+            ]
+        ]
+    },
+    {
+        "id": "deb9c4fc.20c098",
+        "type": "csv",
+        "z": "a564595f.642818",
+        "name": "",
+        "sep": " ",
+        "hdrin": "",
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ipv4,ipv6",
+        "skip": "0",
+        "x": 470,
+        "y": 1880,
+        "wires": [
+            [
+                "375008fe.27a988"
             ]
         ]
     }
