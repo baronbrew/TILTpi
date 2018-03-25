@@ -2922,17 +2922,18 @@
         "id": "7496a044.dd719",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "ifconfig wlan0",
+        "command": "hostname -I",
         "addpay": false,
         "append": "",
-        "useSpawn": false,
+        "useSpawn": "false",
         "timer": "",
-        "name": "ifconfig",
+        "oldrc": false,
+        "name": "hostname",
         "x": 320,
         "y": 1880,
         "wires": [
             [
-                "14ae9022.89c4b"
+                "deb9c4fc.20c098"
             ],
             [],
             []
@@ -2943,33 +2944,18 @@
         "type": "inject",
         "z": "a564595f.642818",
         "name": "get ip",
-        "topic": "ip",
-        "payload": "etho",
-        "payloadType": "str",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": true,
+        "onceDelay": "",
         "x": 131,
         "y": 1879.5,
         "wires": [
             [
                 "7496a044.dd719"
-            ]
-        ]
-    },
-    {
-        "id": "14ae9022.89c4b",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "Extract network config",
-        "func": "// Initialize variables\nvar input, tokens, inet, outString;\n\n// Parse the entire string by spaces, and put each item into an array called tokens\n\ninput = msg.payload;\ntokens = input.split(\":\", 10);\n\n// Get the 7th token (example: \"addr:192.168.0.120\")\n// and get the substring from character 6 to the end\ninet = tokens[7].split(\" \", 1);\noutString = \"http://\" + inet[0] + \":1880/ui\";\n\n// Don't send a message if the IF is the known default. Change to default ip.\nif (inet==\"192.168.0.120\") { \n//outString = \"\"; // set output to null if ip is the same so no message is sent\nreturn null;\n}else{\n// return the final output\nflow.set('ipaddress',outString);\nreturn {payload: outString};\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 547,
-        "y": 1865,
-        "wires": [
-            [
-                "a4a5a7ed.d59958"
             ]
         ]
     },
@@ -5148,6 +5134,42 @@
         "wires": [
             [
                 "8ee3b7e3.1833a8"
+            ]
+        ]
+    },
+    {
+        "id": "375008fe.27a988",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "create URL",
+        "func": "var ipAddress = msg.payload.ipv4;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 1880,
+        "wires": [
+            [
+                "a4a5a7ed.d59958"
+            ]
+        ]
+    },
+    {
+        "id": "deb9c4fc.20c098",
+        "type": "csv",
+        "z": "a564595f.642818",
+        "name": "",
+        "sep": " ",
+        "hdrin": "",
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ipv4,ipv6",
+        "skip": "0",
+        "x": 470,
+        "y": 1880,
+        "wires": [
+            [
+                "375008fe.27a988"
             ]
         ]
     }
