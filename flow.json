@@ -2666,7 +2666,8 @@
         "y": 1594,
         "wires": [
             [
-                "a6b43763.a12aa8"
+                "a6b43763.a12aa8",
+                "90a37ef8.2317d"
             ]
         ]
     },
@@ -2677,11 +2678,12 @@
         "name": "",
         "topic": "",
         "payload": "",
-        "payloadType": "date",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 75,
+        "onceDelay": "",
+        "x": 55,
         "y": 1597,
         "wires": [
             [
@@ -2697,6 +2699,7 @@
         "name": "",
         "filename": "/etc/timezone",
         "format": "utf8",
+        "sendError": true,
         "x": 616,
         "y": 1693,
         "wires": [
@@ -2722,19 +2725,6 @@
         ]
     },
     {
-        "id": "a6b43763.a12aa8",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "",
-        "filename": "/home/pi/timezone",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "x": 1278,
-        "y": 1603,
-        "wires": []
-    },
-    {
         "id": "3a8464e7.9213dc",
         "type": "ui_button",
         "z": "a564595f.642818",
@@ -2748,8 +2738,8 @@
         "color": "",
         "bgcolor": "",
         "icon": "",
-        "payload": "go",
-        "payloadType": "str",
+        "payload": "tz",
+        "payloadType": "flow",
         "topic": "",
         "x": 619,
         "y": 1758,
@@ -2763,40 +2753,21 @@
         "id": "c542fa3.77cb308",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo cp -f /home/pi/timezone /etc/timezone",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "",
+        "command": "sudo ln -fs",
+        "addpay": true,
+        "append": "/etc/localtime",
+        "useSpawn": "true",
         "timer": "",
-        "name": "set timezone file",
-        "x": 824,
-        "y": 1765.5,
+        "oldrc": false,
+        "name": "set timezone sym link",
+        "x": 840,
+        "y": 1760,
         "wires": [
-            [
-                "c21dbb0e.93a778"
-            ],
             [],
-            []
-        ]
-    },
-    {
-        "id": "c21dbb0e.93a778",
-        "type": "exec",
-        "z": "a564595f.642818",
-        "command": "sudo dpkg-reconfigure -f noninteractive tzdata",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "",
-        "timer": "",
-        "name": "confirm update",
-        "x": 1063.750015258789,
-        "y": 1756.7500267028809,
-        "wires": [
-            [
-                "be6c33c3.62e8a"
-            ],
             [],
-            []
+            [
+                "10d7ccc5.8a1033"
+            ]
         ]
     },
     {
@@ -2819,7 +2790,7 @@
         "id": "be6c33c3.62e8a",
         "type": "change",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Set Alerts",
         "rules": [
             {
                 "t": "set",
@@ -2841,8 +2812,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1269,
-        "y": 1750,
+        "x": 1280,
+        "y": 1720,
         "wires": [
             [
                 "8ee3b7e3.1833a8",
@@ -3470,7 +3441,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Update",
-        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1];\nif (check === true){\n}else{\n    return msg;\n}\n",
+        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1]||true;\nif (check === true){\n}else{\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 463.74999237060547,
@@ -5090,8 +5061,8 @@
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 877,
-        "y": 1823.5,
+        "x": 880,
+        "y": 1840,
         "wires": [
             [
                 "673f8112.35a61"
@@ -5129,8 +5100,8 @@
         "func": "msg.topic = \"System Time Updated\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1069.5,
-        "y": 1798,
+        "x": 1050,
+        "y": 1800,
         "wires": [
             [
                 "8ee3b7e3.1833a8"
@@ -5170,6 +5141,54 @@
         "wires": [
             [
                 "375008fe.27a988"
+            ]
+        ]
+    },
+    {
+        "id": "a6b43763.a12aa8",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "",
+        "filename": "/home/pi/timezone",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1250,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "90a37ef8.2317d",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Set Timezone",
+        "func": "flow.set(\"tz\",\"/usr/share/zoneinfo/\" + msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1260,
+        "y": 1600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10d7ccc5.8a1033",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo cp -f /home/pi/timezone /etc/timezone",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "oldrc": false,
+        "name": "copy timezone file (for jessie)",
+        "x": 1080,
+        "y": 1700,
+        "wires": [
+            [],
+            [],
+            [
+                "be6c33c3.62e8a"
             ]
         ]
     }
