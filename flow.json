@@ -2682,7 +2682,6 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "",
         "x": 55,
         "y": 1597,
         "wires": [
@@ -2921,7 +2920,6 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "",
         "x": 131,
         "y": 1879.5,
         "wires": [
@@ -3441,7 +3439,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Update",
-        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1]||true;\nif (check === true){\n}else{\n    return msg;\n}\n",
+        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1]||false;\nif (check === true){\n}else{\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 463.74999237060547,
@@ -5135,7 +5133,6 @@
         "multi": "one",
         "ret": "\\n",
         "temp": "ipv4,ipv6",
-        "skip": "0",
         "x": 470,
         "y": 1880,
         "wires": [
