@@ -5,6 +5,42 @@
         "label": "Main"
     },
     {
+        "id": "1ebafad.2773605",
+        "type": "tab",
+        "label": "PID Monitor",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a10e796f.72bb28",
+        "type": "subflow",
+        "name": "Process Simulation",
+        "info": "",
+        "in": [
+            {
+                "x": 37,
+                "y": 103,
+                "wires": [
+                    {
+                        "id": "ab5399cf.1429a8"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 728.5,
+                "y": 294,
+                "wires": [
+                    {
+                        "id": "5b0628b2.916278",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "id": "81394fa6.f9523",
         "type": "ui_group",
         "z": "",
@@ -184,7 +220,7 @@
         "z": "",
         "name": "System",
         "icon": "fa-clock-o",
-        "order": 4
+        "order": 5
     },
     {
         "id": "5fec9a11.37a164",
@@ -324,7 +360,31 @@
         "link": "http://tilthydrometer.com",
         "icon": "open_in_browser",
         "target": "newtab",
-        "order": 5
+        "order": 6
+    },
+    {
+        "id": "c9dccdde.84942",
+        "type": "wemo-dev",
+        "z": "",
+        "device": "221738K0103DB4",
+        "name": "Tilt Temp Controller"
+    },
+    {
+        "id": "764d596c.5fb3c8",
+        "type": "ui_group",
+        "z": "",
+        "name": "PID",
+        "tab": "af1a8100.361d5",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "af1a8100.361d5",
+        "type": "ui_tab",
+        "z": "",
+        "name": "PID",
+        "icon": "fa-sliders",
+        "order": 4
     },
     {
         "id": "45fc2eae.52e02",
@@ -479,6 +539,15 @@
                 "fromt": "str",
                 "to": "PURPLE",
                 "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.Color",
+                "pt": "msg",
+                "from": "a495bc00c5b14b44b5121370f02d74de",
+                "fromt": "str",
+                "to": "WHITE",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -503,6 +572,11 @@
         "propertyType": "msg",
         "rules": [
             {
+                "t": "eq",
+                "v": "a495bc00c5b14b44b5121370f02d74de",
+                "vt": "str"
+            },
+            {
                 "t": "regex",
                 "v": "a495bc..c5b14b44b5121370f02d74de",
                 "vt": "str",
@@ -511,10 +585,13 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 746.5001220703125,
-        "y": 130.00000858306885,
+        "outputs": 2,
+        "x": 750,
+        "y": 120,
         "wires": [
+            [
+                "eb9d36d2.7c26c8"
+            ],
             [
                 "7f2f1fbf.e1098"
             ]
@@ -584,7 +661,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<style>\n    .nr-dashboard-template h1 {\n    font-size: .875em;\n    font-weight: normal;\n    margin-top: .1;\n    margin-bottom: .1;\n    }\n    \n    .nr-dashboard-template h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    margin-top: 0;\n    margin-bottom: 0;\n    }\n    \n    h5 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n        margin-top: .2em;\n        margin-bottom: 0;\n    }\n    \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n\nu {\n    text-decoration: underline;\n    color: #505050;\n    font-size: 70%;\n    vertical-align: super;\n}\n\n#{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<style>\n    .nr-dashboard-template h1 {\n    font-size: .875em;\n    font-weight: normal;\n    margin-top: .1;\n    margin-bottom: .1;\n    }\n    \n    .nr-dashboard-template h2 {\n    font-size: 3.5em;\n    text-indent: .5em;\n    margin-top: 0;\n    margin-bottom: 0;\n    }\n    \n    h5 {\n        font-family:\"Courier New\", Courier, monospace;\n        text-align: center;\n        font-size: .6em;\n        margin-top: .2em;\n        margin-bottom: 0;\n    }\n    \n   \n   div {\n    max-width: 100%;\n   }\n   \n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n\nu {\n    text-decoration: underline;\n    color: #505050;\n    font-size: 70%;\n    vertical-align: super;\n}\n\n#{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -606,7 +683,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -693,7 +770,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1214,7 +1291,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1261,7 +1338,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1613,7 +1690,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1697,7 +1774,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -1781,7 +1858,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>LEVEL | {{msg.payload.Color}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.Color}};height:40px;width:100%;\"></div>\n<h1>Uncal. Level: {{msg.payload.uncalferm}}</h1>\n<h2>{{msg.payload.ferm[0]}}{{msg.payload.ferm[1]}}<u>{{msg.payload.ferm[3]}}</u>{{msg.payload.fermunits}} pt</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.SG)/0.400}}%;\"></div>\n<h1>Uncal. Temperature: {{msg.payload.displayuncalTemp | number:1}}</h1>\n<h2>{{msg.payload.displayTemp | number:0}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.Color}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -4855,12 +4932,12 @@
         "id": "fd48b85c.2f1918",
         "type": "catch",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "Catch no file error",
         "scope": [
             "640f9404.72d27c"
         ],
-        "x": 3284,
-        "y": 48,
+        "x": 2590,
+        "y": 80,
         "wires": [
             []
         ]
@@ -5187,6 +5264,476 @@
             [],
             [
                 "be6c33c3.62e8a"
+            ]
+        ]
+    },
+    {
+        "id": "a9d264c5.2fc218",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "Cloud Service Error",
+        "scope": [
+            "2836e0e1.4ea9c"
+        ],
+        "x": 3210,
+        "y": 80,
+        "wires": [
+            [
+                "a9576c52.9834"
+            ]
+        ]
+    },
+    {
+        "id": "a9576c52.9834",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3440,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "96c8cacf.f49f78",
+        "type": "wemo out",
+        "z": "a564595f.642818",
+        "name": "Tilt Temp Controller",
+        "device": "c9dccdde.84942",
+        "label": "Tilt Temp Controller",
+        "x": 1250,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1f6e36bb.2818a9",
+        "type": "function",
+        "z": "a10e796f.72bb28",
+        "name": "30 sec RC + 20",
+        "func": "// Applies a simple RC low pass filter to incoming payload values\nvar tc = 30*1000;       // time constant in milliseconds\n\nvar lastValue = context.get('lastValue');\nif (typeof lastValue == \"undefined\") lastValue = msg.payload;\nvar lastTime = context.get('lastTime') || null;\nvar now = new Date();\nvar currentValue = msg.payload;\nif (lastTime === null) {\n    // first time through\n    newValue = currentValue;\n} else {\n    var dt = now - lastTime;\n    var newValue;\n    \n    if (dt > 0) {\n        var dtotc = dt / tc;\n        newValue = lastValue * (1 - dtotc) + currentValue * dtotc;\n    } else {\n        // no time has elapsed leave output the same as last time\n        newValue = lastValue;\n    }\n}\ncontext.set('lastValue', newValue);\ncontext.set('lastTime', now);\n\nmsg.payload = newValue + 20;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 626.5,
+        "y": 207,
+        "wires": [
+            [
+                "5b0628b2.916278"
+            ]
+        ]
+    },
+    {
+        "id": "4d993aca.dd9ee4",
+        "type": "inject",
+        "z": "a10e796f.72bb28",
+        "name": "Inject -0.2 at start",
+        "topic": "",
+        "payload": "-0.2",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 134.5,
+        "y": 30,
+        "wires": [
+            [
+                "ab5399cf.1429a8"
+            ]
+        ]
+    },
+    {
+        "id": "a13144eb.1c1248",
+        "type": "function",
+        "z": "a10e796f.72bb28",
+        "name": "10 sec RC",
+        "func": "// Applies a simple RC low pass filter to incoming payload values\nvar tc = 10*1000;       // time constant in milliseconds\n\nvar lastValue = context.get('lastValue');\nif (typeof lastValue == \"undefined\") lastValue = msg.payload;\nvar lastTime = context.get('lastTime') || null;\nvar now = new Date();\nvar currentValue = msg.payload;\nif (lastTime === null) {\n    // first time through\n    newValue = currentValue;\n} else {\n    var dt = now - lastTime;\n    var newValue;\n    \n    if (dt > 0) {\n        var dtotc = dt / tc;\n        newValue = lastValue * (1 - dtotc) + currentValue * dtotc;\n    } else {\n        // no time has elapsed leave output the same as last time\n        newValue = lastValue;\n    }\n}\ncontext.set('lastValue', newValue);\ncontext.set('lastTime', now);\n\nmsg.payload = newValue;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 451,
+        "y": 207,
+        "wires": [
+            [
+                "1f6e36bb.2818a9"
+            ]
+        ]
+    },
+    {
+        "id": "ab5399cf.1429a8",
+        "type": "delay",
+        "z": "a10e796f.72bb28",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 268,
+        "y": 104,
+        "wires": [
+            [
+                "9b347f4.610128"
+            ]
+        ]
+    },
+    {
+        "id": "48c0cd7d.239724",
+        "type": "function",
+        "z": "a10e796f.72bb28",
+        "name": "2 msg transport delay",
+        "func": "// stores messages in a fifo until the specified number have been received, \n// then releases them as new messages are received.\n// during the filling phase the earliest message is passed on each time \n// a message is received, but it is also left in the fifo\nvar fifoMaxLength = 2;\nvar fifo = context.get('fifo') || [];\n// push the new message onto the top of the array, messages are shifted down and\n// drop off the front\nvar length = fifo.push(msg);  // returns new length\nif (length > fifoMaxLength) {\n    newMsg = fifo.shift();\n} else {\n    // not full yet, make a copy of the msg and pass it on\n    var newMsg = JSON.parse(JSON.stringify(fifo[0]));\n}\ncontext.set('fifo', fifo);\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 258,
+        "y": 208,
+        "wires": [
+            [
+                "a13144eb.1c1248"
+            ]
+        ]
+    },
+    {
+        "id": "5b0628b2.916278",
+        "type": "function",
+        "z": "a10e796f.72bb28",
+        "name": "Clear all except payload",
+        "func": "msg2 = {payload: msg.payload};\nreturn msg2;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 545,
+        "y": 293,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b347f4.610128",
+        "type": "range",
+        "z": "a10e796f.72bb28",
+        "minin": "0",
+        "maxin": "1",
+        "minout": "0",
+        "maxout": "100",
+        "action": "scale",
+        "round": false,
+        "name": "",
+        "x": 87,
+        "y": 208,
+        "wires": [
+            [
+                "48c0cd7d.239724"
+            ]
+        ]
+    },
+    {
+        "id": "9df18373.fa00e",
+        "type": "change",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Power",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 569.5,
+        "y": 315,
+        "wires": [
+            [
+                "ed00d583.9237b8"
+            ]
+        ]
+    },
+    {
+        "id": "f4c3e321.3d677",
+        "type": "range",
+        "z": "1ebafad.2773605",
+        "minin": "0",
+        "maxin": "1",
+        "minout": "0",
+        "maxout": "100",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "Scale power",
+        "x": 395,
+        "y": 315,
+        "wires": [
+            [
+                "9df18373.fa00e"
+            ]
+        ]
+    },
+    {
+        "id": "ed00d583.9237b8",
+        "type": "ui_chart",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "group": "764d596c.5fb3c8",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "label": "Temperature vs. Power State",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "3",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#cf0005",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 829,
+        "y": 240,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f2e1f006.33b51",
+        "type": "inject",
+        "z": "1ebafad.2773605",
+        "name": "Clear chart on deploy",
+        "topic": "",
+        "payload": "{\"data\":[]}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 320,
+        "y": 383,
+        "wires": [
+            [
+                "12cd13de.d6b4bc"
+            ]
+        ]
+    },
+    {
+        "id": "12cd13de.d6b4bc",
+        "type": "change",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 556,
+        "y": 383,
+        "wires": [
+            [
+                "ed00d583.9237b8"
+            ]
+        ]
+    },
+    {
+        "id": "d0649bfb.bf0f08",
+        "type": "PID",
+        "z": "a564595f.642818",
+        "name": "",
+        "setpoint": "38",
+        "pb": "1.5",
+        "ti": "0",
+        "td": "0",
+        "integral_default": "0",
+        "smooth_factor": "3",
+        "max_interval": 600,
+        "enable": "1",
+        "disabled_op": "0",
+        "x": 1070,
+        "y": 180,
+        "wires": [
+            [
+                "96c8cacf.f49f78",
+                "94de5603.41b9d8",
+                "3e6945cd.f8bd6a"
+            ]
+        ]
+    },
+    {
+        "id": "37f155d2.e9c8aa",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.major",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 180,
+        "wires": [
+            [
+                "d0649bfb.bf0f08",
+                "646f0be4.251d54"
+            ]
+        ]
+    },
+    {
+        "id": "94de5603.41b9d8",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1220,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "eb9d36d2.7c26c8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "5",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "37f155d2.e9c8aa"
+            ]
+        ]
+    },
+    {
+        "id": "431545a3.2d91bc",
+        "type": "change",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Refrigerator Temperature",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 554,
+        "y": 166,
+        "wires": [
+            [
+                "ed00d583.9237b8"
+            ]
+        ]
+    },
+    {
+        "id": "646f0be4.251d54",
+        "type": "link out",
+        "z": "a564595f.642818",
+        "name": "Temperature",
+        "links": [
+            "5d0f09d1.155a18"
+        ],
+        "x": 1095,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3e6945cd.f8bd6a",
+        "type": "link out",
+        "z": "a564595f.642818",
+        "name": "Control",
+        "links": [
+            "c4be4255.716bf"
+        ],
+        "x": 1235,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "5d0f09d1.155a18",
+        "type": "link in",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "links": [
+            "646f0be4.251d54"
+        ],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "431545a3.2d91bc"
+            ]
+        ]
+    },
+    {
+        "id": "c4be4255.716bf",
+        "type": "link in",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "links": [
+            "3e6945cd.f8bd6a"
+        ],
+        "x": 275,
+        "y": 300,
+        "wires": [
+            [
+                "f4c3e321.3d677"
             ]
         ]
     }
