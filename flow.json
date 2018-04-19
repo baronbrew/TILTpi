@@ -382,7 +382,7 @@
         "id": "af1a8100.361d5",
         "type": "ui_tab",
         "z": "",
-        "name": "PID",
+        "name": "PID Monitor",
         "icon": "fa-sliders",
         "order": 4
     },
@@ -5304,8 +5304,8 @@
         "name": "Tilt Temp Controller",
         "device": "c9dccdde.84942",
         "label": "Tilt Temp Controller",
-        "x": 1250,
-        "y": 180,
+        "x": 1430,
+        "y": 340,
         "wires": []
     },
     {
@@ -5449,8 +5449,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 569.5,
-        "y": 315,
+        "x": 740,
+        "y": 240,
         "wires": [
             [
                 "ed00d583.9237b8"
@@ -5469,8 +5469,8 @@
         "round": false,
         "property": "payload",
         "name": "Scale power",
-        "x": 395,
-        "y": 315,
+        "x": 550,
+        "y": 240,
         "wires": [
             [
                 "9df18373.fa00e"
@@ -5489,13 +5489,13 @@
         "label": "Temperature vs. Power State",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm:ss",
+        "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "0",
         "ymax": "100",
-        "removeOlder": "3",
+        "removeOlder": "60",
         "removeOlderPoints": "",
         "removeOlderUnit": "60",
         "cutout": 0,
@@ -5512,7 +5512,7 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 829,
+        "x": 1020,
         "y": 240,
         "wires": [
             [],
@@ -5566,30 +5566,6 @@
         ]
     },
     {
-        "id": "d0649bfb.bf0f08",
-        "type": "PID",
-        "z": "a564595f.642818",
-        "name": "",
-        "setpoint": "38",
-        "pb": "1.5",
-        "ti": "0",
-        "td": "0",
-        "integral_default": "0",
-        "smooth_factor": "3",
-        "max_interval": 600,
-        "enable": "1",
-        "disabled_op": "0",
-        "x": 1070,
-        "y": 180,
-        "wires": [
-            [
-                "96c8cacf.f49f78",
-                "94de5603.41b9d8",
-                "3e6945cd.f8bd6a"
-            ]
-        ]
-    },
-    {
         "id": "37f155d2.e9c8aa",
         "type": "change",
         "z": "a564595f.642818",
@@ -5612,24 +5588,10 @@
         "y": 180,
         "wires": [
             [
-                "d0649bfb.bf0f08",
-                "646f0be4.251d54"
+                "646f0be4.251d54",
+                "f1353d26.78c2"
             ]
         ]
-    },
-    {
-        "id": "94de5603.41b9d8",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1220,
-        "y": 280,
-        "wires": []
     },
     {
         "id": "eb9d36d2.7c26c8",
@@ -5639,14 +5601,14 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "5",
-        "nbRateUnits": "1",
+        "rate": "1",
+        "nbRateUnits": "5",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 730,
+        "x": 720,
         "y": 180,
         "wires": [
             [
@@ -5673,8 +5635,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 554,
-        "y": 166,
+        "x": 780,
+        "y": 180,
         "wires": [
             [
                 "ed00d583.9237b8"
@@ -5687,9 +5649,10 @@
         "z": "a564595f.642818",
         "name": "Temperature",
         "links": [
-            "5d0f09d1.155a18"
+            "5d0f09d1.155a18",
+            "845e0d1b.b5fa8"
         ],
-        "x": 1095,
+        "x": 1075,
         "y": 240,
         "wires": []
     },
@@ -5701,8 +5664,8 @@
         "links": [
             "c4be4255.716bf"
         ],
-        "x": 1235,
-        "y": 240,
+        "x": 1315,
+        "y": 160,
         "wires": []
     },
     {
@@ -5713,7 +5676,7 @@
         "links": [
             "646f0be4.251d54"
         ],
-        "x": 360,
+        "x": 635,
         "y": 180,
         "wires": [
             [
@@ -5729,8 +5692,148 @@
         "links": [
             "3e6945cd.f8bd6a"
         ],
-        "x": 275,
-        "y": 300,
+        "x": 415,
+        "y": 260,
+        "wires": [
+            [
+                "f4c3e321.3d677"
+            ]
+        ]
+    },
+    {
+        "id": "f1353d26.78c2",
+        "type": "PID",
+        "z": "a564595f.642818",
+        "name": "",
+        "setpoint": "38",
+        "pb": "3",
+        "ti": "3600",
+        "td": "600",
+        "integral_default": ".10",
+        "smooth_factor": 3,
+        "max_interval": "5",
+        "enable": 1,
+        "disabled_op": 0,
+        "x": 1070,
+        "y": 180,
+        "wires": [
+            [
+                "dbdd0b7e.c96188",
+                "7226afd1.b43c9"
+            ]
+        ]
+    },
+    {
+        "id": "dbdd0b7e.c96188",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "cooling",
+        "func": "//for thermostat/refrigerator use, only update power level if value is a 1 or 0\nif (msg.payload === 1){\n    //use 1 - power for cooling.\n    msg.payload = 1 - msg.payload;\n    return msg;\n}\nif (msg.payload === 0){\n    //use 1 - power for cooling.\n    msg.payload = 1 - msg.payload;\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1220,
+        "y": 180,
+        "wires": [
+            [
+                "96c8cacf.f49f78",
+                "3e6945cd.f8bd6a"
+            ]
+        ]
+    },
+    {
+        "id": "7226afd1.b43c9",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1190,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "64e7ac9f.f4d9d4",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Set Point",
+        "group": "764d596c.5fb3c8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "topic": "setpoint",
+        "format": "{{value}} °",
+        "min": "30",
+        "max": "75",
+        "step": 1,
+        "x": 920,
+        "y": 220,
+        "wires": [
+            [
+                "f1353d26.78c2"
+            ]
+        ]
+    },
+    {
+        "id": "288a6f9d.bd6af",
+        "type": "wemo lookup",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "device": "c9dccdde.84942",
+        "label": "Tilt Temp Controller",
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "bdc7ff8c.3259f"
+            ]
+        ]
+    },
+    {
+        "id": "e06ab527.282408",
+        "type": "inject",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "288a6f9d.bd6af"
+            ]
+        ]
+    },
+    {
+        "id": "bdc7ff8c.3259f",
+        "type": "change",
+        "z": "1ebafad.2773605",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.state",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 200,
         "wires": [
             [
                 "f4c3e321.3d677"
