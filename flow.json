@@ -373,16 +373,17 @@
         "id": "764d596c.5fb3c8",
         "type": "ui_group",
         "z": "",
-        "name": "PID",
+        "name": "Temperature",
         "tab": "af1a8100.361d5",
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "af1a8100.361d5",
         "type": "ui_tab",
         "z": "",
-        "name": "PID Monitor",
+        "name": "Refrigeration",
         "icon": "fa-sliders",
         "order": 4
     },
@@ -5745,7 +5746,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
