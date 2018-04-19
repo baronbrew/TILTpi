@@ -5492,7 +5492,7 @@
         "legend": "true",
         "xformat": "HH:mm",
         "interpolate": "linear",
-        "nodata": "",
+        "nodata": "Connects to Wemo \"Tilt Temp Controller\" and Tilt \"BC00\"",
         "dot": false,
         "ymin": "0",
         "ymax": "100",
