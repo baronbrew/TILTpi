@@ -147,13 +147,13 @@ Then use sed to strip the static file references:
 
 ## 10. 
 
-As user pi from that terminal run node-red from user account pi and background it:
+As user "pi" from that terminal run node-red from user account "pi" and background it:
 
 `/usr/local/bin/node-red &`
 
 ## 11. 
 
-From the pi home account (you can either use the same window or create another terminal window and login as user "pi" again) run the following to create the Tilt flow:
+From the "pi" home account (you can either use the same window or create another terminal window and login as user "pi" again) run the following to create the Tilt flow:
 
 `/usr/bin/curl -X POST http://localhost:1880/flows -H "Content-Type: application/json" -H "Node-RED-Deployment-Type: nodes" --data "@flow.json"`
 
