@@ -1,7 +1,9 @@
 # Tilt Pi Installation Instructions for Raspbian Jessie or Stretch
 
 ## Note: for Mac OS X installation see:
-[Tilt Pi Instructions for Mac OS X](.../TILTpi#tilt-pi-installation-instructions-for-mac-os-x) Credit: Bruce Morgan
+[Tilt Pi Instructions for Mac OS X](https://github.com/baronbrew/TILTpi#tilt-pi-installation-instructions-for-mac-os-x) 
+
+Credit: Bruce Morgan
 
 ## Update March 20, 2018
 Due to an updated nodejs version used in the script "update-nodejs-and-nodered", the bleacon scanning node will fail to install. A workaround is to manually install node package manager, "npm" and then install a version manager "n" for nodejs so that nodejs version 4.x can be installed first before installing bleacon. Once bleacon and dashboard UI are installed, nodejs and node-red can be updated.
