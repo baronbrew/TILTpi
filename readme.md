@@ -109,11 +109,11 @@ New Account: `Standard`
 Full Name: `Tilt`
 Account Name: `pi`
 
-**Important:** Click NO to admin privileges !! and create a password for that user. Write the password down as you will need it to login as user pi.
+**Important:** Click NO to admin privileges !! and create a password for that user. Write the password down as you will need it to login as user "pi".
 
 ## 8. 
 
-From the desktop open the Finder. Go to Applications->Utilities and run Terminal. login as user pi using the password you created in the Terminal window
+From the desktop open the Finder. Go to Applications->Utilities and run Terminal. Login as user "pi" using the password you created in the Terminal window
 
 `login pi`
 Password: `******` (enter password created in Step 7)
@@ -130,13 +130,13 @@ Get the file:
 
 ### b. 
 
-Make a copy of it
+Make a copy of it:
 
 `cp flow.json flow.json.orig`
 
 ### c. 
 
-Then use sed to strip the static file references
+Then use sed to strip the static file references:
 
 `cat flow.json.orig | sed 's/\/home\/pi\///g' > flow.json`
 
