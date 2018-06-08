@@ -61,7 +61,7 @@ Run downloaded Tilt Pi app/flow in Node-Red:
 
 In a web browser visit `http://tiltpi.local:1880/ui` or `http://localhost:1880/ui`. If this doesn't work, you may need to find the IP address of your Raspberry Pi and go to `http://X.X.X.X:1880/ui` where `X.X.X.X` is your Raspberry Pi's IP address.
 
-#Tilt Pi Installation Instructions for Mac OS X
+# Tilt Pi Installation Instructions for Mac OS X
 
 ##1. From an account on the Mac with Admin privileges install HomeBrew:
 
