@@ -63,33 +63,47 @@ In a web browser visit `http://tiltpi.local:1880/ui` or `http://localhost:1880/u
 
 # Tilt Pi Installation Instructions for Mac OS X
 
-## 1. From an account on the Mac with Admin privileges install HomeBrew:
+## 1. 
+
+From an account on the Mac with Admin privileges install HomeBrew:
 
 `/usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 This will install Xcode command line tools if it is not already installed.
 
-## 2. Install the Node Package Manager:
+## 2. 
+
+Install the Node Package Manager:
 
 `/usr/local/bin/brew install npm`
 
-## 3. Install nodejs version manager, "n":
+## 3. 
+
+Install nodejs version manager, "n":
 
 `sudo /usr/local/bin/npm install n -g`
 
-## 4. Install nodejs ver 4.8.7:
+## 4. 
+
+Install nodejs ver 4.8.7:
 
 `sudo /usr/local/bin/n 4.8.7`
 
-## 5. Install the bleacon agent that listens to bluetooth:
+## 5. 
+
+Install the bleacon agent that listens to bluetooth:
 
 `sudo /usr/local/bin/npm install node-red-contrib-bleacon -g`
 
-## 6.Install node-red dashboard:
+## 6.
+
+Install node-red dashboard:
 
 `sudo /usr/local/bin/npm install node-red-dashboard -g`
 
-## 7. Create a user "pi" from System Preferences-> Users & Groups. Unlock first then click on “+”:
+## 7. 
+
+Create a user "pi" from System Preferences-> Users & Groups. Unlock first then click on “+”:
 
 New Account: `Standard`
 Full Name: `Tilt`
@@ -97,32 +111,48 @@ Account Name: `pi`
 
 **Important:** Click NO to admin privileges !! and create a password for that user. Write the password down as you will need it to login as user pi.
 
-## 8. From the desktop open the Finder. Go to Applications->Utilities and run Terminal. login as user pi using the password you created in the Terminal window
+## 8. 
+
+From the desktop open the Finder. Go to Applications->Utilities and run Terminal. login as user pi using the password you created in the Terminal window
 
 `login pi`
-`password ******`
+Password: `******` (enter password created in Step 7)
 
-## 9. As user "pi" within that terminal download Tilt Pi “flow” from Baron Brew GitHub account. Note that this has static file references which are used on the Raspberry Pi and these need to be deleted.
+## 9. 
 
-### a. Get the file:
+As user "pi" within that terminal download Tilt Pi “flow” from Baron Brew GitHub account. Note that this has static file references which are used on the Raspberry Pi and these need to be deleted.
+
+### a. 
+
+Get the file:
 
 `/usr/bin/curl -o  flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json`
 
-### b. Make a copy of it
+### b. 
+
+Make a copy of it
 
 `cp flow.json flow.json.orig`
 
-### c. Then use sed to strip the static file references
+### c. 
+
+Then use sed to strip the static file references
 
 `cat flow.json.orig | sed 's/\/home\/pi\///g' > flow.json`
 
-## 10. As user pi from that terminal run node-red from user account pi and background it:
+## 10. 
+
+As user pi from that terminal run node-red from user account pi and background it:
 
 `/usr/local/bin/node-red &`
 
-## 11. From the pi home account (you can either use the same window or create another terminal window and login as user "pi" again) run the following to create the Tilt flow:
+## 11. 
+
+From the pi home account (you can either use the same window or create another terminal window and login as user "pi" again) run the following to create the Tilt flow:
 
 `/usr/bin/curl -X POST http://localhost:1880/flows -H "Content-Type: application/json" -H "Node-RED-Deployment-Type: nodes" --data "@flow.json"`
 
-## 12. Use a web browser (Chrome or Firefox) to visit http://localhost:1880/ui or http://127.0.0.1:1880/ui
+## 12. 
+
+Use a web browser (Chrome or Firefox) to visit `http://localhost:1880/ui` or `http://127.0.0.1:1880/ui`
 You should be able to see the Tilts if they are on and within range.
