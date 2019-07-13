@@ -257,6 +257,12 @@
                 "base-font": {
                     "value": "Tahoma,Geneva,sans-serif"
                 }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
             }
         },
         "site": {
@@ -327,22 +333,6 @@
         "order": 5
     },
     {
-        "id": "45fc2eae.52e02",
-        "type": "scanBeacon",
-        "z": "a564595f.642818",
-        "name": "Tilt Scan",
-        "beacon_uuid": "",
-        "beacon_major": "",
-        "beacon_minor": "",
-        "x": 372.00004959106445,
-        "y": 124.00001430511475,
-        "wires": [
-            [
-                "8dc4fe46.fc364"
-            ]
-        ]
-    },
-    {
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
@@ -353,6 +343,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
+        "onceDelay": "0.1",
         "x": 79.00001525878906,
         "y": 200.00000381469727,
         "wires": [
@@ -366,10 +357,12 @@
         "id": "8dc4fe46.fc364",
         "type": "json",
         "z": "a564595f.642818",
-        "name": "json",
+        "name": "Scan to JSON",
+        "property": "payload",
+        "action": "",
         "pretty": false,
-        "x": 498.0000114440918,
-        "y": 125.00001239776611,
+        "x": 560,
+        "y": 60,
         "wires": [
             [
                 "d504d607.384f48"
@@ -383,8 +376,11 @@
         "name": "Cloud Service",
         "method": "POST",
         "ret": "obj",
+        "paytoqs": false,
         "url": "",
         "tls": "",
+        "proxy": "",
+        "authType": "",
         "x": 3207.5,
         "y": 117.5,
         "wires": [
@@ -511,8 +507,8 @@
         ],
         "checkall": "true",
         "outputs": 1,
-        "x": 746.5001220703125,
-        "y": 130.00000858306885,
+        "x": 770,
+        "y": 140,
         "wires": [
             [
                 "7f2f1fbf.e1098"
@@ -629,11 +625,12 @@
         "repeat": "",
         "crontab": "",
         "once": false,
+        "onceDelay": "",
         "x": 95.00000762939453,
         "y": 122.00000190734863,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "55439b9d.1ccd54"
             ]
         ]
     },
@@ -1018,7 +1015,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = encodeURI(\"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment);\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -2089,7 +2086,9 @@
         "overwriteFile": "false",
         "x": 3129.5007934570312,
         "y": 331.00007247924805,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "6af4a20b.f5f3cc",
@@ -2386,7 +2385,9 @@
         "overwriteFile": "true",
         "x": 2976.5,
         "y": 474,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "da1dd72.c86df28",
@@ -3361,8 +3362,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 608,
-        "y": 276,
+        "x": 600,
+        "y": 240,
         "wires": [
             [
                 "543d2dd7.2fe974"
@@ -3391,8 +3392,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 739,
-        "y": 276,
+        "x": 730,
+        "y": 240,
         "wires": [
             [
                 "a2f14292.5b0f3"
@@ -3404,14 +3405,14 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore Tilt Settings",
-        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nmsg.payload = \"on\";\nreturn msg;",
+        "func": "if (msg.payload !== undefined){\nflow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\n}\nelse if (msg.filename == \"/home/pi/PINK.json\"){\n  msg.payload = \"on\";\n  return msg;\n }",
         "outputs": "1",
         "noerr": 0,
         "x": 914,
         "y": 277,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -3496,7 +3497,9 @@
         "overwriteFile": "true",
         "x": 1429.0565185546875,
         "y": 20,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "dc9ecd32.25037",
@@ -3971,7 +3974,9 @@
         "overwriteFile": "true",
         "x": 1418.239501953125,
         "y": 68.01043319702148,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "dc0ffeac.632b6",
@@ -4595,7 +4600,7 @@
         "y": 400,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -4685,8 +4690,8 @@
         "func": "var minRSSI = flow.get('minRSSI');\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 622.1944885253906,
-        "y": 128.69444465637207,
+        "x": 650,
+        "y": 140,
         "wires": [
             [
                 "e5652ef0.acaaf"
@@ -4842,10 +4847,12 @@
         "z": "a564595f.642818",
         "name": "",
         "scope": [
+            "8dc4fe46.fc364",
             "cdc2a491.47b908"
         ],
-        "x": 233,
-        "y": 188,
+        "uncaught": false,
+        "x": 350,
+        "y": 200,
         "wires": [
             []
         ]
@@ -4922,7 +4929,8 @@
         "y": 275,
         "wires": [
             [
-                "cdc2a491.47b908"
+                "cdc2a491.47b908",
+                "a2f14292.5b0f3"
             ]
         ]
     },
@@ -4931,7 +4939,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "false",
         "x": 3439,
@@ -5152,7 +5160,9 @@
         "overwriteFile": "true",
         "x": 1250,
         "y": 1560,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "90a37ef8.2317d",
@@ -5186,6 +5196,55 @@
             [],
             [
                 "be6c33c3.62e8a"
+            ]
+        ]
+    },
+    {
+        "id": "9d251f5a.10bdc",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo python3",
+        "addpay": false,
+        "append": "-u -m aioblescan -T",
+        "useSpawn": "true",
+        "timer": "",
+        "oldrc": false,
+        "name": "aioblescan.py Tilt",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "8dc4fe46.fc364"
+            ],
+            [],
+            []
+        ],
+        "info": "[https://github.com/baronbrew/aioblescan]()"
+    },
+    {
+        "id": "55439b9d.1ccd54",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Kill Process",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kill",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 190,
+        "y": 40,
+        "wires": [
+            [
+                "9d251f5a.10bdc"
             ]
         ]
     }
