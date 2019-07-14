@@ -362,8 +362,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 560,
-        "y": 60,
+        "x": 500,
+        "y": 140,
         "wires": [
             [
                 "d504d607.384f48"
@@ -625,8 +625,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": "",
-        "x": 95.00000762939453,
-        "y": 122.00000190734863,
+        "x": 50,
+        "y": 20,
         "wires": [
             [
                 "55439b9d.1ccd54"
@@ -3560,7 +3560,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set options",
-        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
+        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload||\"BLACK\";\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 570,
@@ -4181,7 +4181,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Changed?",
-        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.SG + \nmsg.payload.Temp + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
+        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 974.8472900390625,
@@ -4467,14 +4467,14 @@
         "id": "34b160f1.5b1ee",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo mkdir /mnt/usb",
+        "command": "sudo mkdir -p /mnt/usb",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 274.52085876464844,
+        "x": 284.52085876464844,
         "y": 2441.4202003479004,
         "wires": [
             [],
@@ -4569,7 +4569,7 @@
         "scope": [
             "c0f36d.ab686c9"
         ],
-        "x": 140,
+        "x": 60,
         "y": 400,
         "wires": [
             [
@@ -4596,7 +4596,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 220,
         "y": 400,
         "wires": [
             [
@@ -4938,7 +4938,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "false",
         "x": 3439,
@@ -5210,13 +5210,16 @@
         "timer": "",
         "oldrc": false,
         "name": "aioblescan.py Tilt",
-        "x": 370,
-        "y": 120,
+        "x": 250,
+        "y": 80,
         "wires": [
             [
                 "8dc4fe46.fc364"
             ],
-            [],
+            [
+                "55439b9d.1ccd54",
+                "bffb451c.687fd8"
+            ],
             []
         ]
     },
@@ -5239,8 +5242,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 190,
-        "y": 40,
+        "x": 250,
+        "y": 20,
         "wires": [
             [
                 "9d251f5a.10bdc"
@@ -5260,5 +5263,28 @@
         "x": 2610,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "bffb451c.687fd8",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "Restart after error",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "9d251f5a.10bdc"
+            ]
+        ]
     }
 ]
