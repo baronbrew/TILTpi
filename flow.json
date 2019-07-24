@@ -4172,7 +4172,7 @@
         "min": "-105",
         "max": "-35",
         "step": 1,
-        "x": 290,
+        "x": 490,
         "y": 2200,
         "wires": [
             [
@@ -4199,7 +4199,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 470,
+        "x": 670,
         "y": 2200,
         "wires": [
             [
@@ -4219,8 +4219,8 @@
         "label": "Minimum RSSI in dBm",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 685.017333984375,
-        "y": 2212.232798576355,
+        "x": 900,
+        "y": 2200,
         "wires": []
     },
     {
@@ -4577,8 +4577,8 @@
         "scope": [
             "c0f36d.ab686c9"
         ],
-        "x": 60,
-        "y": 2180,
+        "x": 80,
+        "y": 2260,
         "wires": [
             [
                 "6ccc73b5.86205c"
@@ -4604,8 +4604,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 162.5,
-        "y": 2255,
+        "x": 260,
+        "y": 2260,
         "wires": [
             [
                 "a4d1964e.cb4f78"
@@ -4965,7 +4965,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter",
-        "func": "msg.payload = flow.get(msg.payload);\nnode.warn(msg.payload);\nreturn msg;",
+        "func": "msg.payload = flow.get(msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1732,
@@ -5235,6 +5235,42 @@
         "wires": [
             [
                 "9d251f5a.10bdc"
+            ]
+        ]
+    },
+    {
+        "id": "a6e4b381.0a8fa",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "minRSSI",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "x": 100,
+        "y": 2200,
+        "wires": [
+            [
+                "e5c9eaf5.b44748"
+            ]
+        ]
+    },
+    {
+        "id": "e5c9eaf5.b44748",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "msg.payload = flow.get(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 2200,
+        "wires": [
+            [
+                "a4d1964e.cb4f78"
             ]
         ]
     }
