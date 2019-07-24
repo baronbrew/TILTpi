@@ -339,7 +339,7 @@
         "z": "a564595f.642818",
         "name": "Start",
         "topic": "",
-        "payload": "on",
+        "payload": "pkill -f aioblescan",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
@@ -350,7 +350,8 @@
         "wires": [
             [
                 "b42102fe.e4abd",
-                "c0f36d.ab686c9"
+                "c0f36d.ab686c9",
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -2682,6 +2683,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
+        "onceDelay": "2",
         "x": 55,
         "y": 1597,
         "wires": [
@@ -2951,12 +2953,13 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Celsius",
+        "tooltip": "",
         "group": "b0619070.ac95d",
         "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "°C",
@@ -3560,7 +3563,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set options",
-        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload||\"BLACK\";\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
+        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload||[\"NONE\"];\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 570,
@@ -3837,12 +3840,13 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Plato",
+        "tooltip": "",
         "group": "b0619070.ac95d",
         "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "plato",
@@ -3867,12 +3871,13 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Brix",
+        "tooltip": "",
         "group": "b0619070.ac95d",
         "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "brix",
@@ -4001,12 +4006,13 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "SG 15°C/59°F (default)",
+        "tooltip": "",
         "group": "b0619070.ac95d",
         "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "sg",
@@ -4031,12 +4037,13 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Fahrenheit (default)",
+        "tooltip": "",
         "group": "b0619070.ac95d",
         "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "°F",
@@ -4085,11 +4092,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1389.5208740234375,
-        "y": 1644.8509521484375,
+        "onceDelay": "2",
+        "x": 1510,
+        "y": 1640,
         "wires": [
             [
-                "cd091791.668ca8"
+                "fd49eb70.32ff38"
             ]
         ]
     },
@@ -4104,54 +4112,9 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1462.7951202392578,
-        "y": 1916.6775169372559,
-        "wires": [
-            [
-                "e0d9c78e.ee0138"
-            ]
-        ]
-    },
-    {
-        "id": "cd091791.668ca8",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1588.3023681640625,
-        "y": 1644.0592041015625,
-        "wires": [
-            [
-                "fd49eb70.32ff38"
-            ]
-        ]
-    },
-    {
-        "id": "e0d9c78e.ee0138",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1644.2396240234375,
-        "y": 1916.6771240234375,
+        "onceDelay": "2",
+        "x": 1590,
+        "y": 1920,
         "wires": [
             [
                 "3c9890f9.04d5f"
@@ -4198,11 +4161,13 @@
         "z": "a564595f.642818",
         "name": "RSSI Filter",
         "label": "RSSI Filter",
+        "tooltip": "Set to -105 dBm for no signal strength filtering.",
         "group": "2f8a7619.951f3a",
         "order": 3,
         "width": 0,
         "height": 0,
         "passthru": true,
+        "outs": "end",
         "topic": "",
         "min": "-105",
         "max": "-35",
@@ -5000,7 +4965,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "filter",
-        "func": "msg.payload = flow.get(msg.payload);\nreturn msg;",
+        "func": "msg.payload = flow.get(msg.payload);\nnode.warn(msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1732,
