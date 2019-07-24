@@ -345,8 +345,8 @@
         "crontab": "",
         "once": true,
         "onceDelay": "0.1",
-        "x": 79.00001525878906,
-        "y": 200.00000381469727,
+        "x": 90,
+        "y": 240,
         "wires": [
             [
                 "b42102fe.e4abd",
@@ -619,17 +619,17 @@
         "z": "a564595f.642818",
         "name": "Stop",
         "topic": "",
-        "payload": "off",
+        "payload": "pkill -f aioblescan",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": "",
-        "x": 50,
+        "x": 90,
         "y": 20,
         "wires": [
             [
-                "55439b9d.1ccd54"
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -3405,7 +3405,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore Tilt Settings",
-        "func": "if (msg.payload !== undefined){\nflow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\n}\nelse if (msg.filename == \"/home/pi/PINK.json\"){\n  msg.payload = \"on\";\n  return msg;\n }",
+        "func": "if (msg.payload !== undefined){\nflow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\n}\n//after last tilt (pink) settings restored, start scanning\nelse if (msg.filename == \"/home/pi/PINK.json\"){\n  msg.payload = \"python3 -u -m aioblescan -T\";\n  return msg;\n }",
         "outputs": "1",
         "noerr": 0,
         "x": 914,
@@ -5203,51 +5203,24 @@
         "id": "9d251f5a.10bdc",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo python3",
-        "addpay": false,
-        "append": "-u -m aioblescan -T",
+        "command": "sudo",
+        "addpay": true,
+        "append": "",
         "useSpawn": "true",
         "timer": "",
         "oldrc": false,
-        "name": "aioblescan.py Tilt",
-        "x": 250,
-        "y": 80,
+        "name": "scan control",
+        "x": 230,
+        "y": 100,
         "wires": [
             [
                 "8dc4fe46.fc364"
             ],
             [
-                "55439b9d.1ccd54",
-                "bffb451c.687fd8"
+                "1d0659ea.6c2c26",
+                "31588cca.783d84"
             ],
             []
-        ]
-    },
-    {
-        "id": "55439b9d.1ccd54",
-        "type": "change",
-        "z": "a564595f.642818",
-        "name": "Kill Process",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kill",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 250,
-        "y": 20,
-        "wires": [
-            [
-                "9d251f5a.10bdc"
-            ]
         ]
     },
     {
@@ -5265,22 +5238,35 @@
         "wires": []
     },
     {
-        "id": "bffb451c.687fd8",
-        "type": "delay",
+        "id": "1d0659ea.6c2c26",
+        "type": "debug",
         "z": "a564595f.642818",
-        "name": "Restart after error",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 500,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "31588cca.783d84",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "pkill -f aioblescan",
+        "op2": "python3 -u -m aioblescan -T",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Reset",
         "x": 250,
-        "y": 160,
+        "y": 20,
         "wires": [
             [
                 "9d251f5a.10bdc"
