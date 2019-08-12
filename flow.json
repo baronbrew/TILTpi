@@ -78,11 +78,12 @@
         "id": "6acae0b0.a184",
         "type": "ui_group",
         "z": "",
-        "name": "Set SG Calibration Points (SG only)",
+        "name": "Calibration (Specific Gravity)",
         "tab": "75f710f5.16d2e",
         "order": 2,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "b8d3bbbf.2c9cb8",
@@ -128,11 +129,12 @@
         "id": "eb4ab3d5.7b3f1",
         "type": "ui_group",
         "z": "",
-        "name": "Calibrate",
+        "name": "Select Tilt in Range",
         "tab": "75f710f5.16d2e",
         "order": 1,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "5ca7d250.c3938c",
@@ -287,11 +289,12 @@
         "id": "c12bcb12.dbd0d8",
         "type": "ui_group",
         "z": "",
-        "name": "Set Temp. Calibration Points",
+        "name": "Calibration (Temperature)",
         "tab": "75f710f5.16d2e",
         "order": 4,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "b0619070.ac95d",
@@ -519,7 +522,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Beer Name",
-        "label": "Set Beer Name [use RETURN to set]",
+        "label": "Set Beer Name",
+        "tooltip": "",
         "group": "81394fa6.f9523",
         "order": 3,
         "width": 0,
@@ -927,7 +931,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nif (msg.payload.tempunits === \"°C\"){\n    Temp -= 32;\n    Temp *= 0.5555;\n}\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(-999, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(-999, Number.MAX_VALUE);\nactualTempPoints.push(-999, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\n//node.warn(actualTempPoints);\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nif (Number.isNaN(calTemp)){\n    calTemp = 0;\n}\nmsg.payload.uncalTemp = Temp.toFixed(1);\nmsg.payload.displayuncalTemp = Temp.toFixed(1);\nmsg.payload.displayTemp = calTemp.toFixed(1);\nif (msg.payload.tempunits === \"°C\"){\n    calTemp *= 1.8;\n    calTemp += 32;\n    msg.payload.Temp = calTemp.toFixed(1);\n}else{\nmsg.payload.Temp = calTemp.toFixed(1);\n}\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(-0.001, SG, Number.MAX_VALUE);\nunCalSGPoints.push(-0.001, Number.MAX_VALUE);\nactualSGPoints.push(-0.001, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nif (msg.payload.tempunits === \"°C\"){\n    Temp -= 32;\n    Temp *= 0.5555;\n}\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(-999, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(-999, Number.MAX_VALUE);\nactualTempPoints.push(-999, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\n//node.warn(actualTempPoints);\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nif (Number.isNaN(calTemp)){\n    calTemp = 0;\n}\nmsg.payload.uncalTemp = Temp.toFixed(1);\nmsg.payload.displayuncalTemp = Temp.toFixed(1);\nmsg.payload.displayTemp = calTemp.toFixed(1);\nif (msg.payload.tempunits === \"°C\"){\n    calTemp *= 1.8;\n    calTemp += 32;\n    msg.payload.Temp = calTemp.toFixed(1);\n}else{\nmsg.payload.Temp = calTemp.toFixed(1);\n}\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
         "x": 1233.2778091430664,
@@ -1031,7 +1035,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Cloud URL",
-        "label": "Cloud URL [use RETURN to save]",
+        "label": "Cloud URL",
+        "tooltip": "",
         "group": "19fab5c2.199ffa",
         "order": 1,
         "width": 0,
@@ -1115,11 +1120,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Uncal SG Value",
-        "func": "flow.set('uncalSGpoint',Number(msg.payload).toFixed(3));",
+        "func": "flow.set('uncalSGpoint',Number(msg.payload.uncalSG).toFixed(3));",
         "outputs": 1,
         "noerr": 0,
-        "x": 1829.5,
-        "y": 839,
+        "x": 1770,
+        "y": 820,
         "wires": [
             []
         ]
@@ -1148,7 +1153,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG;\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1340,
@@ -1156,7 +1161,8 @@
         "wires": [
             [
                 "777f1a14.1b3e44",
-                "ecfbe772.ba4cb8"
+                "ecfbe772.ba4cb8",
+                "713dd3f6.8af61c"
             ]
         ]
     },
@@ -1354,6 +1360,7 @@
         "height": 0,
         "passthru": false,
         "label": "Clear Calibration",
+        "tooltip": "",
         "color": "",
         "bgcolor": "",
         "icon": "",
@@ -1373,7 +1380,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "clear calibration",
-        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1684.5,
@@ -1390,7 +1397,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update display",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray};\nvar msg2 = {payload:actualpointsArray};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
         "x": 1483.5,
@@ -1958,7 +1965,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Comment [use RETURN to send]",
+        "label": "Comment",
+        "tooltip": "",
         "group": "19fab5c2.199ffa",
         "order": 6,
         "width": "6",
@@ -1967,7 +1975,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1337.5,
+        "x": 1257.5,
         "y": 605,
         "wires": [
             [
@@ -2449,7 +2457,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual [use RETURN to set]",
+        "label": "Enter Actual (known) point:",
+        "tooltip": "",
         "group": "6acae0b0.a184",
         "order": 2,
         "width": 0,
@@ -2475,11 +2484,11 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncal. SG",
-        "format": "{{msg.payload}}",
+        "label": "Uncalibrated Specific Gravity:",
+        "format": "{{msg.payload.uncalSG | number:3}}",
         "layout": "row-spread",
-        "x": 1605,
-        "y": 865,
+        "x": 1690,
+        "y": 860,
         "wires": []
     },
     {
@@ -2507,7 +2516,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated Points [use RETURN to set]",
+        "label": "Edit Uncalibrated (Tilt) Points:",
+        "tooltip": "",
         "group": "6acae0b0.a184",
         "order": 3,
         "width": 0,
@@ -2516,7 +2526,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2086,
+        "x": 2056,
         "y": 1166,
         "wires": [
             [
@@ -2529,7 +2539,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual Points [use RETURN to set]",
+        "label": "Edit Actual Points:",
+        "tooltip": "",
         "group": "6acae0b0.a184",
         "order": 4,
         "width": 0,
@@ -2538,7 +2549,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2078,
+        "x": 2028,
         "y": 1233,
         "wires": [
             [
@@ -2843,7 +2854,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "GMAIL email [use RETURN to start log]",
+        "label": "Enter GMAIL email",
+        "tooltip": "",
         "group": "81394fa6.f9523",
         "order": 4,
         "width": 0,
@@ -2852,7 +2864,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 585,
+        "x": 515,
         "y": 782,
         "wires": [
             [
@@ -3640,7 +3652,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "clear calibration",
-        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1684.5,
@@ -3657,7 +3669,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update display",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||\"\";\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||\"\";\nvar msg1 = {payload:uncalpointsArray};\nvar msg2 = {payload:actualpointsArray};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
         "x": 1483.5,
@@ -3676,7 +3688,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual [use RETURN to set]",
+        "label": "Enter Actual (known) point:",
+        "tooltip": "",
         "group": "c12bcb12.dbd0d8",
         "order": 2,
         "width": 0,
@@ -3698,7 +3711,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated Points [use RETURN to set]",
+        "label": "Edit Uncalibrated (Tilt) Points",
+        "tooltip": "",
         "group": "c12bcb12.dbd0d8",
         "order": 3,
         "width": 0,
@@ -3707,7 +3721,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2086,
+        "x": 2046,
         "y": 1386,
         "wires": [
             [
@@ -3720,7 +3734,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual Points [use RETURN to set]",
+        "label": " Edit Actual Points",
+        "tooltip": "",
         "group": "c12bcb12.dbd0d8",
         "order": 4,
         "width": 0,
@@ -3729,7 +3744,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2078,
+        "x": 2028,
         "y": 1453,
         "wires": [
             [
@@ -3770,7 +3785,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current Temp",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.displayuncalTemp;\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1350,
@@ -3778,7 +3793,8 @@
         "wires": [
             [
                 "854dec23.fee5f",
-                "67b168fa.e90078"
+                "67b168fa.e90078",
+                "675094a4.49a26c"
             ]
         ]
     },
@@ -3791,11 +3807,11 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncal. Temp.",
-        "format": "{{msg.payload | number:1}}",
+        "label": "Uncalibrated Temperature:",
+        "format": "{{msg.payload.displayuncalTemp | number:1}}{{msg.payload.tempunits}}",
         "layout": "row-spread",
-        "x": 1610,
-        "y": 900,
+        "x": 1880,
+        "y": 920,
         "wires": []
     },
     {
@@ -3803,11 +3819,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Uncal Temp Value",
-        "func": "flow.set('uncalTemppoint',Number(msg.payload).toFixed(1));",
+        "func": "flow.set('uncalTemppoint',Number(msg.payload.displayuncalTemp).toFixed(1));",
         "outputs": 1,
         "noerr": 0,
-        "x": 1840,
-        "y": 940,
+        "x": 1860,
+        "y": 980,
         "wires": [
             []
         ]
@@ -5003,7 +5019,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "System Time [use RETURN to set manually]",
+        "label": "Adjust System Time Manually",
+        "tooltip": "",
         "group": "5ca7d250.c3938c",
         "order": 3,
         "width": 0,
@@ -5012,7 +5029,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 574.0000076293945,
+        "x": 534.0000076293945,
         "y": 1809.2500267028809,
         "wires": [
             [
@@ -5273,5 +5290,37 @@
                 "a4d1964e.cb4f78"
             ]
         ]
+    },
+    {
+        "id": "713dd3f6.8af61c",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "6acae0b0.a184",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Calibrated Specific Gravity:",
+        "format": "{{msg.payload.SG | number:3}}",
+        "layout": "row-spread",
+        "x": 1680,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "675094a4.49a26c",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c12bcb12.dbd0d8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Calibrated Temperature:",
+        "format": "{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}",
+        "layout": "row-spread",
+        "x": 1870,
+        "y": 940,
+        "wires": []
     }
 ]
