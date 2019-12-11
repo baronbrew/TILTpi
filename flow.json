@@ -150,7 +150,7 @@
         "id": "c8854cd2.f1773",
         "type": "ui_group",
         "z": "",
-        "name": "App Admin (Tilt Pi v.2.4)",
+        "name": "App Admin (Tilt Pi v.2.5)",
         "tab": "c9c26b4a.4cde78",
         "order": 4,
         "disp": true,
@@ -1020,7 +1020,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = encodeURI(\"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment);\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        //node.warn(msg.payload.Color + ' triggered');\n        //node.warn(msg.payload.timeStamp - lastPost);\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        //msg.headers = {};\n        //msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        var payloadEncoded = encodeURI(\"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment);\n        if (flow.get('cloudURL')[1] === true){\n            var defaultCloudURL = flow.get('cloudURL')[0];\n            node.send({ headers : { 'content-type' : 'application/x-www-form-urlencoded; charset=utf-8' }, url : defaultCloudURL, payload : payloadEncoded, cloudwait : 'Contacting Default Cloud URL...<br>(allow up to 30 seconds)' });\n        }\n        else{\n            var cloudURLs = flow.get('cloudURL-' + msg.payload.Color)||'none';\n            if (cloudURLs != 'none'){\n             var cloudURLsArray = cloudURLs.split(',');\n             for (var i = 0; i < cloudURLsArray.length; i++){\n                node.send({ headers : { 'content-type' : 'application/x-www-form-urlencoded; charset=utf-8' }, url : cloudURLsArray[i], payload : payloadEncoded, cloudwait : 'Contacting Cloud URL ' + (i + 1) + '...<br>(allow up to 30 seconds)' });\n              }\n             }\n            }\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -1037,7 +1037,7 @@
         "z": "a564595f.642818",
         "name": "Cloud URL",
         "label": "Cloud URL",
-        "tooltip": "",
+        "tooltip": "Separate cloud URLs with a comma (no space) for specifying multiple cloud URLs",
         "group": "19fab5c2.199ffa",
         "order": 1,
         "width": 0,
@@ -1089,7 +1089,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set CloudURL",
-        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nvar cloudURLs = msg.payload;\nvar cloudURLsList = cloudURLs.replace(/,/g,'<br>');\nmsg.payload = cloudURLsList;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1367.0002326965332,
@@ -1431,8 +1431,8 @@
         "y": 183,
         "wires": [
             [
-                "2836e0e1.4ea9c",
-                "6cbfa171.d2106"
+                "6cbfa171.d2106",
+                "2836e0e1.4ea9c"
             ]
         ]
     },
@@ -1869,12 +1869,12 @@
         "order": 5,
         "width": "6",
         "height": "4",
-        "format": "<!DOCTYPE HTML>\n<style>\n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<div ng-bind-html=\"'<strong>Cloud Status: </strong>' + msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
+        "format": "<!DOCTYPE HTML>\n<style>\n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<div ng-bind-html=\"'<strong>Cloud Status: </strong><br>' + msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 3502,
-        "y": 566,
+        "x": 3670,
+        "y": 580,
         "wires": [
             []
         ]
@@ -1996,6 +1996,7 @@
         "y": 414,
         "wires": [
             [
+                "7799f0b1.ee4b8",
                 "df1ac3a9.c4472"
             ]
         ]
@@ -3311,11 +3312,13 @@
         "type": "ui_toast",
         "z": "a564595f.642818",
         "position": "top right",
-        "displayTime": "3",
+        "displayTime": "5",
         "highlight": "",
+        "sendall": true,
         "outputs": 0,
         "ok": "OK",
         "cancel": "",
+        "raw": true,
         "topic": "",
         "name": "Cloud URL Status",
         "x": 1577.5000076293945,
@@ -3482,25 +3485,6 @@
         "x": 4135.181529998779,
         "y": 507.5486431121826,
         "wires": []
-    },
-    {
-        "id": "982240ba.f2f5",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "Clear Responses",
-        "topic": "",
-        "payload": "{\"result\":\"Waiting for next time point...\"}",
-        "payloadType": "json",
-        "repeat": "20",
-        "crontab": "",
-        "once": false,
-        "x": 3210.2008361816406,
-        "y": 566.4970045089722,
-        "wires": [
-            [
-                "df1ac3a9.c4472"
-            ]
-        ]
     },
     {
         "id": "e56d18b9.6cbc88",
@@ -4563,7 +4547,7 @@
         "id": "410f235c.c1f2ac",
         "type": "change",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "start anyway if error",
         "rules": [
             {
                 "t": "set",
@@ -4578,11 +4562,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 220,
+        "x": 240,
         "y": 400,
         "wires": [
             [
-                "9d251f5a.10bdc"
+                "31588cca.783d84"
             ]
         ]
     },
@@ -4921,9 +4905,11 @@
         "z": "a564595f.642818",
         "name": "",
         "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 3439,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3419,
         "y": 88,
         "wires": []
     },
@@ -5424,14 +5410,70 @@
         "z": "a564595f.642818",
         "group": "c8854cd2.f1773",
         "order": 2,
-        "width": 0,
-        "height": 0,
+        "width": "6",
+        "height": "2",
         "name": "Updates",
-        "label": "v.2.4 Updates",
-        "format": "Added BT Stability fix button for RPi 0-3",
+        "label": "v.2.5 Updates",
+        "format": "Log to multiple cloud URLs simutaneously by entering comma separated cloud URLs",
         "layout": "col-center",
         "x": 1330,
         "y": 2020,
         "wires": []
+    },
+    {
+        "id": "7799f0b1.ee4b8",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "{\"result\":\"Waiting for next time point...\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "30",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Reset Result",
+        "x": 3270,
+        "y": 580,
+        "wires": [
+            [
+                "b94e4a26.8805b8"
+            ]
+        ]
+    },
+    {
+        "id": "b94e4a26.8805b8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clear cloudwait",
+        "rules": [
+            {
+                "t": "set",
+                "p": "cloudwait",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "cloudlink",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3440,
+        "y": 580,
+        "wires": [
+            [
+                "df1ac3a9.c4472"
+            ]
+        ]
     }
 ]
