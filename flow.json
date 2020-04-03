@@ -384,8 +384,8 @@
         "ret": "obj",
         "url": "",
         "tls": "",
-        "x": 3207.5,
-        "y": 117.5,
+        "x": 3280,
+        "y": 140,
         "wires": [
             [
                 "6cbfa171.d2106",
@@ -978,7 +978,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;\n}",
+        "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\n    var beerArray = flow.get(color + \"-Beer\")||[\"\",true];\n    if (beerArray[1] === true){\n        msg.payload = beerArray[0];\n    }\n    else {\n        msg.payload = beerArray;\n    }\n} else {\n    msg.enabled = false;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -1288,6 +1288,7 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
+        "onceDelay": "",
         "x": 1821.5,
         "y": 153,
         "wires": [
@@ -1432,7 +1433,8 @@
         "wires": [
             [
                 "6cbfa171.d2106",
-                "2836e0e1.4ea9c"
+                "2836e0e1.4ea9c",
+                "c9d0dfc1.9cca2"
             ]
         ]
     },
@@ -1684,6 +1686,7 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
+        "onceDelay": "",
         "x": 1813.5,
         "y": 207,
         "wires": [
@@ -1884,7 +1887,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "if (msg.payload.beername !== undefined){\nif (msg.payload.beername.indexOf(\",\") > -1){\nbeerArray = msg.payload.beername.split(\",\");\n//node.warn(msg.payload.beername[1]);\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n//node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}\n}",
+        "func": "if (msg.payload.beername !== undefined){\n    if (msg.payload.beername.indexOf(\",\") > -1){\n        beerArray = msg.payload.beername.split(\",\");\n        //node.warn(msg.payload.beername[1]);\n        flow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n        //node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\n        flow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\n        if (msg.payload.doclongurl !== undefined) {\n            flow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n        }\n        msg.payload = beerArray;\n        return msg;\n    }\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -1969,15 +1972,15 @@
         "label": "Comment",
         "tooltip": "",
         "group": "19fab5c2.199ffa",
-        "order": 6,
+        "order": 10,
         "width": "6",
         "height": "2",
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1257.5,
-        "y": 605,
+        "x": 1420,
+        "y": 540,
         "wires": [
             [
                 "e899ac8f.ec903"
@@ -2008,7 +2011,7 @@
         "name": "",
         "label": "Use Default Cloud URL for All",
         "group": "19fab5c2.199ffa",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -2023,8 +2026,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 706,
-        "y": 688.0000095367432,
+        "x": 650,
+        "y": 720,
         "wires": [
             [
                 "d599e3c9.1ae09"
@@ -2038,7 +2041,7 @@
         "name": "",
         "label": "Time Interval",
         "group": "19fab5c2.199ffa",
-        "order": 4,
+        "order": 8,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -2060,7 +2063,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "19fab5c2.199ffa",
-        "order": 5,
+        "order": 9,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2570,8 +2573,8 @@
         "repeat": "15",
         "crontab": "",
         "once": false,
-        "x": 1263.0002059936523,
-        "y": 815.0000438690186,
+        "x": 1290,
+        "y": 820,
         "wires": [
             [
                 "88a2c98f.f38b08"
@@ -2950,7 +2953,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "c8854cd2.f1773",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3113,15 +3116,15 @@
         "id": "13f0085a.0d5178",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json",
-        "addpay": false,
+        "command": "wget -O /home/pi/flow.json ",
+        "addpay": true,
         "append": "",
         "useSpawn": "true",
         "timer": "",
         "oldrc": false,
         "name": "Download Update from GitHub",
-        "x": 363,
-        "y": 1991,
+        "x": 630,
+        "y": 2000,
         "wires": [
             [],
             [],
@@ -3141,17 +3144,18 @@
         "height": 0,
         "passthru": false,
         "label": "Update App (flow)",
+        "tooltip": "",
         "color": "",
         "bgcolor": "",
         "icon": "",
-        "payload": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
+        "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 112,
-        "y": 1993,
+        "x": 230,
+        "y": 2000,
         "wires": [
             [
-                "13f0085a.0d5178"
+                "35b035bf.c8c96a"
             ]
         ]
     },
@@ -3163,8 +3167,8 @@
         "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 647.5,
-        "y": 1996,
+        "x": 880,
+        "y": 2000,
         "wires": [
             [
                 "b0fab2cd.d77d4"
@@ -3182,8 +3186,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Update App",
-        "x": 873,
-        "y": 1996,
+        "x": 1050,
+        "y": 2000,
         "wires": [
             [],
             [],
@@ -3299,8 +3303,8 @@
         "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === true){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\n       msg.payload = flow.get(\"cloudURL\")[0];  \n}\nif (msg.payload === false){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",false]);\n       msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 967.0000381469727,
-        "y": 690.0000305175781,
+        "x": 950,
+        "y": 720,
         "wires": [
             [
                 "edb75c90.8414"
@@ -3313,7 +3317,7 @@
         "z": "a564595f.642818",
         "position": "top right",
         "displayTime": "5",
-        "highlight": "",
+        "highlight": "",        
         "sendall": true,
         "outputs": 0,
         "ok": "OK",
@@ -4903,14 +4907,14 @@
         "id": "d5884cdc.50b47",
         "type": "debug",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "response debugger",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 3419,
-        "y": 88,
+        "x": 3530,
+        "y": 80,
         "wires": []
     },
     {
@@ -5412,12 +5416,12 @@
         "order": 2,
         "width": "6",
         "height": "2",
-        "name": "Updates",
-        "label": "v.2.5 Updates",
-        "format": "Log to multiple cloud URLs simutaneously by entering comma separated cloud URLs",
+        "name": "Current Updates",
+        "label": "Current Version: {{msg.label}}",
+        "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1330,
-        "y": 2020,
+        "x": 1850,
+        "y": 2120,
         "wires": []
     },
     {
@@ -5473,6 +5477,230 @@
         "wires": [
             [
                 "df1ac3a9.c4472"
+            ]
+        ]
+    },
+    {
+        "id": "c9d0dfc1.9cca2",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "http payload debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3510,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b434dd22.03a0f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "enable dev-mode",
+        "func": "// true marks tiltpi as developer mode \n// dev-mode: true allows custom update source\n// var devEnabled = true; // dev-mode enabled\nvar devEnabled = false; // dev-mode disabled\nflow.set('dev-mode',devEnabled); \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 1960,
+        "wires": [
+            [
+                "f089aeab.e0832"
+            ]
+        ]
+    },
+    {
+        "id": "f089aeab.e0832",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "custom update source",
+        "func": "// replace this url with your custom publicly resolved github source\n// var customUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\nvar customUrl = \"https://raw.githubusercontent.com/<username>/tiltpi/<dev-branch>/flow.json\";\nvar customReleases = \"https://api.github.com/repos/<username>/tiltpi/releases\";\n\nflow.set('custom-update-url', customUrl);\nflow.set('custom-update-release-url', customReleases);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 1960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "35b035bf.c8c96a",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update source",
+        "func": "// disabled use of master due to broken builds on later raspberry pi images\n//var defaultUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json\";\nvar defaultUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\n\nvar customUrl = flow.get('custom-update-url');\n\nif (flow.get('dev-mode') && customUrl) {\n    msg.payload = customUrl;\n} else {\n    msg.payload = defaultUrl;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 2000,
+        "wires": [
+            [
+                "13f0085a.0d5178"
+            ]
+        ]
+    },
+    {
+        "id": "fda0c78c.e93008",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "set dev-mode",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 180,
+        "y": 1960,
+        "wires": [
+            [
+                "b434dd22.03a0f"
+            ]
+        ]
+    },
+    {
+        "id": "28059b08.d92734",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set release source",
+        "func": "// use github releases API to fetch latest release details\nvar defaultReleases = \"https://api.github.com/repos/baronbrew/TILTpi/releases/latest\";\nvar customReleases = flow.get('custom-update-release-url') + \"/latest\";\n\nif (flow.get('dev-mode') && customReleases) {\n    msg.url = customReleases;\n} else {\n    msg.url = defaultReleases;\n}\n\nmsg.headers = {\n    \"User-Agent\": \"node-red;tiltpi\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1350,
+        "y": 2080,
+        "wires": [
+            [
+                "e5ef4db6.33ad1"
+            ]
+        ]
+    },
+    {
+        "id": "4d283807.7a37b8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "latest releases",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "86400",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 1160,
+        "y": 2080,
+        "wires": [
+            [
+                "28059b08.d92734"
+            ]
+        ]
+    },
+    {
+        "id": "a1089058.b969",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c8854cd2.f1773",
+        "order": 2,
+        "width": "6",
+        "height": "2",
+        "name": "Latest Releases",
+        "label": "{{msg.label}}",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 2080,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "9ae6ebe8.91e128",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "var status = msg.statusCode;\nvar resp = msg.payload;\n\nvar msg = {};\nif (status == 200 && resp !== []) {\n    var latest = flow.get(\"version\");\n    if (resp.name == latest.name) {\n        msg.enabled = false;\n        msg.label = \"\";\n        msg.payload = \"Running most current version.\";\n    } else {\n      msg.enabled = true;\n      msg.label = \"Latest Update: \" + resp.name;\n      msg.payload = resp.body;\n    }\n} else {\n    msg.enabled = false;\n    msg.label = \"Lastest Update: Unknown\";\n    msg.payload = \"Failed to retrieve latest release information. Check internet connectivity.\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1930,
+        "y": 2080,
+        "wires": [
+            [
+                "a1089058.b969"
+            ]
+        ]
+    },
+    {
+        "id": "a5a85aba.a9d748",
+        "type": "http request",
+        "z": "a564595f.642818",
+        "name": "fetch latest release notes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 1750,
+        "y": 2080,
+        "wires": [
+            [
+                "9ae6ebe8.91e128"
+            ]
+        ]
+    },
+    {
+        "id": "e5ef4db6.33ad1",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1540,
+        "y": 2080,
+        "wires": [
+            [
+                "a5a85aba.a9d748"
+            ]
+        ]
+    },
+    {
+        "id": "41af0fce.49552",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "current release",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 1500,
+        "y": 2120,
+        "wires": [
+            [
+                "edb8b308.bde27"
+            ]
+        ]
+    },
+    {
+        "id": "edb8b308.bde27",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "release info",
+        "func": "var release = {\n    name: \"v.2.5\",\n    notes: \"Log to multiple cloud URLs simultaneously by entering comma separated cloud URLs\"\n};\n\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1670,
+        "y": 2120,
+        "wires": [
+            [
+                "47d6079b.2ae9c8"
             ]
         ]
     }
