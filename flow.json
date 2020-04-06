@@ -78,11 +78,12 @@
         "id": "6acae0b0.a184",
         "type": "ui_group",
         "z": "",
-        "name": "Set SG Calibration Points (SG only)",
+        "name": "Calibration (Specific Gravity)",
         "tab": "75f710f5.16d2e",
         "order": 2,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "b8d3bbbf.2c9cb8",
@@ -128,11 +129,12 @@
         "id": "eb4ab3d5.7b3f1",
         "type": "ui_group",
         "z": "",
-        "name": "Calibrate",
+        "name": "Select Tilt in Range",
         "tab": "75f710f5.16d2e",
         "order": 1,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "5ca7d250.c3938c",
@@ -148,11 +150,12 @@
         "id": "c8854cd2.f1773",
         "type": "ui_group",
         "z": "",
-        "name": "App Admin (Tilt Pi v.2.1)",
+        "name": "App Admin (Tilt Pi)",
         "tab": "c9c26b4a.4cde78",
         "order": 4,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "6529e313.74108c",
@@ -247,8 +250,8 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#666666",
-                    "edited": false
+                    "value": "#336633",
+                    "edited": true
                 },
                 "widget-borderColor": {
                     "value": "#333333",
@@ -257,6 +260,12 @@
                 "base-font": {
                     "value": "Tahoma,Geneva,sans-serif"
                 }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
             }
         },
         "site": {
@@ -280,11 +289,12 @@
         "id": "c12bcb12.dbd0d8",
         "type": "ui_group",
         "z": "",
-        "name": "Set Temp. Calibration Points",
+        "name": "Calibration (Temperature)",
         "tab": "75f710f5.16d2e",
         "order": 4,
         "disp": true,
-        "width": "6"
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "b0619070.ac95d",
@@ -303,8 +313,9 @@
         "name": "Raspberry Pi",
         "tab": "c9c26b4a.4cde78",
         "order": 5,
-        "disp": false,
-        "width": "6"
+        "disp": true,
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "2f8a7619.951f3a",
@@ -327,38 +338,24 @@
         "order": 5
     },
     {
-        "id": "45fc2eae.52e02",
-        "type": "scanBeacon",
-        "z": "a564595f.642818",
-        "name": "Tilt Scan",
-        "beacon_uuid": "",
-        "beacon_major": "",
-        "beacon_minor": "",
-        "x": 372.00004959106445,
-        "y": 124.00001430511475,
-        "wires": [
-            [
-                "8dc4fe46.fc364"
-            ]
-        ]
-    },
-    {
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
         "name": "Start",
         "topic": "",
-        "payload": "on",
+        "payload": "pkill -f aioblescan",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 79.00001525878906,
-        "y": 200.00000381469727,
+        "onceDelay": "0.1",
+        "x": 90,
+        "y": 240,
         "wires": [
             [
                 "b42102fe.e4abd",
-                "c0f36d.ab686c9"
+                "c0f36d.ab686c9",
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -366,10 +363,12 @@
         "id": "8dc4fe46.fc364",
         "type": "json",
         "z": "a564595f.642818",
-        "name": "json",
+        "name": "Scan to JSON",
+        "property": "payload",
+        "action": "",
         "pretty": false,
-        "x": 498.0000114440918,
-        "y": 125.00001239776611,
+        "x": 500,
+        "y": 140,
         "wires": [
             [
                 "d504d607.384f48"
@@ -385,8 +384,8 @@
         "ret": "obj",
         "url": "",
         "tls": "",
-        "x": 3207.5,
-        "y": 117.5,
+        "x": 3280,
+        "y": 140,
         "wires": [
             [
                 "6cbfa171.d2106",
@@ -511,8 +510,8 @@
         ],
         "checkall": "true",
         "outputs": 1,
-        "x": 746.5001220703125,
-        "y": 130.00000858306885,
+        "x": 770,
+        "y": 140,
         "wires": [
             [
                 "7f2f1fbf.e1098"
@@ -524,7 +523,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Beer Name",
-        "label": "Set Beer Name [use RETURN to set]",
+        "label": "Set Beer Name",
         "group": "81394fa6.f9523",
         "order": 3,
         "width": 0,
@@ -592,7 +591,8 @@
         "wires": [
             [
                 "394a5d3d.92fa72",
-                "1ee5d27c.fa4e8e"
+                "1ee5d27c.fa4e8e",
+                "425f9ce9.7d5064"
             ]
         ]
     },
@@ -624,16 +624,17 @@
         "z": "a564595f.642818",
         "name": "Stop",
         "topic": "",
-        "payload": "off",
+        "payload": "pkill -f aioblescan",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 95.00000762939453,
-        "y": 122.00000190734863,
+        "onceDelay": "",
+        "x": 90,
+        "y": 20,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -930,7 +931,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Interpolate",
-        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(0, SG, Number.MAX_VALUE);\nunCalSGPoints.push(0, Number.MAX_VALUE);\nactualSGPoints.push(0, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nif (msg.payload.tempunits === \"°C\"){\n    Temp -= 32;\n    Temp *= 0.5555;\n}\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(-999, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(-999, Number.MAX_VALUE);\nactualTempPoints.push(-999, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\n//node.warn(actualTempPoints);\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nif (Number.isNaN(calTemp)){\n    calTemp = 0;\n}\nmsg.payload.uncalTemp = Temp.toFixed(1);\nmsg.payload.displayuncalTemp = Temp.toFixed(1);\nmsg.payload.displayTemp = calTemp.toFixed(1);\nif (msg.payload.tempunits === \"°C\"){\n    calTemp *= 1.8;\n    calTemp += 32;\n    msg.payload.Temp = calTemp.toFixed(1);\n}else{\nmsg.payload.Temp = calTemp.toFixed(1);\n}\nreturn msg;",
+        "func": "//this function block requires msg.payload.SG, msg.payload.Temp, msg.payload.actualSGPoints, msg.payload.actualTempPoints(a comma separated string of the actual values), msg.payload.unCalSGPoints, and msg.payload.unCalTempPoints (a comma separated string of the measured raw values)\nfunction linearInterpolation (x, x0, y0, x1, y1) {\n  var a = (y1 - y0) / (x1 - x0);\n  var b = -a * x0 + y0;\n  return a * x + b;\n}\n//calculate calibrated SG by linear interpolation of calibration points\nvar actualSGPoints = [];\nvar unCalSGPoints = [];\nvar unCalSGPointsTemp = [];\nvar SG = msg.payload.SG;\nactualSGPoints = msg.payload.actualSGPoints.split(\",\");\nunCalSGPoints = msg.payload.unCalSGPoints.split(\",\");\nunCalSGPointsTemp = msg.payload.unCalSGPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalSGPointsTemp.push(-0.001, SG, Number.MAX_VALUE);\nunCalSGPoints.push(-0.001, Number.MAX_VALUE);\nactualSGPoints.push(-0.001, Number.MAX_VALUE);\nunCalSGPointsTemp.sort(function(a, b){return a-b;});\nunCalSGPoints.sort(function(a, b){return a-b;});\nactualSGPoints.sort(function(a, b){return a-b;});\nvar indexSG = unCalSGPointsTemp.indexOf(SG);\nvar calSG = linearInterpolation (Number(SG), Number(unCalSGPoints[indexSG-1]), Number(actualSGPoints[indexSG-1]), Number(unCalSGPoints[indexSG]), Number(actualSGPoints[indexSG]));\nmsg.payload.uncalSG = SG;\nmsg.payload.uncalPlato = 1111.14 * msg.payload.uncalSG - 630.272 * msg.payload.uncalSG * msg.payload.uncalSG + 135.997 * msg.payload.uncalSG * msg.payload.uncalSG * msg.payload.uncalSG - 616.868;\nmsg.payload.uncalBrix = (((182.4601 * msg.payload.uncalSG - 775.6821) * msg.payload.uncalSG + 1262.7794) * msg.payload.uncalSG - 669.5622);\nmsg.payload.SG = calSG;\nmsg.payload.Plato = 1111.14 * msg.payload.SG - 630.272 * msg.payload.SG * msg.payload.SG + 135.997 * msg.payload.SG * msg.payload.SG * msg.payload.SG - 616.868;\nmsg.payload.Brix = (((182.4601 * msg.payload.SG - 775.6821) * msg.payload.SG + 1262.7794) * msg.payload.SG - 669.5622);\nswitch (msg.payload.fermunits){\n    case \"\" :   if (msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(4);\n                                    msg.payload.uncalferm = msg.payload.uncalSG.toFixed(4);\n    }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.SG.toFixed(3);\n                                     msg.payload.uncalferm = msg.payload.uncalSG.toFixed(3);\n                }\n    break;\n    case \"°P\" : if (msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(2);    \n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Plato.toFixed(1);\n                                   msg.payload.uncalferm = msg.payload.uncalPlato.toFixed(1); \n                }\n    break;\n    case \"°Bx\": if (msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(2);\n                                   msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(2);\n                }\n                if (!msg.payload.hd){msg.payload.ferm = msg.payload.Brix.toFixed(1);\n                    msg.payload.uncalferm = msg.payload.uncalBrix.toFixed(1);\n                }\n}\n\n//calculate calibrated Temp by linear interpolation of calibration points\nvar actualTempPoints = [];\nvar unCalTempPoints = [];\nvar unCalTempPointsTemp = [];\nvar Temp = msg.payload.Temp;\nif (msg.payload.tempunits === \"°C\"){\n    Temp -= 32;\n    Temp *= 0.5555;\n}\nactualTempPoints = msg.payload.actualTempPoints.split(\",\");\nunCalTempPoints = msg.payload.unCalTempPoints.split(\",\");\nunCalTempPointsTemp = msg.payload.unCalTempPoints.split(\",\");\n//ensure uncal value always between two numbers\nunCalTempPointsTemp.push(-999, Temp, Number.MAX_VALUE);\nunCalTempPoints.push(-999, Number.MAX_VALUE);\nactualTempPoints.push(-999, Number.MAX_VALUE);\nunCalTempPointsTemp.sort(function(a, b){return a-b;});\nunCalTempPoints.sort(function(a, b){return a-b;});\nactualTempPoints.sort(function(a, b){return a-b;});\n//node.warn(actualTempPoints);\nvar indexTemp = unCalTempPointsTemp.indexOf(Temp);\nvar calTemp = linearInterpolation (Number(Temp), Number(unCalTempPoints[indexTemp-1]), Number(actualTempPoints[indexTemp-1]), Number(unCalTempPoints[indexTemp]), Number(actualTempPoints[indexTemp]));\nif (Number.isNaN(calTemp)){\n    calTemp = 0;\n}\nmsg.payload.uncalTemp = Temp.toFixed(1);\nmsg.payload.displayuncalTemp = Temp.toFixed(1);\nmsg.payload.displayTemp = calTemp.toFixed(1);\nif (msg.payload.tempunits === \"°C\"){\n    calTemp *= 1.8;\n    calTemp += 32;\n    msg.payload.Temp = calTemp.toFixed(1);\n}else{\nmsg.payload.Temp = calTemp.toFixed(1);\n}\nreturn msg;",
         "outputs": "1",
         "noerr": 0,
         "x": 1233.2778091430664,
@@ -976,7 +977,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Beer Name",
-        "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\nvar beerArray = flow.get(color + \"-Beer\")||[\"\",true];\nif (beerArray[1] === true){\n    msg.payload = beerArray[0];\n}\nelse {\n    msg.payload = beerArray;\n}\nreturn msg;\n}",
+        "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\n    var beerArray = flow.get(color + \"-Beer\")||[\"\",true];\n    if (beerArray[1] === true){\n        msg.payload = beerArray[0];\n    }\n    else {\n        msg.payload = beerArray;\n    }\n} else {\n    msg.enabled = false;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
@@ -1018,7 +1019,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Cloud Post",
-        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    //node.warn(msg.payload.timeStamp - lastPost);\n    //node.warn(msg.payload.Color);\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.headers = {};\n        msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        if (flow.get('cloudURL')[1] === true){\n            msg.url = flow.get('cloudURL')[0];\n        }\n        else{\n            msg.url = flow.get('cloudURL-' + msg.payload.Color);\n        }\n        //node.warn(msg.payload.Color + \" \" + msg.url);\n        msg.payload = \"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment;\n        msg.cloudwait = \"Contacting Cloud...<br>(allow up to 30 seconds)\";\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logCloudDataCheck'))||false;\nvar interval = flow.get('loggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        flow.set('lastpost-' + msg.payload.Color,msg.payload.timeStamp);\n        //node.warn(msg.payload.Color + ' triggered');\n        //node.warn(msg.payload.timeStamp - lastPost);\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        if (msg.payload.Beer[1] === true){\n            msg.payload.Beer = msg.payload.Beer[0];\n        }\n        //msg.headers = {};\n        //msg.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';\n        var payloadEncoded = encodeURI(\"Timepoint=\" + msg.payload.Timepoint + \"&Temp=\" + msg.payload.Temp + \"&SG=\" + msg.payload.SG + \"&Beer=\" + msg.payload.Beer + \"&Color=\" + msg.payload.Color + \"&Comment=\" + msg.payload.Comment);\n        if (flow.get('cloudURL')[1] === true){\n            var defaultCloudURL = flow.get('cloudURL')[0];\n            node.send({ headers : { 'content-type' : 'application/x-www-form-urlencoded; charset=utf-8' }, url : defaultCloudURL, payload : payloadEncoded, cloudwait : 'Contacting Default Cloud URL...<br>(allow up to 30 seconds)' });\n        }\n        else{\n            var cloudURLs = flow.get('cloudURL-' + msg.payload.Color)||'none';\n            if (cloudURLs != 'none'){\n             var cloudURLsArray = cloudURLs.split(',');\n             for (var i = 0; i < cloudURLsArray.length; i++){\n                node.send({ headers : { 'content-type' : 'application/x-www-form-urlencoded; charset=utf-8' }, url : cloudURLsArray[i], payload : payloadEncoded, cloudwait : 'Contacting Cloud URL ' + (i + 1) + '...<br>(allow up to 30 seconds)' });\n              }\n             }\n            }\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2757.5,
@@ -1034,7 +1035,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "Cloud URL",
-        "label": "Cloud URL [use RETURN to save]",
+        "label": "Cloud URL",
         "group": "19fab5c2.199ffa",
         "order": 1,
         "width": 0,
@@ -1086,7 +1087,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set CloudURL",
-        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect');\nflow.set(\"cloudURL-\" + color,msg.payload);\nmsg.topic = \"Custom cloud URL set for \" + color;\nvar cloudURLs = msg.payload;\nvar cloudURLsList = cloudURLs.replace(/,/g,'<br>');\nmsg.payload = cloudURLsList;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1367.0002326965332,
@@ -1118,11 +1119,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Uncal SG Value",
-        "func": "flow.set('uncalSGpoint',Number(msg.payload).toFixed(3));",
+        "func": "flow.set('uncalSGpoint',Number(msg.payload.uncalSG).toFixed(3));",
         "outputs": 1,
         "noerr": 0,
-        "x": 1829.5,
-        "y": 839,
+        "x": 1770,
+        "y": 820,
         "wires": [
             []
         ]
@@ -1151,7 +1152,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.uncalSG;\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1340,
@@ -1159,7 +1160,8 @@
         "wires": [
             [
                 "777f1a14.1b3e44",
-                "ecfbe772.ba4cb8"
+                "ecfbe772.ba4cb8",
+                "713dd3f6.8af61c"
             ]
         ]
     },
@@ -1284,6 +1286,7 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
+        "onceDelay": "",
         "x": 1821.5,
         "y": 153,
         "wires": [
@@ -1376,7 +1379,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "clear calibration",
-        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalSGpoints-' + color,[]);\nvar actualpointsArray = flow.set('actualSGpoints-' + color,[]);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1684.5,
@@ -1393,7 +1396,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update display",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray};\nvar msg2 = {payload:actualpointsArray};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
         "x": 1483.5,
@@ -1426,8 +1429,9 @@
         "y": 183,
         "wires": [
             [
+                "6cbfa171.d2106",
                 "2836e0e1.4ea9c",
-                "6cbfa171.d2106"
+                "c9d0dfc1.9cca2"
             ]
         ]
     },
@@ -1679,6 +1683,7 @@
         "repeat": "1",
         "crontab": "",
         "once": false,
+        "onceDelay": "",
         "x": 1813.5,
         "y": 207,
         "wires": [
@@ -1864,12 +1869,12 @@
         "order": 5,
         "width": "6",
         "height": "4",
-        "format": "<!DOCTYPE HTML>\n<style>\n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<div ng-bind-html=\"'<strong>Cloud Status: </strong>' + msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
+        "format": "<!DOCTYPE HTML>\n<style>\n   a:link {\n    color: white; \n    background-color: transparent; \n    text-decoration: none;\n}\n\na:visited {\n    color: white;\n    background-color: transparent;\n    text-decoration: none;\n}\n</style>\n<div ng-bind-html=\"'<strong>Cloud Status: </strong><br>' + msg.cloudwait\"></div>\n<div ng-bind-html=\"msg.payload.result + msg.cloudlink\"></div>\n<div ng-bind-html=\"msg.payload.this\"></div>\n",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 3502,
-        "y": 566,
+        "x": 3670,
+        "y": 580,
         "wires": [
             []
         ]
@@ -1879,7 +1884,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update name, clear comment",
-        "func": "if (msg.payload.beername !== undefined){\nif (msg.payload.beername.indexOf(\",\") > -1){\nbeerArray = msg.payload.beername.split(\",\");\n//node.warn(msg.payload.beername[1]);\nflow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n//node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\nflow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\nif (msg.payload.doclongurl !== undefined) {\nflow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n}\nmsg.payload = beerArray;\nreturn msg;\n}\n}",
+        "func": "if (msg.payload.beername !== undefined){\n    if (msg.payload.beername.indexOf(\",\") > -1){\n        beerArray = msg.payload.beername.split(\",\");\n        //node.warn(msg.payload.beername[1]);\n        flow.set(msg.payload.tiltcolor + \"-Beer\",beerArray);\n        //node.warn(flow.get(msg.payload.tiltcolor + \"-Beer\"));\n        flow.set(msg.payload.tiltcolor + \"-Comment\",\"\");\n        if (msg.payload.doclongurl !== undefined) {\n            flow.set(msg.payload.tiltcolor + \"-URL\",'<a href=\"' + msg.payload.doclongurl + '\" target=\"_blank\"> | View Cloud Log</a>');\n        }\n        msg.payload = beerArray;\n        return msg;\n    }\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 3555,
@@ -1961,17 +1966,17 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Comment [use RETURN to send]",
+        "label": "Comment",
         "group": "19fab5c2.199ffa",
-        "order": 6,
+        "order": 10,
         "width": "6",
         "height": "2",
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 1337.5,
-        "y": 605,
+        "x": 1420,
+        "y": 540,
         "wires": [
             [
                 "e899ac8f.ec903"
@@ -1990,6 +1995,7 @@
         "y": 414,
         "wires": [
             [
+                "7799f0b1.ee4b8",
                 "df1ac3a9.c4472"
             ]
         ]
@@ -2001,7 +2007,7 @@
         "name": "",
         "label": "Use Default Cloud URL for All",
         "group": "19fab5c2.199ffa",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -2016,8 +2022,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 706,
-        "y": 688.0000095367432,
+        "x": 650,
+        "y": 720,
         "wires": [
             [
                 "d599e3c9.1ae09"
@@ -2031,7 +2037,7 @@
         "name": "",
         "label": "Time Interval",
         "group": "19fab5c2.199ffa",
-        "order": 4,
+        "order": 8,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -2053,7 +2059,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "19fab5c2.199ffa",
-        "order": 5,
+        "order": 9,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2089,7 +2095,9 @@
         "overwriteFile": "false",
         "x": 3129.5007934570312,
         "y": 331.00007247924805,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "6af4a20b.f5f3cc",
@@ -2192,7 +2200,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Setup Local Log",
-        "func": "var postEnabled = (flow.get('logLocalDataCheck'));\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        //unsigned bonus byte\n        var uint8 = new Uint8Array(1);\n        uint8[0] = msg.payload.measuredPower;\n        msg.payload.measuredPower = uint8[0];\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment + \",\" + msg.payload.rssi + \",\" + msg.payload.measuredPower;\n    return msg;\n}\n}",
+        "func": "var postEnabled = (flow.get('logLocalDataCheck'));\nvar interval = flow.get('localloggingInterval')||15;\ninterval *= 60000;\nif (postEnabled && msg.payload.Color !== undefined){\n    var lastPost = flow.get('lastlocalpost-' + msg.payload.Color)||0;\n    if (msg.payload.timeStamp - lastPost > interval){\n        msg.payload.Comment = flow.get(msg.payload.Color + \"-Comment\")||\"\";\n        msg.payload.Beer = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\n        msg.topic = msg.payload.Color;\n        var date = new Date().toLocaleString();\n        date = date.replace(\",\",\" \");\n        //unsigned bonus byte\n        var uint8 = new Uint8Array(1);\n        uint8[0] = msg.payload.tx_power;\n        msg.payload.tx_power = uint8[0];\n        flow.set('lastlocalpost-' + msg.payload.Color,msg.payload.timeStamp);\n        msg.payload = date + \",\" + msg.payload.Timepoint + \",\" + msg.payload.Temp + \",\" + msg.payload.SG + \",\" + msg.payload.Beer[0] + \",\" + msg.payload.Color + \",\" + msg.payload.Comment + \",\" + msg.payload.rssi + \",\" + msg.payload.tx_power;\n    return msg;\n}\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2740,
@@ -2386,7 +2394,9 @@
         "overwriteFile": "true",
         "x": 2976.5,
         "y": 474,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "da1dd72.c86df28",
@@ -2448,7 +2458,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual [use RETURN to set]",
+        "label": "Enter Actual (known) point:",
         "group": "6acae0b0.a184",
         "order": 2,
         "width": 0,
@@ -2474,11 +2484,11 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncal. SG",
-        "format": "{{msg.payload}}",
+        "label": "Uncalibrated Specific Gravity:",
+        "format": "{{msg.payload.uncalSG | number:3}}",
         "layout": "row-spread",
-        "x": 1605,
-        "y": 865,
+        "x": 1690,
+        "y": 860,
         "wires": []
     },
     {
@@ -2506,7 +2516,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated Points [use RETURN to set]",
+        "label": "Edit Uncalibrated (Tilt) Points:",
         "group": "6acae0b0.a184",
         "order": 3,
         "width": 0,
@@ -2515,7 +2525,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2086,
+        "x": 2056,
         "y": 1166,
         "wires": [
             [
@@ -2528,7 +2538,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual Points [use RETURN to set]",
+        "label": "Edit Actual Points:",
         "group": "6acae0b0.a184",
         "order": 4,
         "width": 0,
@@ -2537,7 +2547,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2078,
+        "x": 2028,
         "y": 1233,
         "wires": [
             [
@@ -2556,8 +2566,8 @@
         "repeat": "15",
         "crontab": "",
         "once": false,
-        "x": 1263.0002059936523,
-        "y": 815.0000438690186,
+        "x": 1290,
+        "y": 820,
         "wires": [
             [
                 "88a2c98f.f38b08"
@@ -2590,7 +2600,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -2682,7 +2692,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "",
+        "onceDelay": "2",
         "x": 55,
         "y": 1597,
         "wires": [
@@ -2782,8 +2792,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 1473,
-        "y": 1796,
+        "x": 1610,
+        "y": 1780,
         "wires": []
     },
     {
@@ -2812,8 +2822,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1280,
-        "y": 1720,
+        "x": 1420,
+        "y": 1740,
         "wires": [
             [
                 "8ee3b7e3.1833a8",
@@ -2833,8 +2843,8 @@
         "label": "",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1450,
-        "y": 1746,
+        "x": 1570,
+        "y": 1720,
         "wires": []
     },
     {
@@ -2842,7 +2852,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "GMAIL email [use RETURN to start log]",
+        "label": "Enter GMAIL email",
         "group": "81394fa6.f9523",
         "order": 4,
         "width": 0,
@@ -2851,7 +2861,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 585,
+        "x": 515,
         "y": 782,
         "wires": [
             [
@@ -2921,7 +2931,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "",
+        "onceDelay": "10",
         "x": 131,
         "y": 1879.5,
         "wires": [
@@ -2935,7 +2945,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "c8854cd2.f1773",
-        "order": 2,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2957,7 +2967,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "°C",
@@ -3019,7 +3029,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3097,15 +3107,15 @@
         "id": "13f0085a.0d5178",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "wget -O /home/pi/flow.json https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
-        "addpay": false,
+        "command": "wget -O /home/pi/flow.json ",
+        "addpay": true,
         "append": "",
         "useSpawn": "true",
         "timer": "",
         "oldrc": false,
         "name": "Download Update from GitHub",
-        "x": 363,
-        "y": 1991,
+        "x": 630,
+        "y": 2000,
         "wires": [
             [],
             [],
@@ -3128,14 +3138,14 @@
         "color": "",
         "bgcolor": "",
         "icon": "",
-        "payload": "https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json",
+        "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 112,
-        "y": 1993,
+        "x": 230,
+        "y": 2000,
         "wires": [
             [
-                "13f0085a.0d5178"
+                "35b035bf.c8c96a"
             ]
         ]
     },
@@ -3147,8 +3157,8 @@
         "func": "if (msg.payload.code === 0){\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 647.5,
-        "y": 1996,
+        "x": 880,
+        "y": 2000,
         "wires": [
             [
                 "b0fab2cd.d77d4"
@@ -3166,8 +3176,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Update App",
-        "x": 873,
-        "y": 1996,
+        "x": 1050,
+        "y": 2000,
         "wires": [
             [],
             [],
@@ -3283,8 +3293,8 @@
         "func": "//get custom cloud URL if previously set\nvar color = flow.get('colordropdownSelect');\nif (msg.payload === true){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",true]);\n       msg.payload = flow.get(\"cloudURL\")[0];  \n}\nif (msg.payload === false){\n       flow.set(\"cloudURL\",[\"https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec\",false]);\n       msg.payload = flow.get(\"cloudURL-\" + color)||\"Not set for \" + color;\n   }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 967.0000381469727,
-        "y": 690.0000305175781,
+        "x": 950,
+        "y": 720,
         "wires": [
             [
                 "edb75c90.8414"
@@ -3296,7 +3306,7 @@
         "type": "ui_toast",
         "z": "a564595f.642818",
         "position": "top right",
-        "displayTime": "3",
+        "displayTime": "5",
         "highlight": "",
         "outputs": 0,
         "ok": "OK",
@@ -3363,8 +3373,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 608,
-        "y": 276,
+        "x": 600,
+        "y": 240,
         "wires": [
             [
                 "543d2dd7.2fe974"
@@ -3393,8 +3403,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 739,
-        "y": 276,
+        "x": 730,
+        "y": 240,
         "wires": [
             [
                 "a2f14292.5b0f3"
@@ -3406,14 +3416,14 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore Tilt Settings",
-        "func": "flow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\nmsg.payload = \"on\";\nreturn msg;",
+        "func": "if (msg.payload !== undefined){\nflow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\n}\n//after last tilt (pink) settings restored, start scanning\nelse if (msg.filename == \"/home/pi/PINK.json\"){\n  msg.payload = \"python3 -u -m aioblescan -T\";\n  return msg;\n }",
         "outputs": "1",
         "noerr": 0,
         "x": 914,
         "y": 277,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "9d251f5a.10bdc"
             ]
         ]
     },
@@ -3441,7 +3451,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Update",
-        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1]||true;\nif (check === true){\n}else{\n    return msg;\n}\n",
+        "func": "//only updates if custom Cloud URLs are in use\nvar check = flow.get('cloudURL')[1]||false;\nif (check === true){\n}else{\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 463.74999237060547,
@@ -3469,25 +3479,6 @@
         "wires": []
     },
     {
-        "id": "982240ba.f2f5",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "Clear Responses",
-        "topic": "",
-        "payload": "{\"result\":\"Waiting for next time point...\"}",
-        "payloadType": "json",
-        "repeat": "20",
-        "crontab": "",
-        "once": false,
-        "x": 3210.2008361816406,
-        "y": 566.4970045089722,
-        "wires": [
-            [
-                "df1ac3a9.c4472"
-            ]
-        ]
-    },
-    {
         "id": "e56d18b9.6cbc88",
         "type": "file",
         "z": "a564595f.642818",
@@ -3498,7 +3489,9 @@
         "overwriteFile": "true",
         "x": 1429.0565185546875,
         "y": 20,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "dc9ecd32.25037",
@@ -3559,7 +3552,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set options",
-        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload;\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
+        "func": "//set default dropdown item if undefined\nmsg.options = msg.payload||[\"NONE\"];\nmsg.payload = flow.get('colordropdownSelect')||msg.options[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 570,
@@ -3636,7 +3629,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "clear calibration",
-        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = [];\nreturn msg;",
+        "func": "var color = msg.payload;\nvar uncalpointsArray = flow.set('uncalTemppoints-' + color,[]);\nvar actualpointsArray = flow.set('actualTemppoints-' + color,[]);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1684.5,
@@ -3653,7 +3646,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "update display",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||[];\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||[];\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalpointsArray = flow.get('uncalTemppoints-' + color)||\"\";\nvar actualpointsArray = flow.get('actualTemppoints-' + color)||\"\";\nvar msg1 = {payload:uncalpointsArray};\nvar msg2 = {payload:actualpointsArray};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
         "x": 1483.5,
@@ -3672,7 +3665,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual [use RETURN to set]",
+        "label": "Enter Actual (known) point:",
         "group": "c12bcb12.dbd0d8",
         "order": 2,
         "width": 0,
@@ -3694,7 +3687,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Uncalibrated Points [use RETURN to set]",
+        "label": "Edit Uncalibrated (Tilt) Points",
         "group": "c12bcb12.dbd0d8",
         "order": 3,
         "width": 0,
@@ -3703,7 +3696,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2086,
+        "x": 2046,
         "y": 1386,
         "wires": [
             [
@@ -3716,7 +3709,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Actual Points [use RETURN to set]",
+        "label": " Edit Actual Points",
         "group": "c12bcb12.dbd0d8",
         "order": 4,
         "width": 0,
@@ -3725,7 +3718,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2078,
+        "x": 2028,
         "y": 1453,
         "wires": [
             [
@@ -3766,7 +3759,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current Temp",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nmsg.payload = msg.payload.displayuncalTemp;\nreturn msg;\n}",
+        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1350,
@@ -3774,7 +3767,8 @@
         "wires": [
             [
                 "854dec23.fee5f",
-                "67b168fa.e90078"
+                "67b168fa.e90078",
+                "675094a4.49a26c"
             ]
         ]
     },
@@ -3787,11 +3781,11 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncal. Temp.",
-        "format": "{{msg.payload | number:1}}",
+        "label": "Uncalibrated Temperature:",
+        "format": "{{msg.payload.displayuncalTemp | number:1}}{{msg.payload.tempunits}}",
         "layout": "row-spread",
-        "x": 1610,
-        "y": 900,
+        "x": 1880,
+        "y": 920,
         "wires": []
     },
     {
@@ -3799,11 +3793,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Uncal Temp Value",
-        "func": "flow.set('uncalTemppoint',Number(msg.payload).toFixed(1));",
+        "func": "flow.set('uncalTemppoint',Number(msg.payload.displayuncalTemp).toFixed(1));",
         "outputs": 1,
         "noerr": 0,
-        "x": 1840,
-        "y": 940,
+        "x": 1860,
+        "y": 980,
         "wires": [
             []
         ]
@@ -3841,7 +3835,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "plato",
@@ -3871,7 +3865,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "brix",
@@ -3973,7 +3967,9 @@
         "overwriteFile": "true",
         "x": 1418.239501953125,
         "y": 68.01043319702148,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "dc0ffeac.632b6",
@@ -4003,7 +3999,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "sg",
@@ -4033,7 +4029,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": "false",
+        "decouple": "true",
         "topic": "",
         "style": "",
         "onvalue": "°F",
@@ -4082,11 +4078,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1389.5208740234375,
-        "y": 1644.8509521484375,
+        "onceDelay": "2",
+        "x": 1510,
+        "y": 1640,
         "wires": [
             [
-                "cd091791.668ca8"
+                "fd49eb70.32ff38"
             ]
         ]
     },
@@ -4101,54 +4098,9 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 1462.7951202392578,
-        "y": 1916.6775169372559,
-        "wires": [
-            [
-                "e0d9c78e.ee0138"
-            ]
-        ]
-    },
-    {
-        "id": "cd091791.668ca8",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1588.3023681640625,
-        "y": 1644.0592041015625,
-        "wires": [
-            [
-                "fd49eb70.32ff38"
-            ]
-        ]
-    },
-    {
-        "id": "e0d9c78e.ee0138",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1644.2396240234375,
-        "y": 1916.6771240234375,
+        "onceDelay": "2",
+        "x": 1650,
+        "y": 1900,
         "wires": [
             [
                 "3c9890f9.04d5f"
@@ -4178,7 +4130,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Changed?",
-        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.SG + \nmsg.payload.Temp + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
+        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 974.8472900390625,
@@ -4204,7 +4156,7 @@
         "min": "-105",
         "max": "-35",
         "step": 1,
-        "x": 290,
+        "x": 490,
         "y": 2200,
         "wires": [
             [
@@ -4231,7 +4183,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 470,
+        "x": 670,
         "y": 2200,
         "wires": [
             [
@@ -4251,8 +4203,8 @@
         "label": "Minimum RSSI in dBm",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 685.017333984375,
-        "y": 2212.232798576355,
+        "x": 900,
+        "y": 2200,
         "wires": []
     },
     {
@@ -4464,14 +4416,14 @@
         "id": "34b160f1.5b1ee",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo mkdir /mnt/usb",
+        "command": "sudo mkdir -p /mnt/usb",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 274.52085876464844,
+        "x": 284.52085876464844,
         "y": 2441.4202003479004,
         "wires": [
             [],
@@ -4566,7 +4518,7 @@
         "scope": [
             "c0f36d.ab686c9"
         ],
-        "x": 140,
+        "x": 60,
         "y": 400,
         "wires": [
             [
@@ -4578,7 +4530,7 @@
         "id": "410f235c.c1f2ac",
         "type": "change",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "start anyway if error",
         "rules": [
             {
                 "t": "set",
@@ -4593,11 +4545,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 240,
         "y": 400,
         "wires": [
             [
-                "45fc2eae.52e02"
+                "31588cca.783d84"
             ]
         ]
     },
@@ -4609,8 +4561,8 @@
         "scope": [
             "c0f36d.ab686c9"
         ],
-        "x": 60,
-        "y": 2180,
+        "x": 80,
+        "y": 2260,
         "wires": [
             [
                 "6ccc73b5.86205c"
@@ -4636,8 +4588,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 162.5,
-        "y": 2255,
+        "x": 260,
+        "y": 2260,
         "wires": [
             [
                 "a4d1964e.cb4f78"
@@ -4687,8 +4639,8 @@
         "func": "var minRSSI = flow.get('minRSSI');\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 622.1944885253906,
-        "y": 128.69444465637207,
+        "x": 650,
+        "y": 140,
         "wires": [
             [
                 "e5652ef0.acaaf"
@@ -4806,7 +4758,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Send IP Addr",
-        "func": "var ipAddress = flow.get('ipaddress');\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);",
+        "func": "var ipAddress = flow.get('ipaddress')||\"http://tiltpi.local:1880/ui\";\nflow.set(msg.payload.Color + \"-Comment\",ipAddress);\nflow.set('lastpost-' + msg.payload.Color,0);",
         "outputs": 1,
         "noerr": 0,
         "x": 3013,
@@ -4844,10 +4796,11 @@
         "z": "a564595f.642818",
         "name": "",
         "scope": [
+            "8dc4fe46.fc364",
             "cdc2a491.47b908"
         ],
-        "x": 233,
-        "y": 188,
+        "x": 350,
+        "y": 200,
         "wires": [
             []
         ]
@@ -4924,7 +4877,8 @@
         "y": 275,
         "wires": [
             [
-                "cdc2a491.47b908"
+                "cdc2a491.47b908",
+                "a2f14292.5b0f3"
             ]
         ]
     },
@@ -4932,12 +4886,14 @@
         "id": "d5884cdc.50b47",
         "type": "debug",
         "z": "a564595f.642818",
-        "name": "",
+        "name": "response debugger",
         "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 3439,
-        "y": 88,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3530,
+        "y": 80,
         "wires": []
     },
     {
@@ -5033,7 +4989,7 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "System Time [use RETURN to set manually]",
+        "label": "Adjust System Time Manually",
         "group": "5ca7d250.c3938c",
         "order": 3,
         "width": 0,
@@ -5042,7 +4998,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 574.0000076293945,
+        "x": 534.0000076293945,
         "y": 1809.2500267028809,
         "wires": [
             [
@@ -5135,7 +5091,7 @@
         "multi": "one",
         "ret": "\\n",
         "temp": "ipv4,ipv6",
-        "skip": "0",
+        "skip": 0,
         "x": 470,
         "y": 1880,
         "wires": [
@@ -5155,7 +5111,9 @@
         "overwriteFile": "true",
         "x": 1250,
         "y": 1560,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "90a37ef8.2317d",
@@ -5189,6 +5147,536 @@
             [],
             [
                 "be6c33c3.62e8a"
+            ]
+        ]
+    },
+    {
+        "id": "9d251f5a.10bdc",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "oldrc": false,
+        "name": "scan control",
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "8dc4fe46.fc364"
+            ],
+            [
+                "1d0659ea.6c2c26",
+                "31588cca.783d84"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "425f9ce9.7d5064",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 2610,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1d0659ea.6c2c26",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 500,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "31588cca.783d84",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "pkill -f aioblescan",
+        "op2": "python3 -u -m aioblescan -T",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Reset",
+        "x": 250,
+        "y": 20,
+        "wires": [
+            [
+                "9d251f5a.10bdc"
+            ]
+        ]
+    },
+    {
+        "id": "a6e4b381.0a8fa",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "minRSSI",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "x": 100,
+        "y": 2200,
+        "wires": [
+            [
+                "e5c9eaf5.b44748"
+            ]
+        ]
+    },
+    {
+        "id": "e5c9eaf5.b44748",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "msg.payload = flow.get(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 2200,
+        "wires": [
+            [
+                "a4d1964e.cb4f78"
+            ]
+        ]
+    },
+    {
+        "id": "713dd3f6.8af61c",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "6acae0b0.a184",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Calibrated Specific Gravity:",
+        "format": "{{msg.payload.SG | number:3}}",
+        "layout": "row-spread",
+        "x": 1680,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "675094a4.49a26c",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c12bcb12.dbd0d8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Calibrated Temperature:",
+        "format": "{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}",
+        "layout": "row-spread",
+        "x": 1870,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "2c407f92.0b22b",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo sed -i",
+        "addpay": false,
+        "append": "'s/921600 noflow/115200 noflow/g' /usr/bin/btuart",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Reduce Baud",
+        "x": 1320,
+        "y": 1880,
+        "wires": [
+            [],
+            [],
+            [
+                "be6c33c3.62e8a"
+            ]
+        ]
+    },
+    {
+        "id": "6b927b9c.f1c794",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo sed -i",
+        "addpay": false,
+        "append": "'s/115200 noflow/921600 noflow/g' /usr/bin/btuart",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Restore Baud",
+        "x": 1320,
+        "y": 1940,
+        "wires": [
+            [],
+            [],
+            [
+                "be6c33c3.62e8a"
+            ]
+        ]
+    },
+    {
+        "id": "473deb1e.3fc504",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "Stability Fix for RPi3",
+        "group": "7e458eda.984cd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "BT Stability Fix for RPi3",
+        "color": "",
+        "bgcolor": "",
+        "icon": "settings_bluetooth",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 1100,
+        "y": 1880,
+        "wires": [
+            [
+                "2c407f92.0b22b"
+            ]
+        ]
+    },
+    {
+        "id": "ffe5510b.99527",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "Revert Stability Fix for RPi3",
+        "group": "7e458eda.984cd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Revert BT Stability Fix for RPi3",
+        "color": "",
+        "bgcolor": "",
+        "icon": "settings_backup_restore",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 1080,
+        "y": 1940,
+        "wires": [
+            [
+                "6b927b9c.f1c794"
+            ]
+        ]
+    },
+    {
+        "id": "47d6079b.2ae9c8",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c8854cd2.f1773",
+        "order": 2,
+        "width": "6",
+        "height": "2",
+        "name": "Current Updates",
+        "label": "Current Version: {{msg.label}}",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1850,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "7799f0b1.ee4b8",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "{\"result\":\"Waiting for next time point...\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "30",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Reset Result",
+        "x": 3270,
+        "y": 580,
+        "wires": [
+            [
+                "b94e4a26.8805b8"
+            ]
+        ]
+    },
+    {
+        "id": "b94e4a26.8805b8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clear cloudwait",
+        "rules": [
+            {
+                "t": "set",
+                "p": "cloudwait",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "cloudlink",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3440,
+        "y": 580,
+        "wires": [
+            [
+                "df1ac3a9.c4472"
+            ]
+        ]
+    },
+    {
+        "id": "c9d0dfc1.9cca2",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "http payload debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3510,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b434dd22.03a0f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "enable dev-mode",
+        "func": "// true marks tiltpi as developer mode \n// dev-mode: true allows custom update source\n// var devEnabled = true; // dev-mode enabled\nvar devEnabled = false; // dev-mode disabled\nflow.set('dev-mode',devEnabled); \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 1960,
+        "wires": [
+            [
+                "f089aeab.e0832"
+            ]
+        ]
+    },
+    {
+        "id": "f089aeab.e0832",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "custom update source",
+        "func": "// replace this url with your custom publicly resolved github source\n// var customUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\nvar customUrl = \"https://raw.githubusercontent.com/<username>/tiltpi/<dev-branch>/flow.json\";\nvar customReleases = \"https://api.github.com/repos/<username>/tiltpi/releases\";\n\nflow.set('custom-update-url', customUrl);\nflow.set('custom-update-release-url', customReleases);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 1960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "35b035bf.c8c96a",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "update source",
+        "func": "// disabled use of master due to broken builds on later raspberry pi images\n//var defaultUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/master/flow.json\";\nvar defaultUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\n\nvar customUrl = flow.get('custom-update-url');\n\nif (flow.get('dev-mode') && customUrl) {\n    msg.payload = customUrl;\n} else {\n    msg.payload = defaultUrl;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 2000,
+        "wires": [
+            [
+                "13f0085a.0d5178"
+            ]
+        ]
+    },
+    {
+        "id": "fda0c78c.e93008",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "set dev-mode",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 180,
+        "y": 1960,
+        "wires": [
+            [
+                "b434dd22.03a0f"
+            ]
+        ]
+    },
+    {
+        "id": "28059b08.d92734",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "set release source",
+        "func": "// use github releases API to fetch latest release details\nvar defaultReleases = \"https://api.github.com/repos/baronbrew/TILTpi/releases/latest\";\nvar customReleases = flow.get('custom-update-release-url') + \"/latest\";\n\nif (flow.get('dev-mode') && customReleases) {\n    msg.url = customReleases;\n} else {\n    msg.url = defaultReleases;\n}\n\nmsg.headers = {\n    \"User-Agent\": \"node-red;tiltpi\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1350,
+        "y": 2080,
+        "wires": [
+            [
+                "e5ef4db6.33ad1"
+            ]
+        ]
+    },
+    {
+        "id": "4d283807.7a37b8",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "latest releases",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "86400",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 1160,
+        "y": 2080,
+        "wires": [
+            [
+                "28059b08.d92734"
+            ]
+        ]
+    },
+    {
+        "id": "a1089058.b969",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c8854cd2.f1773",
+        "order": 2,
+        "width": "6",
+        "height": "2",
+        "name": "Latest Releases",
+        "label": "{{msg.label}}",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 2080,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "9ae6ebe8.91e128",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "filter",
+        "func": "var status = msg.statusCode;\nvar resp = msg.payload;\n\nvar msg = {};\nif (status == 200 && resp !== []) {\n    var latest = flow.get(\"version\");\n    if (resp.name == latest.name) {\n        msg.enabled = false;\n        msg.label = \"\";\n        msg.payload = \"Running most current version.\";\n    } else {\n      msg.enabled = true;\n      msg.label = \"Latest Update: \" + resp.name;\n      msg.payload = resp.body;\n    }\n} else {\n    msg.enabled = false;\n    msg.label = \"Lastest Update: Unknown\";\n    msg.payload = \"Failed to retrieve latest release information. Check internet connectivity.\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1930,
+        "y": 2080,
+        "wires": [
+            [
+                "a1089058.b969"
+            ]
+        ]
+    },
+    {
+        "id": "a5a85aba.a9d748",
+        "type": "http request",
+        "z": "a564595f.642818",
+        "name": "fetch latest release notes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 1750,
+        "y": 2080,
+        "wires": [
+            [
+                "9ae6ebe8.91e128"
+            ]
+        ]
+    },
+    {
+        "id": "e5ef4db6.33ad1",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1540,
+        "y": 2080,
+        "wires": [
+            [
+                "a5a85aba.a9d748"
+            ]
+        ]
+    },
+    {
+        "id": "41af0fce.49552",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "current release",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 1500,
+        "y": 2120,
+        "wires": [
+            [
+                "edb8b308.bde27"
+            ]
+        ]
+    },
+    {
+        "id": "edb8b308.bde27",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "release info",
+        "func": "var release = {\n    name: \"v.2.6\",\n    notes: \"Log to multiple cloud URLs simultaneously by entering comma separated cloud URLs\"\n};\n\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1670,
+        "y": 2120,
+        "wires": [
+            [
+                "47d6079b.2ae9c8"
             ]
         ]
     }
