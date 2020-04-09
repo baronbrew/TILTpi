@@ -29,7 +29,7 @@ Install node-red update script for Raspberry Pi using version that works with Go
 
 ## Step 4
 
-Install dashboard ui node v2.9.7 locally for node-red and enable auto-start of node-red at boot. Re-run node-red install script.
+Install dashboard ui node v2.15.5 globally for node-red and enable auto-start of node-red at boot. Re-run node-red install script.
 
 `sudo -H npm install node-red-dashboard@2.9.7 -g`
 
