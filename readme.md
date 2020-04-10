@@ -31,15 +31,15 @@ Install node-red update script for Raspberry Pi using version that works with Go
 
 ## Step 4
 
-Install dashboard ui node v2.15.5 globally for node-red and enable auto-start of node-red at boot. Re-run node-red install script.
+Install dashboard ui node v2.15.5 globally for node-red and enable auto-start of node-red at boot.
+
+`sudo -H npm install node-red-dashboard@2.9.7 -g`
+
+Note: For some reason v2.15.5 will not install succesfully unless v2.9.7 is installed first.
 
 `sudo -H npm install node-red-dashboard@2.15.5 -g`
 
 `sudo systemctl enable nodered.service`
-
-`bash <(curl -sL https://raw.githubusercontent.com/baronbrew/raspbian-deb-package/master/resources/update-nodejs-and-nodered)`
-
-Note: For some reason npm does not install the dashboard ui node correctly so the node-red install script must be re-run after installing to fix the installation.
 
 ## Step 5
 Reboot to start node-red on boot.
@@ -56,7 +56,7 @@ Run downloaded Tilt Pi app/flow in node-red:
 
 `curl -X POST http://localhost:1880/flows -H "Content-Type: application/json" -H "Node-RED-Deployment-Type: nodes" --data "@/home/pi/flow.json"`
 
-## Step 9
+## Step 9 (optional)
 As an optional step, you can add a WiFi connection manager script that has a robust algorithm to maintain the WiFi connection if the connection is unstable.
 
 `curl -L wifi.brewpiremix.com | sudo bash`
