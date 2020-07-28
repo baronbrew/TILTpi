@@ -2584,8 +2584,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Reboot",
-        "x": 460,
-        "y": 2140,
+        "x": 420,
+        "y": 2160,
         "wires": [
             [
                 "2a36a03c.47d1f"
@@ -2612,7 +2612,7 @@
         "payloadType": "str",
         "topic": "",
         "x": 220,
-        "y": 2137,
+        "y": 2160,
         "wires": [
             [
                 "b13cb5ba.f355b8"
@@ -2631,8 +2631,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 686,
-        "y": 2131,
+        "x": 600,
+        "y": 2160,
         "wires": []
     },
     {
@@ -2945,7 +2945,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "c8854cd2.f1773",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3013,8 +3013,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Shutdown",
-        "x": 463,
-        "y": 2063,
+        "x": 420,
+        "y": 2100,
         "wires": [
             [
                 "f2bdbc36.5644d"
@@ -3040,8 +3040,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 223,
-        "y": 2060,
+        "x": 220,
+        "y": 2120,
         "wires": [
             [
                 "5a69b142.f96b6"
@@ -3060,8 +3060,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 679,
-        "y": 2054,
+        "x": 600,
+        "y": 2120,
         "wires": []
     },
     {
@@ -3120,7 +3120,8 @@
             [],
             [],
             [
-                "ef8b11d3.ed055"
+                "ef8b11d3.ed055",
+                "b6a9d6eb.7b1528"
             ]
         ]
     },
@@ -3309,7 +3310,6 @@
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
-        "sendall": true,
         "outputs": 0,
         "ok": "OK",
         "cancel": "",
@@ -5579,7 +5579,7 @@
         "type": "ui_text",
         "z": "a564595f.642818",
         "group": "c8854cd2.f1773",
-        "order": 2,
+        "order": 3,
         "width": "6",
         "height": "2",
         "name": "Latest Releases",
@@ -5679,6 +5679,90 @@
         "wires": [
             [
                 "47d6079b.2ae9c8"
+            ]
+        ]
+    },
+    {
+        "id": "1e6e38bc.e37f97",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Beta Test",
+        "label": "Beta Testing (enter \"tiltpi-dev\" to test)",
+        "tooltip": "",
+        "group": "c8854cd2.f1773",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 240,
+        "y": 2040,
+        "wires": [
+            [
+                "962176ad.a43718",
+                "e51238e0.06fd18"
+            ]
+        ]
+    },
+    {
+        "id": "962176ad.a43718",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "GitHub URL",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://raw.githubusercontent.com/baronbrew/TILTpi/{{payload}}/flow.json\n",
+        "output": "str",
+        "x": 410,
+        "y": 2040,
+        "wires": [
+            [
+                "13f0085a.0d5178"
+            ]
+        ]
+    },
+    {
+        "id": "b6a9d6eb.7b1528",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 950,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "e51238e0.06fd18",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Clear",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 190,
+        "y": 2080,
+        "wires": [
+            [
+                "1e6e38bc.e37f97"
             ]
         ]
     }
