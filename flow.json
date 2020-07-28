@@ -2818,8 +2818,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Reboot",
-        "x": 520,
-        "y": 2860,
+        "x": 480,
+        "y": 2880,
         "wires": [
             [
                 "2a36a03c.47d1f"
@@ -2846,7 +2846,7 @@
         "payloadType": "str",
         "topic": "",
         "x": 280,
-        "y": 2857,
+        "y": 2880,
         "wires": [
             [
                 "b13cb5ba.f355b8"
@@ -2865,8 +2865,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 746,
-        "y": 2851,
+        "x": 730,
+        "y": 2860,
         "wires": []
     },
     {
@@ -3247,8 +3247,8 @@
         "useSpawn": false,
         "timer": "",
         "name": "Shutdown",
-        "x": 523,
-        "y": 2783,
+        "x": 470,
+        "y": 2820,
         "wires": [
             [
                 "f2bdbc36.5644d"
@@ -3274,8 +3274,8 @@
         "payload": "now",
         "payloadType": "str",
         "topic": "",
-        "x": 283,
-        "y": 2780,
+        "x": 270,
+        "y": 2840,
         "wires": [
             [
                 "5a69b142.f96b6"
@@ -3294,8 +3294,8 @@
         "cancel": "",
         "topic": "",
         "name": "",
-        "x": 739,
-        "y": 2774,
+        "x": 730,
+        "y": 2820,
         "wires": []
     },
     {
@@ -7354,5 +7354,75 @@
         "x": 1240,
         "y": 380,
         "wires": []
+    },
+    {
+        "id": "14afaa5e.5b9ff6",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Beta Test",
+        "label": "Beta Testing (enter \"tiltpi-dev\" to test)",
+        "tooltip": "",
+        "group": "c8854cd2.f1773",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 300,
+        "y": 2760,
+        "wires": [
+            [
+                "71555fdb.854f1",
+                "a7d80e0.0411ef"
+            ]
+        ]
+    },
+    {
+        "id": "71555fdb.854f1",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "GitHub URL",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://raw.githubusercontent.com/baronbrew/TILTpi/{{payload}}/flow.json\n",
+        "output": "str",
+        "x": 470,
+        "y": 2760,
+        "wires": [
+            [
+                "13f0085a.0d5178"
+            ]
+        ]
+    },
+    {
+        "id": "a7d80e0.0411ef",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Clear",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "cleared",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 2800,
+        "wires": [
+            [
+                "14afaa5e.5b9ff6"
+            ]
+        ]
     }
 ]
