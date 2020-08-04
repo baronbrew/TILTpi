@@ -470,6 +470,61 @@
         "collapse": false
     },
     {
+        "id": "44534105.db4bc",
+        "type": "ui_group",
+        "z": "",
+        "name": "21",
+        "tab": "4ede131f.f2e09c",
+        "order": 21,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "51d09488.cc74ec",
+        "type": "ui_group",
+        "z": "",
+        "name": "22",
+        "tab": "4ede131f.f2e09c",
+        "order": 22,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "401076ab.e74368",
+        "type": "ui_group",
+        "z": "",
+        "name": "23",
+        "tab": "4ede131f.f2e09c",
+        "order": 23,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "e317dbe5.cb4a88",
+        "type": "ui_group",
+        "z": "",
+        "name": "24",
+        "tab": "4ede131f.f2e09c",
+        "order": 24,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cc24e60a.97bf38",
+        "type": "ui_group",
+        "z": "",
+        "name": "25",
+        "tab": "4ede131f.f2e09c",
+        "order": 25,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
@@ -949,11 +1004,36 @@
                 "t": "cont",
                 "v": "options[19]",
                 "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[20]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[21]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[22]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[23]",
+                "vt": "flow"
+            },
+            {
+                "t": "cont",
+                "v": "options[24]",
+                "vt": "flow"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 20,
+        "outputs": 25,
         "x": 1420,
         "y": 340,
         "wires": [
@@ -1016,6 +1096,21 @@
             ],
             [
                 "8d5d51dc.2a629"
+            ],
+            [
+                "92ba8385.acef3"
+            ],
+            [
+                "9f6e9e76.c44dd"
+            ],
+            [
+                "5eb5cdca.85a624"
+            ],
+            [
+                "349a74f.c19918c"
+            ],
+            [
+                "ef0d5029.28851"
             ]
         ]
     },
@@ -1214,8 +1309,8 @@
         "func": "var color = flow.get('colordropdownSelect')||undefined;\nif (color !== undefined){\n    var beerArray = flow.get(color + \"-Beer\")||[\"\",true];\n    if (beerArray[1] === true){\n        msg.payload = beerArray[0];\n    }\n    else {\n        msg.payload = beerArray;\n    }\n} else {\n    msg.enabled = false;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 2538.4999237060547,
-        "y": 1110.9999895095825,
+        "x": 2660,
+        "y": 1140,
         "wires": [
             [
                 "656f0cf9.e79cd4"
@@ -1370,8 +1465,8 @@
         "func": "flow.set('colordropdownSelect',msg.payload);\nmsg.payload = \"\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1653.642807006836,
-        "y": 1078.9999952316284,
+        "x": 1630,
+        "y": 1140,
         "wires": [
             [
                 "971574e0.783ba8",
@@ -1553,7 +1648,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1701,7 +1796,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1744,7 +1839,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1787,7 +1882,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1830,7 +1925,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1895,7 +1990,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -1999,7 +2094,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -2064,7 +2159,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -2210,7 +2305,7 @@
         "delay": "0",
         "topic": "",
         "x": 1880,
-        "y": 1120,
+        "y": 1180,
         "wires": [
             [
                 "e899ac8f.ec903"
@@ -6280,7 +6375,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6340,7 +6435,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6425,7 +6520,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6510,7 +6605,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6595,7 +6690,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6680,7 +6775,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6765,7 +6860,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6850,7 +6945,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -6935,7 +7030,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -7020,7 +7115,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -7105,7 +7200,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -7190,7 +7285,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "check",
-        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 2190,
@@ -7422,6 +7517,556 @@
         "wires": [
             [
                 "14afaa5e.5b9ff6"
+            ]
+        ]
+    },
+    {
+        "id": "92ba8385.acef3",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "21",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-21",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e7184de8.a126d",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-21",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 1820,
+        "y": 940,
+        "wires": [
+            [
+                "ec92d732.73b488"
+            ]
+        ]
+    },
+    {
+        "id": "ec92d732.73b488",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 940,
+        "wires": [
+            [
+                "6b2630c1.ee399"
+            ]
+        ]
+    },
+    {
+        "id": "6b2630c1.ee399",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2190,
+        "y": 940,
+        "wires": [
+            [
+                "cf792291.cb942"
+            ]
+        ]
+    },
+    {
+        "id": "cf792291.cb942",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "44534105.db4bc",
+        "name": "21",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.displayColor[0]}}...{{msg.payload.displayColor[5]}}:{{msg.payload.displayColor[6]}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:40px;width:100%;\"></div>\n<h1>SG/Concentration: {{msg.payload.uncalferm}} (pre-calibrated)</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.displayuncalTemp | number:1}} (pre-calibrated)</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2410,
+        "y": 940,
+        "wires": [
+            [
+                "394a5d3d.92fa72",
+                "1ee5d27c.fa4e8e"
+            ]
+        ]
+    },
+    {
+        "id": "9f6e9e76.c44dd",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "22",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-22",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3d86d67.bc1ae",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-22",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 1820,
+        "y": 980,
+        "wires": [
+            [
+                "95307bd3.783cc8"
+            ]
+        ]
+    },
+    {
+        "id": "95307bd3.783cc8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 980,
+        "wires": [
+            [
+                "6b914e1.9bb8eb"
+            ]
+        ]
+    },
+    {
+        "id": "6b914e1.9bb8eb",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2190,
+        "y": 980,
+        "wires": [
+            [
+                "a68bf66a.5f1538"
+            ]
+        ]
+    },
+    {
+        "id": "a68bf66a.5f1538",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "51d09488.cc74ec",
+        "name": "22",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.displayColor[0]}}...{{msg.payload.displayColor[5]}}:{{msg.payload.displayColor[6]}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:40px;width:100%;\"></div>\n<h1>SG/Concentration: {{msg.payload.uncalferm}} (pre-calibrated)</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.displayuncalTemp | number:1}} (pre-calibrated)</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2410,
+        "y": 980,
+        "wires": [
+            [
+                "394a5d3d.92fa72",
+                "1ee5d27c.fa4e8e"
+            ]
+        ]
+    },
+    {
+        "id": "5eb5cdca.85a624",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "23",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-23",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2109ecc7.bf8cc4",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-23",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 1820,
+        "y": 1020,
+        "wires": [
+            [
+                "a7e1f3b1.13f8e"
+            ]
+        ]
+    },
+    {
+        "id": "a7e1f3b1.13f8e",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 1020,
+        "wires": [
+            [
+                "c3bb0e8a.e2ea3"
+            ]
+        ]
+    },
+    {
+        "id": "c3bb0e8a.e2ea3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2190,
+        "y": 1020,
+        "wires": [
+            [
+                "9d398dc.08dc57"
+            ]
+        ]
+    },
+    {
+        "id": "9d398dc.08dc57",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "401076ab.e74368",
+        "name": "23",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.displayColor[0]}}...{{msg.payload.displayColor[5]}}:{{msg.payload.displayColor[6]}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:40px;width:100%;\"></div>\n<h1>SG/Concentration: {{msg.payload.uncalferm}} (pre-calibrated)</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.displayuncalTemp | number:1}} (pre-calibrated)</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2410,
+        "y": 1020,
+        "wires": [
+            [
+                "394a5d3d.92fa72",
+                "1ee5d27c.fa4e8e"
+            ]
+        ]
+    },
+    {
+        "id": "349a74f.c19918c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "24",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-24",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e8e7308c.c4d17",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-24",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 1820,
+        "y": 1060,
+        "wires": [
+            [
+                "8843e2c8.51bdf"
+            ]
+        ]
+    },
+    {
+        "id": "8843e2c8.51bdf",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 1060,
+        "wires": [
+            [
+                "6d524c1c.8009f4"
+            ]
+        ]
+    },
+    {
+        "id": "6d524c1c.8009f4",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2190,
+        "y": 1060,
+        "wires": [
+            [
+                "96d4a8e7.f414a8"
+            ]
+        ]
+    },
+    {
+        "id": "96d4a8e7.f414a8",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "e317dbe5.cb4a88",
+        "name": "24",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.displayColor[0]}}...{{msg.payload.displayColor[5]}}:{{msg.payload.displayColor[6]}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:40px;width:100%;\"></div>\n<h1>SG/Concentration: {{msg.payload.uncalferm}} (pre-calibrated)</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.displayuncalTemp | number:1}} (pre-calibrated)</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2410,
+        "y": 1060,
+        "wires": [
+            [
+                "394a5d3d.92fa72",
+                "1ee5d27c.fa4e8e"
+            ]
+        ]
+    },
+    {
+        "id": "ef0d5029.28851",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "25",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "storage-25",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8dd595e8.8ace48",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "storage-25",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 1820,
+        "y": 1100,
+        "wires": [
+            [
+                "da4dbd71.50463"
+            ]
+        ]
+    },
+    {
+        "id": "da4dbd71.50463",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "clock",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.clock",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 1100,
+        "wires": [
+            [
+                "4200342b.ee6e5c"
+            ]
+        ]
+    },
+    {
+        "id": "4200342b.ee6e5c",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check",
+        "func": "if(msg.payload === undefined){\n msg.payload = {};\n msg.show = \"hidden\";\n return msg;   \n}\n//set msg.topic for use in displaying the correct color\nmsg.topic = msg.payload.Color;\n//reorder list if a Tilt disconnects\nif (msg.payload.clock - msg.payload.timeStamp > 2*60*1000){\n flow.set('storage-1',undefined);\n flow.set('storage-2',undefined);\n flow.set('storage-3',undefined);\n flow.set('storage-4',undefined);\n flow.set('storage-5',undefined);\n flow.set('storage-6',undefined);\n flow.set('storage-7',undefined);\n flow.set('storage-8',undefined);\n flow.set('storage-9',undefined);\n flow.set('storage-10',undefined);\n flow.set('storage-11',undefined);\n flow.set('storage-12',undefined);\n flow.set('storage-13',undefined);\n flow.set('storage-14',undefined);\n flow.set('storage-15',undefined);\n flow.set('storage-16',undefined);\n flow.set('storage-17',undefined);\n flow.set('storage-18',undefined);\n flow.set('storage-19',undefined);\n flow.set('storage-20',undefined);\n flow.set('storage-21',undefined);\n flow.set('storage-22',undefined);\n flow.set('storage-23',undefined);\n flow.set('storage-24',undefined);\n flow.set('storage-25',undefined);\n flow.set('options',[]);\n if (msg.topic === flow.get('colordropdownSelect')){\n     flow.set('colordropdownSelect',undefined);\n }\n msg.show = \"hidden\";\n return msg;\n}\nelse{\n msg.show = \"visible\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2190,
+        "y": 1100,
+        "wires": [
+            [
+                "b8172640.fdaf28"
+            ]
+        ]
+    },
+    {
+        "id": "b8172640.fdaf28",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "cc24e60a.97bf38",
+        "name": "25",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<!DOCTYPE html>\n<style>\n   #{{msg.topic}}-div {\n    visibility: {{msg.show}};\n   }  \n</style>\n<div id = \"{{msg.topic}}-div\">\n<h1>{{msg.payload.Beer[0]}}</h1>\n<h1><strong>TILT | {{msg.payload.displayColor[0]}}...{{msg.payload.displayColor[5]}}:{{msg.payload.displayColor[6]}}</strong><span ng-bind-html=\"msg.payload.doclongurl\"></span></h1>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:40px;width:100%;\"></div>\n<h1>SG/Concentration: {{msg.payload.uncalferm}} (pre-calibrated)</h1>\n<h2>{{msg.payload.ferm}}{{msg.payload.fermunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.SG - 0.990)/0.00130}}%;\"></div>\n<h1>Temperature: {{msg.payload.displayuncalTemp | number:1}} (pre-calibrated)</h1>\n<h2>{{msg.payload.displayTemp | number:1}}{{msg.payload.tempunits}}</h2>\n<div style=\"background: {{msg.payload.displayColor[0]}};height:10px;width:{{(msg.payload.Temp - 30) / 1.85}}%;\"></div>\n<h5>{{msg.payload.formatteddate}}</h5>\n<h5>Received {{(msg.payload.clock - msg.payload.timeStamp) / 1000 | number:1}} seconds ago {{msg.payload.rssi}} dBm</h5>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 2410,
+        "y": 1100,
+        "wires": [
+            [
+                "394a5d3d.92fa72",
+                "1ee5d27c.fa4e8e"
             ]
         ]
     }
