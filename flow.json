@@ -539,6 +539,16 @@
         "collapse": false
     },
     {
+        "id": "c794b7cd.ac92b8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Tilt Smoothing",
+        "tab": "c9c26b4a.4cde78",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
@@ -564,12 +574,12 @@
         "id": "8dc4fe46.fc364",
         "type": "json",
         "z": "a564595f.642818",
-        "name": "Scan to JSON",
+        "name": "JSON",
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 500,
-        "y": 140,
+        "x": 390,
+        "y": 100,
         "wires": [
             [
                 "d504d607.384f48"
@@ -686,8 +696,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 896.2778701782227,
-        "y": 130.5000057220459,
+        "x": 750,
+        "y": 100,
         "wires": [
             [
                 "7c18d8fe.188168"
@@ -712,8 +722,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 770,
-        "y": 140,
+        "x": 630,
+        "y": 100,
         "wires": [
             [
                 "7f2f1fbf.e1098"
@@ -768,13 +778,13 @@
         "func": "//get color-mac combo\nvar IDbyMAC = flow.get('IDbyMAC')||false;\nif (IDbyMAC) {\nmsg.payload.Color = msg.payload.Color + \":\" + msg.payload.mac;\nmsg.payload.displayColor = msg.payload.Color.split(\":\");\nmsg.payload.IDbyMAC = true;\n} else {\n    msg.payload.displayColor = [msg.payload.Color];\n    msg.payload.IDbyMAC = false;\n}\n//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n    node.send([null, {'payload': options}]);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck');\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI');\nreturn [ msg, null ];",
         "outputs": 2,
         "noerr": 0,
-        "x": 1048.666732788086,
-        "y": 129.6666898727417,
+        "x": 900,
+        "y": 120,
         "wires": [
             [
-                "86447ba5.5d5b68",
                 "b90d01ad.44d08",
-                "2418cca9.80c104"
+                "2418cca9.80c104",
+                "17d09cdf.4751f3"
             ],
             [
                 "e493bf39.98126"
@@ -1280,7 +1290,7 @@
         "outputs": "1",
         "noerr": 0,
         "x": 1250,
-        "y": 140,
+        "y": 120,
         "wires": [
             [
                 "c4b0f249.af093"
@@ -1464,11 +1474,11 @@
         "id": "777f1a14.1b3e44",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "set Uncal SG Value",
-        "func": "flow.set('uncalSGpoint',Number(msg.payload.uncalSG).toFixed(3));",
+        "name": "set Pre-cal SG Value",
+        "func": "flow.set('uncalSGpoint',Number(msg.payload.uncalSG).toFixed(4));",
         "outputs": 1,
         "noerr": 0,
-        "x": 2168.4999237060547,
+        "x": 2178.4999237060547,
         "y": 1430.9999895095825,
         "wires": [
             []
@@ -1516,7 +1526,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Actual SG Value",
-        "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(3));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
+        "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(4));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1798.4999237060547,
@@ -2830,8 +2840,8 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncalibrated Specific Gravity:",
-        "format": "{{msg.payload.uncalSG | number:3}}",
+        "label": "Pre-calibrated Specific Gravity:",
+        "format": "{{msg.payload.uncalSG | number:4}}",
         "layout": "row-spread",
         "x": 2088.4999237060547,
         "y": 1470.9999895095825,
@@ -2862,7 +2872,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Edit Uncalibrated (Tilt) Points:",
+        "label": "Edit Pre-calibrated (Tilt) Points:",
+        "tooltip": "",
         "group": "6acae0b0.a184",
         "order": 3,
         "width": 0,
@@ -4000,7 +4011,8 @@
         "type": "ui_text_input",
         "z": "a564595f.642818",
         "name": "",
-        "label": "Edit Uncalibrated (Tilt) Points",
+        "label": "Edit Pre-calibrated (Tilt) Points",
+        "tooltip": "",
         "group": "c12bcb12.dbd0d8",
         "order": 3,
         "width": 0,
@@ -4009,7 +4021,7 @@
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2444.4999237060547,
+        "x": 2454.4999237060547,
         "y": 1996.9999895095825,
         "wires": [
             [
@@ -4094,7 +4106,7 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Uncalibrated Temperature:",
+        "label": "Pre-calibrated Temperature:",
         "format": "{{msg.payload.displayuncalTemp | number:1}}{{msg.payload.tempunits}}",
         "layout": "row-spread",
         "x": 2278.4999237060547,
@@ -4105,7 +4117,7 @@
         "id": "67b168fa.e90078",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "set Uncal Temp Value",
+        "name": "set Pre-cal Temp Value",
         "func": "flow.set('uncalTemppoint',Number(msg.payload.displayuncalTemp).toFixed(1));",
         "outputs": 1,
         "noerr": 0,
@@ -4952,8 +4964,8 @@
         "func": "var minRSSI = flow.get('minRSSI');\nif (msg.payload.rssi >= minRSSI){\n return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 650,
-        "y": 140,
+        "x": 510,
+        "y": 100,
         "wires": [
             [
                 "e5652ef0.acaaf"
@@ -5583,10 +5595,10 @@
         "height": 0,
         "name": "",
         "label": "Calibrated Specific Gravity:",
-        "format": "{{msg.payload.SG | number:3}}",
+        "format": "{{msg.payload.SG | number:4}}",
         "layout": "row-spread",
-        "x": 2078.4999237060547,
-        "y": 1490.9999895095825,
+        "x": 2080,
+        "y": 1500,
         "wires": []
     },
     {
@@ -5982,7 +5994,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "release info",
-        "func": "var release = {\n    name: \"v.2.6\",\n    notes: \"Log to multiple cloud URLs simultaneously by entering comma separated cloud URLs\"\n};\n\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "func": "var release = {\n    name: \"v.2.7\",\n    notes: \"Use MAC address to identify Tilts. Allows using more than 8 Tilts at time or Tilts with the same color.\"\n};\n\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1730,
@@ -8380,6 +8392,248 @@
         "wires": [
             [
                 "84b471d.dd3d59"
+            ]
+        ]
+    },
+    {
+        "id": "1e102cb6.f57423",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "IDbyMAC",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "8",
+        "x": 120,
+        "y": 3320,
+        "wires": [
+            [
+                "be79385c.484a28"
+            ]
+        ]
+    },
+    {
+        "id": "17d09cdf.4751f3",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Smooth",
+        "func": "var smoothSwitch = flow.get('smoothSwitch')||false;\nif (smoothSwitch){\nvar color = msg.payload.Color;\nvar SG = msg.payload.SG;\nvar Temp = msg.payload.Temp;\nvar alphaSG = flow.get('alphaSG') / 100||0.5;//ratio of current sample vs. average of previous samples over sample rate\nvar alphaTemp = flow.get('alphaTemp') / 100||0.5;//ratio of current sample vs. average of previous samples over sample rate\nvar numberSamples = flow.get('numberSamples') * 12 || 36;//multiply this number by sample rate to determine timeframe of moving average\nvar sampleRate = 5000;//measurements on Tilt taken every 5 seconds\nvar timeSinceLastSample = context.get(color + '-timeSinceLastSample')||sampleRate;\nvar prevSampleTime = context.get(color + '-prevSampleTime')||msg.payload.timeStamp;\nvar sampleTakenFlag = context.get(color + '-sampleTakenFlag')||\"not taken\";\nvar prevSGArray = context.get(color + '-SG')||[];\nvar prevTempArray = context.get(color + '-Temp')||[];\nif (timeSinceLastSample >= sampleRate && sampleTakenFlag == \"not taken\"){//take sample if time elapsed is more than sample rate\n context.set(color + '-sampleTakenFlag', \"taken\");\n prevSGArray.push(SG);\n prevTempArray.push(Temp);\n if (prevSGArray.length > numberSamples || prevTempArray.length > numberSamples){\n     prevSGArray.shift();\n     prevTempArray.shift();\n }\n context.set(color + '-SG', prevSGArray);\n context.set(color + '-Temp', prevTempArray);\n context.set(color + '-prevSampleTime', msg.payload.timeStamp);\n}else{\n     context.set(color + '-sampleTakenFlag', \"not taken\")\n}\ntimeSinceLastSample = msg.payload.timeStamp - prevSampleTime;\ncontext.set(color + '-timeSinceLastSample', timeSinceLastSample)\n//calculate means\nvar totalSG = 0;\nfor(var i = 0; i < prevSGArray.length; i++) {\n    totalSG += prevSGArray[i];\n}\nvar meanSG = totalSG / prevSGArray.length;\nmsg.payload.SG = ((SG * (1 - alphaSG)) + (meanSG * alphaSG));\nvar totalTemp = 0;\nfor(var i = 0; i < prevTempArray.length; i++) {\n    totalTemp += prevTempArray[i];\n}\nvar meanTemp = totalTemp / prevTempArray.length;\nmsg.payload.Temp = ((Temp * (1 - alphaTemp)) + (meanTemp * alphaTemp));\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1100,
+        "y": 120,
+        "wires": [
+            [
+                "86447ba5.5d5b68"
+            ]
+        ]
+    },
+    {
+        "id": "69de6eed.51ee3",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "Smoothing Switch",
+        "label": "Enable Smoothing",
+        "tooltip": "",
+        "group": "c794b7cd.ac92b8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 130,
+        "y": 3660,
+        "wires": [
+            [
+                "78939739.e7eac8"
+            ]
+        ]
+    },
+    {
+        "id": "78939739.e7eac8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "set smoothSwitch",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "smoothSwitch",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 3660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "abb434fc.fa72a8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "set SG alpha",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "alphaSG",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 3740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a99b227e.f6b3",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "set SG alpha",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "alphaTemp",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 3820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8cf9d8c.26898",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Averaging Time (Minutes)",
+        "tooltip": "",
+        "group": "c794b7cd.ac92b8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "120",
+        "step": ".1",
+        "x": 170,
+        "y": 3900,
+        "wires": [
+            [
+                "349b10e1.3c62c"
+            ]
+        ]
+    },
+    {
+        "id": "349b10e1.3c62c",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "set Number of Samples",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "numberSamples",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 3900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bc58593a.8338b8",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Temperature Smoothing %",
+        "tooltip": "",
+        "group": "c794b7cd.ac92b8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "100",
+        "step": "1",
+        "x": 160,
+        "y": 3820,
+        "wires": [
+            [
+                "a99b227e.f6b3"
+            ]
+        ]
+    },
+    {
+        "id": "4c545b57.8a8e44",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Gravity Smoothing %",
+        "tooltip": "",
+        "group": "c794b7cd.ac92b8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "100",
+        "step": "1",
+        "x": 160,
+        "y": 3740,
+        "wires": [
+            [
+                "abb434fc.fa72a8"
             ]
         ]
     }
