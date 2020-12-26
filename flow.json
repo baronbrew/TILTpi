@@ -1476,11 +1476,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Pre-cal SG Value",
-        "func": "flow.set('uncalSGpoint',Number(msg.payload.uncalSG).toFixed(4));",
+        "func": "flow.set('uncalSGpoint',Number(msg.payload).toFixed(4));",
         "outputs": 1,
         "noerr": 0,
-        "x": 2518.4999237060547,
-        "y": 1430.9999895095825,
+        "x": 2760,
+        "y": 1440,
         "wires": [
             []
         ]
@@ -1509,16 +1509,19 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Get Current SG",
-        "func": "var options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nreturn msg;\n}",
-        "outputs": 1,
+        "func": "if (msg.payload == \"disabled\") {\n    context.set(\"autoUpdate\", \"disabled\");\n}\nif (msg.payload == \"enabled\") {\n    context.set(\"autoUpdate\", \"enabled\");\n}\nvar autoUpdate = context.get(\"autoUpdate\")||\"enabled\";\nif (autoUpdate == \"enabled\"){\nvar options = flow.get('options')||[];\nvar color = msg.payload;\nvar displayNumber = options.indexOf(color) + 1;\nmsg.payload = flow.get(\"storage-\" + displayNumber.toString());\nif (msg.payload !== undefined){\nvar msg1 = {};\nvar msg2 = {};\nmsg1.payload = msg.payload.uncalSG.toFixed(4);\nmsg2.payload = msg.payload.SG.toFixed(4);\nreturn [msg1,msg2];\n}\n}",
+        "outputs": 2,
         "noerr": 0,
         "x": 2078.4999237060547,
         "y": 1470.9999895095825,
         "wires": [
             [
-                "777f1a14.1b3e44",
-                "ecfbe772.ba4cb8",
-                "713dd3f6.8af61c"
+                "26d12db4.df7f82",
+                "777f1a14.1b3e44"
+            ],
+            [
+                "8756395a.c6f6e8",
+                "84ffe685.150d58"
             ]
         ]
     },
@@ -1527,15 +1530,13 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "set Actual SG Value",
-        "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(4));\nmsg.payload = flow.get('colordropdownSelect');\nreturn msg;",
+        "func": "var value = Number(msg.payload);\nflow.set('actualSGpoint',value.toFixed(4));\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 2138.4999237060547,
-        "y": 1730.9999895095825,
+        "x": 2770,
+        "y": 1500,
         "wires": [
-            [
-                "6c6270ad.ae742"
-            ]
+            []
         ]
     },
     {
@@ -1691,15 +1692,16 @@
         "id": "6c6270ad.ae742",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Add SG Cal Point",
-        "func": "var color = msg.payload;\nvar uncalSGcalPoint = flow.get('uncalSGpoint')||0;\nvar actualSGcalPoint = flow.get('actualSGpoint')||0;\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nuncalpointsArray.push(uncalSGcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalSGpoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualSGcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualSGpoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString()};\nvar msg2 = {payload:actualpointsArray.toString()};\nreturn [msg1, msg2];",
+        "name": "Add SG Cal Points",
+        "func": "var color = msg.payload;\nvar uncalSGcalPoint = flow.get('uncalSGpoint')||0;\nvar actualSGcalPoint = flow.get('actualSGpoint')||0;\nif (msg.topic == \"calibrate in water\"){\n    actualSGcalPoint = 1;\n}\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nuncalpointsArray.push(uncalSGcalPoint);\nuncalpointsArray.sort(function(a, b){return a-b;});\nflow.set('uncalSGpoints-' + color,uncalpointsArray);\nactualpointsArray.push(actualSGcalPoint);\nactualpointsArray.sort(function(a, b){return a-b;});\nflow.set('actualSGpoints-' + color,actualpointsArray);\nvar msg1 = {payload:uncalpointsArray.toString(),topic:color};\nvar msg2 = {payload:actualpointsArray.toString(),topic:color};\nreturn [msg1, msg2];",
         "outputs": "2",
         "noerr": 0,
-        "x": 2442.9999237060547,
-        "y": 1736.9999895095825,
+        "x": 2950,
+        "y": 1740,
         "wires": [
             [
-                "1be76b3b.e111e5"
+                "1be76b3b.e111e5",
+                "3b195e06.c8f962"
             ],
             [
                 "e29d71bb.f0e81"
@@ -1712,7 +1714,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "6acae0b0.a184",
-        "order": 5,
+        "order": 9,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -2423,8 +2425,8 @@
         "label": "Minutes:",
         "format": "{{msg.payload}}",
         "layout": "row-left",
-        "x": 2718.4999237060547,
-        "y": 1410.9999895095825,
+        "x": 2520,
+        "y": 1420,
         "wires": []
     },
     {
@@ -2806,65 +2808,8 @@
         "y": 920,
         "wires": [
             [
-                "6aa75852.1e3068"
-            ]
-        ]
-    },
-    {
-        "id": "d9ea777.f3c9388",
-        "type": "ui_text_input",
-        "z": "a564595f.642818",
-        "name": "",
-        "label": "Enter Actual (known) point:",
-        "group": "6acae0b0.a184",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "mode": "text",
-        "delay": "0",
-        "topic": "",
-        "x": 1827.4999237060547,
-        "y": 1727.9999895095825,
-        "wires": [
-            [
-                "84ffe685.150d58"
-            ]
-        ]
-    },
-    {
-        "id": "ecfbe772.ba4cb8",
-        "type": "ui_text",
-        "z": "a564595f.642818",
-        "group": "6acae0b0.a184",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Pre-calibrated Specific Gravity:",
-        "format": "{{msg.payload.uncalSG | number:4}}",
-        "layout": "row-spread",
-        "x": 2428.4999237060547,
-        "y": 1470.9999895095825,
-        "wires": []
-    },
-    {
-        "id": "9bdc1db3.4ceaa",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "Get Color Selection",
-        "topic": "",
-        "payload": "colordropdownSelect",
-        "payloadType": "flow",
-        "repeat": "2",
-        "crontab": "",
-        "once": false,
-        "x": 1834.4999237060547,
-        "y": 1488.9999895095825,
-        "wires": [
-            [
-                "3eb6f3c4.588d1c",
-                "d6de2020.56974"
+                "6aa75852.1e3068",
+                "3eb6f3c4.588d1c"
             ]
         ]
     },
@@ -2876,15 +2821,15 @@
         "label": "Edit Pre-calibrated (Tilt) Points:",
         "tooltip": "",
         "group": "6acae0b0.a184",
-        "order": 3,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2794.4999237060547,
-        "y": 1776.9999895095825,
+        "x": 3250,
+        "y": 1780,
         "wires": [
             [
                 "88f0f33d.110ab"
@@ -2898,15 +2843,15 @@
         "name": "",
         "label": "Edit Actual Points:",
         "group": "6acae0b0.a184",
-        "order": 4,
+        "order": 8,
         "width": 0,
         "height": 0,
         "passthru": false,
         "mode": "text",
         "delay": "0",
         "topic": "",
-        "x": 2766.4999237060547,
-        "y": 1843.9999895095825,
+        "x": 3210,
+        "y": 1840,
         "wires": [
             [
                 "b36a946.3813e68"
@@ -3551,8 +3496,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('uncalSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 3127.9999237060547,
-        "y": 1773.9999895095825,
+        "x": 3540,
+        "y": 1780,
         "wires": [
             []
         ]
@@ -3565,8 +3510,8 @@
         "func": "var color = flow.get('colordropdownSelect')||\"\";\nvar uncalArray = msg.payload.split(\",\");\nflow.set('actualSGpoints-' + color,uncalArray);",
         "outputs": 1,
         "noerr": 0,
-        "x": 3126.4999237060547,
-        "y": 1833.9999895095825,
+        "x": 3540,
+        "y": 1860,
         "wires": [
             []
         ]
@@ -5587,22 +5532,6 @@
         ]
     },
     {
-        "id": "713dd3f6.8af61c",
-        "type": "ui_text",
-        "z": "a564595f.642818",
-        "group": "6acae0b0.a184",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Calibrated Specific Gravity:",
-        "format": "{{msg.payload.SG | number:4}}",
-        "layout": "row-spread",
-        "x": 2420,
-        "y": 1500,
-        "wires": []
-    },
-    {
         "id": "675094a4.49a26c",
         "type": "ui_text",
         "z": "a564595f.642818",
@@ -5801,7 +5730,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "enable dev-mode",
-        "func": "// true marks tiltpi as developer mode \n// dev-mode: true allows custom update source\nvar devEnabled = true; // dev-mode enabled\n//var devEnabled = false; // dev-mode disabled\nflow.set('dev-mode',devEnabled); \n\nreturn msg;",
+        "func": "// true marks tiltpi as developer mode \n// dev-mode: true allows custom update source\n//var devEnabled = true; // dev-mode enabled\nvar devEnabled = false; // dev-mode disabled\nflow.set('dev-mode',devEnabled); \n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 770,
@@ -5817,7 +5746,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "custom update source",
-        "func": "// replace this url with your custom publicly resolved github source\n// var customUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\nvar customUrl = \"https://raw.githubusercontent.com/baronbrew/tiltpi/tiltpi-dev/flow.json\";\nvar customReleases = \"https://api.github.com/repos/baronbrew/tiltpi/releases\";\nflow.set('custom-update-url', customUrl);\nflow.set('custom-update-release-url', customReleases);\nreturn msg;",
+        "func": "// replace this url with your custom publicly resolved github source\nvar customUrl = \"https://raw.githubusercontent.com/baronbrew/TILTpi/Aioblescan/flow.json\";\n//var customUrl = \"https://raw.githubusercontent.com/baronbrew/tiltpi/tiltpi-dev/flow.json\";\nvar customReleases = \"https://api.github.com/repos/baronbrew/tiltpi/releases\";\nflow.set('custom-update-url', customUrl);\nflow.set('custom-update-release-url', customReleases);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 980,
@@ -8716,6 +8645,271 @@
             [
                 "b8cf9d8c.26898"
             ]
+        ]
+    },
+    {
+        "id": "26d12db4.df7f82",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Pre-cal/Tilt SG",
+        "tooltip": "",
+        "group": "6acae0b0.a184",
+        "order": 2,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "topic": "",
+        "format": "{{msg.payload}}",
+        "min": "0.9900",
+        "max": "1.1200",
+        "step": ".0001",
+        "x": 2500,
+        "y": 1460,
+        "wires": [
+            [
+                "777f1a14.1b3e44",
+                "ba7658fb.988088"
+            ]
+        ]
+    },
+    {
+        "id": "8756395a.c6f6e8",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Adjust/Enter Actual SG",
+        "tooltip": "",
+        "group": "6acae0b0.a184",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "topic": "",
+        "format": "{{msg.payload}}",
+        "min": "0.990",
+        "max": "1.200",
+        "step": ".0001",
+        "x": 2530,
+        "y": 1500,
+        "wires": [
+            [
+                "84ffe685.150d58",
+                "ba7658fb.988088"
+            ]
+        ]
+    },
+    {
+        "id": "2b26e418.b14aec",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "6acae0b0.a184",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Calibrate in Known SG",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 2660,
+        "y": 1740,
+        "wires": [
+            [
+                "6c6270ad.ae742"
+            ]
+        ]
+    },
+    {
+        "id": "7edb039d.78073c",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "6acae0b0.a184",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Calibrate in Water",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "topic": "calibrate in water",
+        "x": 2650,
+        "y": 1700,
+        "wires": [
+            [
+                "6c6270ad.ae742"
+            ]
+        ]
+    },
+    {
+        "id": "483fead5.b9c834",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Auto-update from Tilt",
+        "tooltip": "",
+        "group": "6acae0b0.a184",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "enabled",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "disabled",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1700,
+        "y": 1500,
+        "wires": [
+            [
+                "3eb6f3c4.588d1c"
+            ]
+        ]
+    },
+    {
+        "id": "58debd3d.af16a4",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Color",
+        "topic": "",
+        "payload": "colordropdownSelect",
+        "payloadType": "flow",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1830,
+        "y": 1440,
+        "wires": [
+            [
+                "3eb6f3c4.588d1c"
+            ]
+        ]
+    },
+    {
+        "id": "18df7203.454ade",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "enabled",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 1500,
+        "y": 1500,
+        "wires": [
+            [
+                "483fead5.b9c834"
+            ]
+        ]
+    },
+    {
+        "id": "ba7658fb.988088",
+        "type": "link out",
+        "z": "a564595f.642818",
+        "name": "calibration update",
+        "links": [
+            "22133d6c.455a72"
+        ],
+        "x": 2635,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "22133d6c.455a72",
+        "type": "link in",
+        "z": "a564595f.642818",
+        "name": "calibration update",
+        "links": [
+            "ba7658fb.988088"
+        ],
+        "x": 1395,
+        "y": 1600,
+        "wires": [
+            [
+                "b47e694e.3ce3c8"
+            ]
+        ]
+    },
+    {
+        "id": "b47e694e.3ce3c8",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Disabled",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "disabled",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 1540,
+        "wires": [
+            [
+                "483fead5.b9c834"
+            ]
+        ]
+    },
+    {
+        "id": "3b195e06.c8f962",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "table",
+        "func": "var color = msg.topic;\nvar uncalpointsArray = flow.get('uncalSGpoints-' + color)||[];\nvar actualpointsArray = flow.get('actualSGpoints-' + color)||[];\nnode.warn(uncalpointsArray);\nmsg.payload = '<table><th>Pre-Cal/Tilt</th><th>Actual</th><td>' + uncalpointsArray[0] + '</td><td>' + actualpointsArray[0] + '</td></table>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3230,
+        "y": 1660,
+        "wires": [
+            [
+                "44aae1a8.7f6b3"
+            ]
+        ]
+    },
+    {
+        "id": "44aae1a8.7f6b3",
+        "type": "ui_template",
+        "z": "a564595f.642818",
+        "group": "6acae0b0.a184",
+        "name": "",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    td {\n  text-align: center;\n}\n</style>\n<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 3420,
+        "y": 1660,
+        "wires": [
+            []
         ]
     }
 ]
