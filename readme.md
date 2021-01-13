@@ -1,14 +1,11 @@
-# Tilt Pi Installation Instructions for Raspbian Buster 
-## Update April 9, 2020
-These instructions have been confirmed to work on February 13, 2020 version of Raspbian Buster.
-
-## Update July 13, 2019
-It appears "Bleacon" (the Bluetooth scanning module used in Tilt Pi) no longer appears to install succesfully regardless of nodejs version when installing on recent versions of Raspbian. As such, the module has been replaced with a "Aioblescan". These instructions were tested on a fresh install of the June 20, 2019 version of Raspbian Buster installed on a Raspberry Pi 0.
+# Tilt Pi Installation Instructions for Raspberry Pi OS "Buster" 
+## Update January 13, 2021
+These instructions have been confirmed to work on December 2, 2020 version of Raspberry Pi OS lite.
 
 ## Step 1
 Using SSH from another computer or from a Raspberry Pi command line directly, enter the following commands. Update Raspbian packages and install python install utility, "python3-distutils".
 
-`sudo apt-get update --allow-releaseinfo-change`
+`sudo apt-get update`
 
 `sudo apt-get install python3-distutils`
 
@@ -25,19 +22,16 @@ Get the “aioblescan” bluetooth scanner module customized with Tilt plugin, u
 
 ## Step 3
 
-Install node-red update script for Raspberry Pi using version that works with Google Sheets web apps (this forked install script installs version 0.18.4 which allows following redirects of http POST requests). Answer "yes" to install Raspberry Pi specific nodes.
+Install node-red update script for Raspberry Pi using version that works with Google Sheets web apps (this install script installs version 0.18.4 which allows following redirects of http POST requests needed for Google Sheets). Answer "yes" to install Raspberry Pi specific nodes.
 
-`bash <(curl -sL https://raw.githubusercontent.com/baronbrew/raspbian-deb-package/master/resources/update-nodejs-and-nodered)`
+`bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) --nodered-version="0.18.4"`
 
 ## Step 4
 
-Install dashboard ui node v2.15.5 globally for node-red and enable auto-start of node-red at boot.
+Install dashboard ui module for node-red and enable auto-start of node-red at boot.
 
-`sudo -H npm install node-red-dashboard@2.9.7 -g`
-
-Note: For some reason v2.15.5 will not install succesfully unless v2.9.7 is installed first.
-
-`sudo -H npm install node-red-dashboard@2.15.5 -g`
+`cd ~/.node-red`
+`sudo -H npm install node-red-dashboard@2.15.5`
 
 `sudo systemctl enable nodered.service`
 
