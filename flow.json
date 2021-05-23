@@ -8951,5 +8951,49 @@
                 "c78e4ac7.89ba88"
             ]
         ]
+    },
+    {
+        "id": "5335ca0a.9588f4",
+        "type": "http in",
+        "z": "a564595f.642818",
+        "name": "Get data from Tilt by macID",
+        "url": "/macid/:mac",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 3210,
+        "y": 700,
+        "wires": [
+            [
+                "1bde4de.21a20b2"
+            ]
+        ]
+    },
+    {
+        "id": "1bde4de.21a20b2",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Find macID",
+        "func": "var requestedMac = msg.req.params.mac;\nvar tiltData = {};\nvar allData = [];\nvar i;\nfor (i = 1; i < 26; i++){\n    tiltData = flow.get(\"storage-\" + i.toString());\n    if (tiltData !== undefined){\n    if (requestedMac == \"all\"){\n        allData.push(tiltData);\n        msg.payload = allData;\n    }\n    else if (requestedMac == tiltData.mac) {\n      msg.payload = tiltData;\n      { break; }\n     }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3430,
+        "y": 700,
+        "wires": [
+            [
+                "8cecafbd.3c63a"
+            ]
+        ]
+    },
+    {
+        "id": "8cecafbd.3c63a",
+        "type": "http response",
+        "z": "a564595f.642818",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 3590,
+        "y": 700,
+        "wires": []
     }
 ]
