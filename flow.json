@@ -3092,63 +3092,6 @@
         ]
     },
     {
-        "id": "7496a044.dd719",
-        "type": "exec",
-        "z": "a564595f.642818",
-        "command": "hostname -I",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "hostname",
-        "x": 800,
-        "y": 2620,
-        "wires": [
-            [
-                "deb9c4fc.20c098"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "58a4e2b2.11320c",
-        "type": "inject",
-        "z": "a564595f.642818",
-        "name": "get ip",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "10",
-        "x": 611,
-        "y": 2619.5,
-        "wires": [
-            [
-                "7496a044.dd719"
-            ]
-        ]
-    },
-    {
-        "id": "a4a5a7ed.d59958",
-        "type": "ui_text",
-        "z": "a564595f.642818",
-        "group": "c8854cd2.f1773",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Tilt Pi Local Address",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "x": 1348,
-        "y": 2625,
-        "wires": []
-    },
-    {
         "id": "5312bf4.09fd44",
         "type": "ui_switch",
         "z": "a564595f.642818",
@@ -4970,42 +4913,6 @@
         "wires": [
             [
                 "8ee3b7e3.1833a8"
-            ]
-        ]
-    },
-    {
-        "id": "375008fe.27a988",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "create URL",
-        "func": "var ipAddress = msg.payload.ipv4;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1110,
-        "y": 2620,
-        "wires": [
-            [
-                "a4a5a7ed.d59958"
-            ]
-        ]
-    },
-    {
-        "id": "deb9c4fc.20c098",
-        "type": "csv",
-        "z": "a564595f.642818",
-        "name": "",
-        "sep": " ",
-        "hdrin": "",
-        "hdrout": "",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "ipv4,ipv6",
-        "skip": 0,
-        "x": 950,
-        "y": 2620,
-        "wires": [
-            [
-                "375008fe.27a988"
             ]
         ]
     },
@@ -8995,5 +8902,216 @@
         "x": 3590,
         "y": 700,
         "wires": []
+    },
+    {
+        "id": "72dbc190.2a04f",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "create URL",
+        "func": "var ipAddress = msg.payload.ipv4;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 2600,
+        "wires": [
+            [
+                "30cef570.b4069a"
+            ]
+        ]
+    },
+    {
+        "id": "30cef570.b4069a",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "c8854cd2.f1773",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Tilt Pi Local Address",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1040,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "7475a86d.4d0568",
+        "type": "csv",
+        "z": "a564595f.642818",
+        "name": "",
+        "sep": " ",
+        "hdrin": "",
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ipv4,ipv6",
+        "skip": 0,
+        "x": 690,
+        "y": 2600,
+        "wires": [
+            [
+                "72dbc190.2a04f"
+            ]
+        ]
+    },
+    {
+        "id": "b195cdea.abcf8",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "192.168.42.1",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": ".",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 510,
+        "y": 2600,
+        "wires": [
+            [],
+            [
+                "7475a86d.4d0568"
+            ],
+            [
+                "af50e8cc.e27ca8"
+            ]
+        ]
+    },
+    {
+        "id": "788da77b.62b298",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "hostname -I",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "hostname",
+        "x": 360,
+        "y": 2600,
+        "wires": [
+            [
+                "b195cdea.abcf8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "af50e8cc.e27ca8",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo systemctl start wifi-connect.service",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "WiFi Connect Start",
+        "x": 690,
+        "y": 2660,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "740aa348.3b03bc",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-10",
+        "extend": false,
+        "units": "s",
+        "reset": "stop",
+        "bytopic": "all",
+        "name": "Control",
+        "x": 200,
+        "y": 2600,
+        "wires": [
+            [
+                "788da77b.62b298"
+            ]
+        ]
+    },
+    {
+        "id": "6a119d63.2d6514",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "get ip",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "x": 70,
+        "y": 2620,
+        "wires": [
+            [
+                "740aa348.3b03bc"
+            ]
+        ]
+    },
+    {
+        "id": "233d327b.28c95e",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "Stop",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "120",
+        "x": 70,
+        "y": 2580,
+        "wires": [
+            [
+                "740aa348.3b03bc",
+                "6f77344d.48085c"
+            ]
+        ]
+    },
+    {
+        "id": "6f77344d.48085c",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo systemctl stop wifi-connect.service",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "WiFi Connect Stop",
+        "x": 250,
+        "y": 2520,
+        "wires": [
+            [],
+            [],
+            []
+        ]
     }
 ]
