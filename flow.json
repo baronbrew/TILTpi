@@ -567,7 +567,8 @@
             [
                 "c0f36d.ab686c9",
                 "9d251f5a.10bdc",
-                "1a349481.97830b"
+                "1a349481.97830b",
+                "6fd56f4c.da2ef"
             ]
         ]
     },
@@ -849,8 +850,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": "",
-        "x": 510,
-        "y": 40,
+        "x": 430,
+        "y": 160,
         "wires": [
             [
                 "9d251f5a.10bdc"
@@ -5070,15 +5071,17 @@
         "timer": "",
         "oldrc": false,
         "name": "scan control",
-        "x": 650,
-        "y": 120,
+        "x": 630,
+        "y": 160,
         "wires": [
             [
-                "8dc4fe46.fc364"
+                "8dc4fe46.fc364",
+                "6fd56f4c.da2ef",
+                "6ce10677.d50f88"
             ],
             [
                 "1d0659ea.6c2c26",
-                "31588cca.783d84"
+                "6ce10677.d50f88"
             ],
             []
         ]
@@ -5107,8 +5110,8 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 890,
-        "y": 60,
+        "x": 950,
+        "y": 180,
         "wires": []
     },
     {
@@ -5125,11 +5128,12 @@
         "reset": "",
         "bytopic": "all",
         "name": "Reset",
-        "x": 670,
-        "y": 40,
+        "x": 630,
+        "y": 20,
         "wires": [
             [
-                "9d251f5a.10bdc"
+                "9d251f5a.10bdc",
+                "1d0659ea.6c2c26"
             ]
         ]
     },
@@ -5546,7 +5550,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "release info",
-        "func": "var release = {\n    name: \"v.2.7.1\",\n    notes: \"UI improvements for calibrating\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "func": "var release = {\n    name: \"v.2.8\",\n    notes: \"Improves BLE scan reliability.\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 2150,
@@ -8995,5 +8999,49 @@
         "x": 3590,
         "y": 700,
         "wires": []
+    },
+    {
+        "id": "6fd56f4c.da2ef",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "1",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "30",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Watchdog",
+        "x": 870,
+        "y": 60,
+        "wires": [
+            [
+                "31588cca.783d84"
+            ]
+        ]
+    },
+    {
+        "id": "6ce10677.d50f88",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "1",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "BLE Scan Error Handling",
+        "x": 410,
+        "y": 20,
+        "wires": [
+            [
+                "31588cca.783d84"
+            ]
+        ]
     }
 ]
