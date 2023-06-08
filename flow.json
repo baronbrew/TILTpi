@@ -314,7 +314,7 @@
         "z": "",
         "name": "Raspberry Pi",
         "tab": "c9c26b4a.4cde78",
-        "order": 7,
+        "order": 8,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -545,6 +545,17 @@
         "name": "Tilt Measurement Smoothing",
         "tab": "c9c26b4a.4cde78",
         "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "f1b2ab0a.9118e8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Dashboard Link (local URL)",
+        "tab": "c9c26b4a.4cde78",
+        "order": 7,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -3102,9 +3113,9 @@
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
-        "name": "hostname",
-        "x": 800,
-        "y": 2620,
+        "name": "IP Address",
+        "x": 310,
+        "y": 4220,
         "wires": [
             [
                 "deb9c4fc.20c098"
@@ -3125,11 +3136,12 @@
         "crontab": "",
         "once": true,
         "onceDelay": "10",
-        "x": 611,
-        "y": 2619.5,
+        "x": 130,
+        "y": 4220,
         "wires": [
             [
-                "7496a044.dd719"
+                "7496a044.dd719",
+                "aa8f3e02.fde1c"
             ]
         ]
     },
@@ -3137,16 +3149,16 @@
         "id": "a4a5a7ed.d59958",
         "type": "ui_text",
         "z": "a564595f.642818",
-        "group": "c8854cd2.f1773",
-        "order": 5,
+        "group": "f1b2ab0a.9118e8",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Tilt Pi Local Address",
+        "label": "Tilt Pi Local IP Address Link",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 1348,
-        "y": 2625,
+        "x": 887,
+        "y": 4225.5,
         "wires": []
     },
     {
@@ -4982,8 +4994,8 @@
         "func": "var ipAddress = msg.payload.ipv4;\nmsg.payload = \"http://\" + ipAddress.trim() + \":1880/ui\"\nflow.set('ipaddress',msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1110,
-        "y": 2620,
+        "x": 629,
+        "y": 4220.5,
         "wires": [
             [
                 "a4a5a7ed.d59958"
@@ -5002,8 +5014,8 @@
         "ret": "\\n",
         "temp": "ipv4,ipv6",
         "skip": 0,
-        "x": 950,
-        "y": 2620,
+        "x": 469,
+        "y": 4220.5,
         "wires": [
             [
                 "375008fe.27a988"
@@ -5071,8 +5083,8 @@
         "timer": "",
         "oldrc": false,
         "name": "scan control",
-        "x": 630,
-        "y": 160,
+        "x": 590,
+        "y": 140,
         "wires": [
             [
                 "8dc4fe46.fc364",
@@ -5550,7 +5562,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "release info",
-        "func": "var release = {\n    name: \"v.2.8.1\",\n    notes: \"Pink Tilt now displays as a deep pink on dashboard\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "func": "var release = {\n    name: \"v.2.9\",\n    notes: \"Customize your hostname and local dashboard link. Useful if you want two or more Tilt Pi's on the same network.\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 2150,
@@ -9042,6 +9054,337 @@
             [
                 "31588cca.783d84"
             ]
+        ]
+    },
+    {
+        "id": "7900b0b1.47e32",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo raspi-config nonint do_hostname",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "hostname",
+        "x": 820,
+        "y": 4140,
+        "wires": [
+            [
+                "d2339a88.d77b78"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "95ff5f18.9c5be",
+        "type": "ui_button",
+        "z": "a564595f.642818",
+        "name": "",
+        "group": "f1b2ab0a.9118e8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Reset Link to tiltpi.local:1880/ui",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "tiltpi",
+        "payloadType": "str",
+        "topic": "",
+        "x": 150,
+        "y": 4040,
+        "wires": [
+            [
+                "7949feb.6b492"
+            ]
+        ]
+    },
+    {
+        "id": "7949feb.6b492",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Validate Hostname",
+        "func": "var prevHostname = context.get('prevHostname');\nif (msg.payload != prevHostname){\ncontext.set('prevHostname', msg.payload);\nvar regExpHostname = new RegExp(/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$/); // RFC 1123\nvar regResultHostname = regExpHostname.test(msg.payload);\nif (regResultHostname){\nmsg.topic = 'Success: New hostname set.'\nreturn msg;\n}else{\n msg.topic = 'Error: Characters not valid.'\n msg.payload = 'Use only numbers, letters, or dashes.';\n return msg;\n}\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 4060,
+        "wires": [
+            [
+                "318a1d42.f1ba82",
+                "2ae3dde4.6055e2"
+            ]
+        ]
+    },
+    {
+        "id": "8b6cf810.bd8538",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Set Custom Hostname",
+        "label": "Set New Hostname (ex. tiltpi-north)",
+        "tooltip": "",
+        "group": "f1b2ab0a.9118e8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 120,
+        "y": 4140,
+        "wires": [
+            [
+                "7949feb.6b492"
+            ]
+        ]
+    },
+    {
+        "id": "318a1d42.f1ba82",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 610,
+        "y": 4020,
+        "wires": []
+    },
+    {
+        "id": "2ae3dde4.6055e2",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Filter valid hostname",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Success",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 620,
+        "y": 4100,
+        "wires": [
+            [
+                "7900b0b1.47e32",
+                "1d260968.834aa7",
+                "c3d508f9.41cd38"
+            ]
+        ]
+    },
+    {
+        "id": "d9788375.b50fc",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "f1b2ab0a.9118e8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Tilt Pi Local Hostname Link",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 900,
+        "y": 4300,
+        "wires": []
+    },
+    {
+        "id": "aa8f3e02.fde1c",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo raspi-config nonint get_hostname",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Hostname",
+        "x": 310,
+        "y": 4300,
+        "wires": [
+            [
+                "9c5489ba.e33388"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9c5489ba.e33388",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "create URL",
+        "func": "var hostname = msg.payload;\nmsg.payload = \"http://\" + hostname.trim() + \".local:1880/ui\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 4300,
+        "wires": [
+            [
+                "d9788375.b50fc"
+            ]
+        ]
+    },
+    {
+        "id": "d891e4eb.69dc28",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 1,
+        "ok": "Restart Now",
+        "cancel": "Restart Later",
+        "topic": "New Tilt Pi Link After Restart:",
+        "name": "Success message",
+        "x": 1270,
+        "y": 4040,
+        "wires": [
+            [
+                "bbea99c6.6a4048"
+            ]
+        ]
+    },
+    {
+        "id": "63606bd0.fb4a54",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Reboot",
+        "x": 1680,
+        "y": 4040,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d2339a88.d77b78",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo raspi-config nonint get_hostname",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Hostname",
+        "x": 310,
+        "y": 4380,
+        "wires": [
+            [
+                "c40da982.670868"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c40da982.670868",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "create URL",
+        "func": "var hostname = msg.payload;\nmsg.payload = \"http://\" + hostname.trim() + \".local:1880/ui\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 4380,
+        "wires": [
+            [
+                "d891e4eb.69dc28"
+            ]
+        ]
+    },
+    {
+        "id": "bbea99c6.6a4048",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "reboot confirmation",
+        "func": "if (msg.payload == 'Restart Now'){\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1510,
+        "y": 4040,
+        "wires": [
+            [
+                "63606bd0.fb4a54"
+            ]
+        ]
+    },
+    {
+        "id": "3a42c84.0921438",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": " mv",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "rename",
+        "x": 1200,
+        "y": 3980,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1d260968.834aa7",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "handle changes",
+        "func": "if (msg.payload.includes('.json')){\ncontext.set('flowFile', msg.payload.trim());\n}else{\ncontext.set('newHostname', msg.payload)\n}\nif (context.get('flowFile') !== undefined && context.get('newHostname') !== undefined){\nmsg.payload = context.get('flowFile') + ' ~/.node-red/flows_' + context.get('newHostname') + '.json';\ncontext.set('flowFile', undefined);\ncontext.set('newHostname', undefined);\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 980,
+        "y": 3980,
+        "wires": [
+            [
+                "3a42c84.0921438"
+            ]
+        ]
+    },
+    {
+        "id": "c3d508f9.41cd38",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "ls ~/.node-red/flows_*.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "get filenames",
+        "x": 830,
+        "y": 4040,
+        "wires": [
+            [
+                "1d260968.834aa7"
+            ],
+            [],
+            []
         ]
     }
 ]
