@@ -314,7 +314,7 @@
         "z": "",
         "name": "Raspberry Pi",
         "tab": "c9c26b4a.4cde78",
-        "order": 8,
+        "order": 9,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -561,6 +561,17 @@
         "collapse": false
     },
     {
+        "id": "90501bee.89d8c8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Boost Range with Mulitple Tilt Pi's",
+        "tab": "c9c26b4a.4cde78",
+        "order": 8,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
         "id": "f42fdaab.48a078",
         "type": "inject",
         "z": "a564595f.642818",
@@ -572,7 +583,7 @@
         "crontab": "",
         "once": true,
         "onceDelay": "0.1",
-        "x": 490,
+        "x": 410,
         "y": 260,
         "wires": [
             [
@@ -591,11 +602,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 810,
+        "x": 770,
         "y": 120,
         "wires": [
             [
-                "d504d607.384f48"
+                "d504d607.384f48",
+                "1d0659ea.6c2c26",
+                "84f5a2fd.5ef26"
             ]
         ]
     },
@@ -787,8 +800,8 @@
         "id": "7c18d8fe.188168",
         "type": "function",
         "z": "a564595f.642818",
-        "name": "Add Parameters",
-        "func": "//get color-mac combo\nvar IDbyMAC = flow.get('IDbyMAC')||false;\nif (IDbyMAC) {\nmsg.payload.Color = msg.payload.Color + \":\" + msg.payload.mac;\nmsg.payload.displayColor = msg.payload.Color.split(\":\");\nmsg.payload.IDbyMAC = true;\n} else {\n    msg.payload.displayColor = [msg.payload.Color];\n    msg.payload.IDbyMAC = false;\n}\n//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n    node.send([null, {'payload': options}]);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck');\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI');\nmsg.payload.alphaSG = flow.get('alphaSG');\nmsg.payload.alphaTemp = flow.get('alphaTemp');\nmsg.payload.numberSamples = flow.get('numberSamples');\nmsg.payload.smoothSwitch = flow.get('smoothSwitch');\nreturn [ msg, null ];",
+        "name": "Add Parameter",
+        "func": "//get color-mac combo\nvar IDbyMAC = flow.get('IDbyMAC')||false;\nif (IDbyMAC) {\nmsg.payload.Color = msg.payload.Color + \":\" + msg.payload.mac;\nmsg.payload.displayColor = msg.payload.Color.split(\":\");\nmsg.payload.IDbyMAC = true;\n} else {\n    msg.payload.displayColor = [msg.payload.Color];\n    msg.payload.IDbyMAC = false;\n}\n//set beer name and local name status\nvar beerArray = flow.get(msg.payload.Color + \"-Beer\")||[\"Untitled\",true];\nmsg.payload.Beer = beerArray;\n//set dropdown options\nvar options = flow.get('options')||[];\nvar color = msg.payload.Color;\nif (options.indexOf(color) === -1){ //check if Tilt color has been seen\n    options.push(color);\n    options.sort();\n    //node.warn(options);\n    flow.set('options',options);\n    node.send([null, {'payload': options}]);\n}\n//set SG cal points\nvar actualSGArray = flow.get('actualSGpoints-' + msg.payload.Color)||[];\nvar uncalSGArray = flow.get('uncalSGpoints-' + msg.payload.Color)||[];\nmsg.payload.actualSGPoints = actualSGArray.toString();\nmsg.payload.unCalSGPoints = uncalSGArray.toString();\n//set Temp cal points\nvar actualTempArray = flow.get('actualTemppoints-' + msg.payload.Color)||[];\nvar uncalTempArray = flow.get('uncalTemppoints-' + msg.payload.Color)||[];\nmsg.payload.actualTempPoints = actualTempArray.toString();\nmsg.payload.unCalTempPoints = uncalTempArray.toString();\n//add timeStamp parameter\nmsg.payload.timeStamp = Date.now();\nvar date = new Date();\n//add Timepoint parameter\nvar timeZone = date.getTimezoneOffset()/24/60;\nmsg.payload.formatteddate = date.toLocaleString();\nmsg.payload.Timepoint = msg.payload.timeStamp / 1000 / 60 / 60 / 24 + 25569 - timeZone;\n//add SG parameter, account for extra precision if needed\nmsg.payload.fermunits = flow.get('fermdisplayUnits')||'';\nif (msg.payload.minor > 2000){\nmsg.payload.SG = msg.payload.minor / 10000;\nmsg.payload.major /= 10;\nmsg.payload.hd = true;\n}else{\nmsg.payload.SG = msg.payload.minor / 1000;\nmsg.payload.hd = false;\n}\n//add Temp parameter\nmsg.payload.Temp = msg.payload.major;\nmsg.payload.tempunits = flow.get('displayUnits')||\"°F\";\n//Google Sheet URL for displaying link in display\nmsg.payload.doclongurl = flow.get(msg.payload.Color + '-URL')||\"\";\nmsg.topic = msg.payload.Color;\nmsg.filename = \"/home/pi/\" + msg.payload.Color + \".json\";\n//get custom cloud URL if default cloud URL set to undefined\nmsg.payload.customcloudURL = flow.get('cloudURL-' + msg.payload.Color);\n//set global cloud settings\nmsg.payload.defaultcloudURL = flow.get('cloudURL')||['https://script.google.com/macros/s/AKfycbwNXh6rEWoULd0vxWxDylG_PJwQwe0dn5hdtSkuC4k3D9AXBSA/exec',true];\nmsg.payload.logCloudDataCheck = flow.get('logCloudDataCheck')||true;\nmsg.payload.logLocalDataCheck = flow.get('logLocalDataCheck');\nmsg.payload.localloggingInterval = flow.get('localloggingInterval')||15;\nmsg.payload.loggingInterval = flow.get('loggingInterval')||15;\nmsg.payload.minRSSI = flow.get('minRSSI');\nmsg.payload.alphaSG = flow.get('alphaSG');\nmsg.payload.alphaTemp = flow.get('alphaTemp');\nmsg.payload.numberSamples = flow.get('numberSamples');\nmsg.payload.smoothSwitch = flow.get('smoothSwitch');\nmsg.payload.enableRangeBoost = flow.get('enableRangeBoost');\nmsg.payload.rangerHostnames = flow.get('rangerHostnames');\nreturn [ msg, null ];",
         "outputs": 2,
         "noerr": 0,
         "x": 1320,
@@ -2541,7 +2554,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Set Logging to SD Card",
-        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nmsg.topic = \"TILT | \" + color;\nif (msg.payload){\nmsg.payload = \"Logging to Tilt Pi enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
+        "func": "var color = flow.get('colordropdownSelect')||\"\";\nflow.set('logLocalDataCheck',msg.payload);\nflow.set('lastlocalpost-' + color,0);\nif (msg.payload){\nmsg.payload = \"Logging to Tilt Pi enabled.\";\n}\nelse {\n    msg.payload = \"Logging disabled.\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 2550,
@@ -2558,11 +2571,12 @@
         "z": "a564595f.642818",
         "name": "",
         "label": "Start Logging to Tilt Pi",
+        "tooltip": "",
         "group": "82607108.c5be8",
         "order": 1,
         "width": 0,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "decouple": "false",
         "topic": "",
         "style": "",
@@ -3551,8 +3565,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 1300,
-        "y": 280,
+        "x": 1280,
+        "y": 340,
         "wires": [
             [
                 "543d2dd7.2fe974"
@@ -3565,8 +3579,8 @@
         "z": "a564595f.642818",
         "name": "",
         "pretty": false,
-        "x": 1430,
-        "y": 280,
+        "x": 1410,
+        "y": 340,
         "wires": [
             [
                 "a2f14292.5b0f3",
@@ -3582,8 +3596,8 @@
         "func": "if (msg.payload !== undefined){\nflow.set(msg.payload.Color + '-Beer',msg.payload.Beer);\nflow.set('actualSGpoints-' + msg.payload.Color,msg.payload.actualSGPoints);\nflow.set('uncalSGpoints-' + msg.payload.Color,msg.payload.unCalSGPoints);\nflow.set('actualTemppoints-' + msg.payload.Color,msg.payload.actualTempPoints);\nflow.set('uncalTemppoints-' + msg.payload.Color,msg.payload.unCalTempPoints);\n//node.warn(msg.payload.defaultCloudURL);\nflow.set('cloudURL-' + msg.payload.Color,msg.payload.customcloudURL);\n}\n//after last tilt (pink) settings restored, start scanning\nelse if (msg.filename === 0){//ls command completed\n  msg.payload = \"python3 -u -m aioblescan -T\";\n  return msg;\n }",
         "outputs": "1",
         "noerr": 0,
-        "x": 1580,
-        "y": 320,
+        "x": 1520,
+        "y": 400,
         "wires": [
             [
                 "31588cca.783d84"
@@ -3834,11 +3848,11 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 660,
-        "y": 400,
+        "x": 640,
+        "y": 440,
         "wires": [
             [
-                "aa94ced8.4cb66"
+                "326af4b8.42494c"
             ]
         ]
     },
@@ -3849,7 +3863,7 @@
         "name": "",
         "pretty": false,
         "x": 1010,
-        "y": 400,
+        "y": 440,
         "wires": [
             [
                 "59df1198.a2519"
@@ -3861,11 +3875,11 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Restore Global",
-        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nnode.send([null,{'payload':msg.payload.logCloudDataCheck},null]);\nflow.set('logLocalDataCheck',msg.payload.logLocalDataCheck);\nnode.send([null,null,{'payload':msg.payload.logLocalDataCheck}]);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\nflow.set('fermdisplayUnits',msg.payload.fermunits);\nflow.set('displayUnits',msg.payload.tempunits);\nflow.set('minRSSI',msg.payload.minRSSI);\nflow.set('IDbyMAC',msg.payload.IDbyMAC);\nflow.set('alphaSG', msg.payload.alphaSG||100);\nflow.set('alphaTemp', msg.payload.alphaTemp||100);\nflow.set('numberSamples', msg.payload.numberSamples||0.5);\nflow.set('smoothSwitch', msg.payload.smoothSwitch||false);\n//return msg;",
+        "func": "flow.set('logCloudDataCheck',msg.payload.logCloudDataCheck);\nnode.send([null,{'payload':msg.payload.logCloudDataCheck},null]);\nflow.set('logLocalDataCheck',msg.payload.logLocalDataCheck);\nnode.send([null,null,{'payload':msg.payload.logLocalDataCheck}]);\nflow.set('localloggingInterval',msg.payload.localloggingInterval);\nflow.set('loggingInterval',msg.payload.loggingInterval);\nflow.set('cloudURL',msg.payload.defaultcloudURL);\nnode.send([{'payload':msg.payload.defaultcloudURL[1]},null,null]);\nflow.set('fermdisplayUnits',msg.payload.fermunits);\nflow.set('displayUnits',msg.payload.tempunits);\nflow.set('minRSSI',msg.payload.minRSSI);\nflow.set('IDbyMAC',msg.payload.IDbyMAC);\nflow.set('alphaSG', msg.payload.alphaSG||100);\nflow.set('alphaTemp', msg.payload.alphaTemp||100);\nflow.set('numberSamples', msg.payload.numberSamples||0.5);\nflow.set('smoothSwitch', msg.payload.smoothSwitch||false);\nflow.set('enableRangeBoost', msg.payload.enableRangeBoost||'false');\nflow.set('rangerHostnames', msg.payload.rangerHostnames);\n//return msg;",
         "outputs": "3",
         "noerr": 0,
-        "x": 1160,
-        "y": 400,
+        "x": 1220,
+        "y": 460,
         "wires": [
             [
                 "b1836d66.f976c"
@@ -4052,7 +4066,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "Changed?",
-        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI +\nmsg.payload.IDbyMAC +\nmsg.payload.alphaSG +\nmsg.payload.alphaTemp +\nmsg.payload.numberSamples +\nmsg.payload.smoothSwitch;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
+        "func": "var previous = context.get('watchedData-' + msg.payload.Color)||\"\";\n//changes in settings/measurements below trigger a backup\nvar current = \nmsg.payload.Beer + \nmsg.payload.unCalSGPoints +\nmsg.payload.actualSGPoints +\nmsg.payload.actualTempPoints +\nmsg.payload.unCalTempPoints +\nmsg.payload.fermunits +\nmsg.payload.tempunits +\nmsg.payload.defaultcloudURL +\nmsg.payload.customcloudURL +\nmsg.payload.logCloudDataCheck +\nmsg.payload.logLocalDataCheck +\nmsg.payload.localloggingInterval +\nmsg.payload.loggingInterval +\nmsg.payload.minRSSI +\nmsg.payload.IDbyMAC +\nmsg.payload.alphaSG +\nmsg.payload.alphaTemp +\nmsg.payload.numberSamples +\nmsg.payload.smoothSwitch +\nmsg.payload.enableRangeBoost +\nmsg.payload.rangerHostnames;\nif (current !== previous){\n    //node.warn(current);\n    //node.warn(previous);\n    context.set('watchedData-' + msg.payload.Color,current);\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1394.8472900390625,
@@ -4721,8 +4735,8 @@
             "8dc4fe46.fc364",
             "cdc2a491.47b908"
         ],
-        "x": 770,
-        "y": 220,
+        "x": 500,
+        "y": 600,
         "wires": [
             []
         ]
@@ -4795,8 +4809,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 1060,
-        "y": 320,
+        "x": 1000,
+        "y": 360,
         "wires": [
             [
                 "a2f14292.5b0f3",
@@ -4817,29 +4831,6 @@
         "x": 3950,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "aa94ced8.4cb66",
-        "type": "delay",
-        "z": "a564595f.642818",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 850,
-        "y": 400,
-        "wires": [
-            [
-                "326af4b8.42494c"
-            ]
-        ]
     },
     {
         "id": "dd8b62f0.c52ca",
@@ -5117,13 +5108,13 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 950,
-        "y": 180,
+        "x": 910,
+        "y": 160,
         "wires": []
     },
     {
@@ -5562,7 +5553,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "release info",
-        "func": "var release = {\n    name: \"v.2.9.1\",\n    notes: \"Customize your hostname and local dashboard link. Useful if you want two or more Tilt Pi's on the same network. With bug fix.\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
+        "func": "var release = {\n    name: \"v.2.9.2\",\n    notes: \"Now with customizable hostname (for custom local URL) and option to use other Tilt Pi's on your network as range boosters.\"\n}\nflow.set(\"version\", release);\n\nmsg.label = release.name;\nmsg.payload = release.notes;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 2150,
@@ -5592,7 +5583,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -6932,8 +6923,8 @@
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 610,
-        "y": 320,
+        "x": 550,
+        "y": 360,
         "wires": [
             [
                 "3f72b10e.4b106e"
@@ -6955,8 +6946,8 @@
         "arraySpltType": "len",
         "stream": true,
         "addname": "",
-        "x": 770,
-        "y": 320,
+        "x": 710,
+        "y": 360,
         "wires": [
             [
                 "f5df2cba.4ec66"
@@ -6982,8 +6973,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 900,
-        "y": 320,
+        "x": 840,
+        "y": 360,
         "wires": [
             [
                 "2c73dfce.b79cc"
@@ -7007,8 +6998,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 1170,
-        "y": 280,
+        "x": 1150,
+        "y": 340,
         "wires": [
             [
                 "cdc2a491.47b908"
@@ -7025,8 +7016,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 1660,
-        "y": 400,
+        "x": 1670,
+        "y": 520,
         "wires": []
     },
     {
@@ -9385,6 +9376,488 @@
             ],
             [],
             []
+        ]
+    },
+    {
+        "id": "cd74b806.c19078",
+        "type": "http in",
+        "z": "a564595f.642818",
+        "name": "",
+        "url": "/tiltscan",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 950,
+        "y": 260,
+        "wires": [
+            [
+                "73bb2bf7.f98814"
+            ]
+        ]
+    },
+    {
+        "id": "c44ac237.da5",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fc5a0bb2.c45c08",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "rate limit by mac",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 910,
+        "y": 200,
+        "wires": [
+            [
+                "90cd025b.45fbe"
+            ]
+        ]
+    },
+    {
+        "id": "84f5a2fd.5ef26",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.mac",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 200,
+        "wires": [
+            [
+                "fc5a0bb2.c45c08"
+            ]
+        ]
+    },
+    {
+        "id": "90cd025b.45fbe",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Array of Scans",
+        "func": "if (context.get('macArray') === undefined){\n    context.set('macArray', [msg.topic]);\n    context.set('scanArray', [msg.payload]);\n}else{\n    var macArray = context.get('macArray');\n    var scanArray = context.get('scanArray');\n    if (macArray.includes(msg.topic)){\n        //node.send({payload:macArray});\n        node.send({payload:scanArray});\n        context.set('macArray', undefined);\n        } else {\n            macArray.push(msg.topic);\n            scanArray.push(msg.payload);\n            context.set('macArray', macArray);\n            context.set('scanArray', scanArray);\n        }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1100,
+        "y": 200,
+        "wires": [
+            [
+                "73bb2bf7.f98814"
+            ]
+        ]
+    },
+    {
+        "id": "475fc654.79a7f8",
+        "type": "http response",
+        "z": "a564595f.642818",
+        "name": "shows scans",
+        "statusCode": "",
+        "headers": {},
+        "x": 1490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "73bb2bf7.f98814",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "web response",
+        "func": "if (Array.isArray(msg.payload)){\n    context.set('tiltScan', msg.payload);\n    }else{\n        msg.payload = context.get('tiltScan')||{}\n        return msg;\n    }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1280,
+        "y": 200,
+        "wires": [
+            [
+                "c44ac237.da5",
+                "475fc654.79a7f8"
+            ]
+        ]
+    },
+    {
+        "id": "9c10da15.1afcb8",
+        "type": "ui_text_input",
+        "z": "a564595f.642818",
+        "name": "Add/Remove Ranger Hostname",
+        "label": "Add/Remove Tilt Pi (ex. tiltpi-north)",
+        "tooltip": "",
+        "group": "90501bee.89d8c8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 610,
+        "y": 4500,
+        "wires": [
+            [
+                "6e4adf1e.b6e52"
+            ]
+        ]
+    },
+    {
+        "id": "6e4adf1e.b6e52",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Validate Hostname",
+        "func": "var prevHostname = context.get('prevHostname');\nif (msg.payload != prevHostname){\ncontext.set('prevHostname', msg.payload);\nvar regExpHostname = new RegExp(/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$/); // RFC 1123\nvar regResultHostname = regExpHostname.test(msg.payload);\nif (regResultHostname){\n    var rangerHostnames = flow.get('rangerHostnames');\n    if (rangerHostnames !== undefined){\n        var rhIndex = rangerHostnames.indexOf(msg.payload);\n        //node.warn(rhIndex);\n        if (rhIndex < 0){\n        rangerHostnames.unshift(msg.payload);\n        flow.set('rangerHostnames', rangerHostnames);\n        }else{\n            rangerHostnames.splice(rhIndex,1);\n            //node.warn(rangerHostnames);\n            flow.set('rangerHostnames', rangerHostnames);\n        }\n        if (rangerHostnames.length > 4){\n            rangerHostnames.pop();\n            flow.set('rangerHostnames', rangerHostnames);\n        }\n        }else{\n        rangerHostnames = [msg.payload];\n        flow.set('rangerHostnames', rangerHostnames);\n    }\n        node.send([null,null,null,null,{payload: ''}]);\n}\n    var msg0 = {};\n    var msg1 = {};\n    var msg2 = {};\n    var msg3 = {};\n    if (rangerHostnames === undefined) {\n        var rangerHostnames = flow.get('rangerHostnames')||[];\n        context.set('prevHostname', undefined);\n    }\n    for (var i = 0; i < rangerHostnames.length; i++){\n     switch(i){\n          case 0:\n          msg0.url = 'http://' + rangerHostnames[0] + ':1880/tiltscan';\n          msg0.payload = 'http://' + rangerHostnames[0] + ':1880/tiltscan';\n          msg0.header = {};\n          node.send([msg0,null,null,null,null]);\n          break;\n          case 1:\n          msg1.url = 'http://' + rangerHostnames[1] + ':1880/tiltscan';\n          msg1.payload = 'http://' + rangerHostnames[1] + ':1880/tiltscan';\n          msg1.header = {};\n          node.send([null,msg1,null,null,null]);\n          break;\n          case 2:\n          msg2.url = 'http://' + rangerHostnames[2] + ':1880/tiltscan';\n          msg2.payload = 'http://' + rangerHostnames[2] + ':1880/tiltscan';\n          msg2.header = {};\n          node.send([null,null,msg2,null,null]);\n          break;\n          case 3:\n          msg3.url = 'http://' + rangerHostnames[3] + ':1880/tiltscan';\n          msg3.payload = 'http://' + rangerHostnames[3] + ':1880/tiltscan';\n          msg3.header = {};\n          node.send([null,null,null,msg3,null]);\n     }\n    }\n}",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 850,
+        "y": 4580,
+        "wires": [
+            [
+                "8751aa88.16b028",
+                "cdcc1439.cf9358"
+            ],
+            [
+                "1690b609.9f5d7a",
+                "8751aa88.16b028"
+            ],
+            [
+                "25e6fb01.d0e524",
+                "8751aa88.16b028"
+            ],
+            [
+                "2c5aeb76.35eaf4",
+                "8751aa88.16b028"
+            ],
+            [
+                "cdcc1439.cf9358",
+                "1690b609.9f5d7a",
+                "25e6fb01.d0e524",
+                "2c5aeb76.35eaf4",
+                "97adc3fc.9c3ff"
+            ]
+        ]
+    },
+    {
+        "id": "8ef35d9f.cdc76",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1670,
+        "y": 4620,
+        "wires": []
+    },
+    {
+        "id": "8751aa88.16b028",
+        "type": "http request",
+        "z": "a564595f.642818",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 1330,
+        "y": 4580,
+        "wires": [
+            [
+                "dfab85da.b57c98"
+            ]
+        ]
+    },
+    {
+        "id": "cdcc1439.cf9358",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "90501bee.89d8c8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "1st Tilt Pi URL",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1060,
+        "y": 4640,
+        "wires": []
+    },
+    {
+        "id": "1690b609.9f5d7a",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "90501bee.89d8c8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "2nd Tilt Pi URL",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1060,
+        "y": 4680,
+        "wires": []
+    },
+    {
+        "id": "25e6fb01.d0e524",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "90501bee.89d8c8",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "3rd Tilt Pi URL",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1060,
+        "y": 4720,
+        "wires": []
+    },
+    {
+        "id": "2c5aeb76.35eaf4",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "90501bee.89d8c8",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "4th Tilt Pi URL",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1060,
+        "y": 4760,
+        "wires": []
+    },
+    {
+        "id": "2b0239bc.216726",
+        "type": "link out",
+        "z": "a564595f.642818",
+        "name": "Range Booster",
+        "links": [
+            "8f0fc0a7.9992a"
+        ],
+        "x": 1675,
+        "y": 4480,
+        "wires": []
+    },
+    {
+        "id": "8f0fc0a7.9992a",
+        "type": "link in",
+        "z": "a564595f.642818",
+        "name": "",
+        "links": [
+            "2b0239bc.216726"
+        ],
+        "x": 595,
+        "y": 240,
+        "wires": [
+            [
+                "d504d607.384f48"
+            ]
+        ]
+    },
+    {
+        "id": "dfab85da.b57c98",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "Send each scan",
+        "func": "for (var i = 0; i < msg.payload.length; i++){\n    node.send({ payload : msg.payload[i]});\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1580,
+        "y": 4540,
+        "wires": [
+            [
+                "2b0239bc.216726",
+                "8ef35d9f.cdc76"
+            ]
+        ]
+    },
+    {
+        "id": "1b902ce8.6e6b73",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-2.5",
+        "extend": false,
+        "units": "s",
+        "reset": "false",
+        "bytopic": "all",
+        "name": "autorequest",
+        "x": 670,
+        "y": 4680,
+        "wires": [
+            [
+                "6e4adf1e.b6e52"
+            ]
+        ]
+    },
+    {
+        "id": "73e64dc3.bd8b94",
+        "type": "ui_switch",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Enable Range Booster Mode",
+        "tooltip": "",
+        "group": "90501bee.89d8c8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "%invalid_hostname",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 460,
+        "y": 4620,
+        "wires": [
+            [
+                "1b902ce8.6e6b73",
+                "f73578d2.4bd018"
+            ]
+        ]
+    },
+    {
+        "id": "97adc3fc.9c3ff",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "300",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 630,
+        "y": 4560,
+        "wires": [
+            [
+                "9c10da15.1afcb8"
+            ]
+        ]
+    },
+    {
+        "id": "e224933e.9bbde",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "enableRangeBoost",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 130,
+        "y": 4520,
+        "wires": [
+            [
+                "88dee5c9.05f2c8"
+            ]
+        ]
+    },
+    {
+        "id": "f73578d2.4bd018",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enableRangeBoost",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 4860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88dee5c9.05f2c8",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "check hostnames",
+        "func": "if (msg.payload == '%invalid_hostname'){\n    context.set('check1', msg.payload);\n}else if (msg.payload !== undefined || msg.payload !== []) {\n    msg.payload = context.get('check1');\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 4740,
+        "wires": [
+            [
+                "73e64dc3.bd8b94"
+            ]
+        ]
+    },
+    {
+        "id": "53aa3ae4.9a9f44",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "rangerHostnames",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 120,
+        "y": 4580,
+        "wires": [
+            [
+                "88dee5c9.05f2c8"
+            ]
         ]
     }
 ]
