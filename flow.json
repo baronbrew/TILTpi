@@ -9859,5 +9859,155 @@
                 "88dee5c9.05f2c8"
             ]
         ]
+    },
+    {
+        "id": "7014c56b.2603cc",
+        "type": "rpi-mouse",
+        "z": "a564595f.642818",
+        "name": "",
+        "butt": "1",
+        "x": 1290,
+        "y": 4320,
+        "wires": [
+            [
+                "d59ebbd3.c34798"
+            ]
+        ]
+    },
+    {
+        "id": "5091c456.1bc8fc",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "echo 1 > /sys/class/backlight/rpi_backlight/bl_power",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Backlight Off",
+        "x": 1900,
+        "y": 4300,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6cc31299.1f44cc",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "echo 0 > /sys/class/backlight/rpi_backlight/bl_power",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Backlight On",
+        "x": 1720,
+        "y": 4400,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d59ebbd3.c34798",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Tap down",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1520,
+        "y": 4400,
+        "wires": [
+            [
+                "6cc31299.1f44cc",
+                "93ef2655.d1b7d8"
+            ]
+        ]
+    },
+    {
+        "id": "93ef2655.d1b7d8",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "15",
+        "extend": true,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "name": "Auto-Off",
+        "x": 1710,
+        "y": 4300,
+        "wires": [
+            [
+                "5091c456.1bc8fc"
+            ]
+        ]
+    },
+    {
+        "id": "51061072.08f39",
+        "type": "inject",
+        "z": "a564595f.642818",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 1520,
+        "y": 4300,
+        "wires": [
+            [
+                "93ef2655.d1b7d8",
+                "b24ed8a7.cc6978"
+            ]
+        ]
+    },
+    {
+        "id": "b24ed8a7.cc6978",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo chmod 777 /sys/class/backlight/rpi_backlight/bl_power",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Enable Backlight Control",
+        "x": 1760,
+        "y": 4220,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a20832e8.97a07",
+        "type": "comment",
+        "z": "a564595f.642818",
+        "name": "RPi Official Touchscreen",
+        "info": "",
+        "x": 1460,
+        "y": 4200,
+        "wires": []
     }
 ]
