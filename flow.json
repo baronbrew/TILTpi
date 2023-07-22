@@ -2839,7 +2839,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3248,7 +3248,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5224,7 +5224,7 @@
         "z": "a564595f.642818",
         "name": "Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5249,7 +5249,7 @@
         "z": "a564595f.642818",
         "name": "Revert Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -9857,6 +9857,250 @@
         "wires": [
             [
                 "88dee5c9.05f2c8"
+            ]
+        ]
+    },
+    {
+        "id": "a20832e8.97a07",
+        "type": "comment",
+        "z": "a564595f.642818",
+        "name": "RPi Official Touchscreen",
+        "info": "",
+        "x": 1454.0000228881836,
+        "y": 4203.000062942505,
+        "wires": []
+    },
+    {
+        "id": "ffa943f2.ecd36",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Generate Autostart Text",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --inco>\n@xset s {{payload}} {{payload}}\n@unclutter -idle 0.5 -root",
+        "output": "str",
+        "x": 1797.752098083496,
+        "y": 4284.5430335998535,
+        "wires": [
+            [
+                "65309d6f.39bdc4",
+                "e1ed4c7c.5f433"
+            ]
+        ]
+    },
+    {
+        "id": "7aaa8c05.fb2704",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Generate Autostart Text",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --inco>\n@xset s noblank\n@xset s noexpose\n@xset s off\n@xset -dpms\n@unclutter -idle 0.5 -root",
+        "output": "str",
+        "x": 1802.8808898925781,
+        "y": 4339.3750648498535,
+        "wires": [
+            [
+                "e1ed4c7c.5f433"
+            ]
+        ]
+    },
+    {
+        "id": "e3391916.895fa8",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Never Case",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1388.7558822631836,
+        "y": 4305.5352210998535,
+        "wires": [
+            [
+                "eb324b5.1288ab8"
+            ],
+            [
+                "7aaa8c05.fb2704"
+            ]
+        ]
+    },
+    {
+        "id": "ac83e2cb.70f6f",
+        "type": "ui_toast",
+        "z": "a564595f.642818",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "Alert",
+        "name": "Restart Needed",
+        "x": 2207.6290588378906,
+        "y": 4255.371156692505,
+        "wires": []
+    },
+    {
+        "id": "65309d6f.39bdc4",
+        "type": "change",
+        "z": "a564595f.642818",
+        "name": "Restart",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Restart Needed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2019.6250267028809,
+        "y": 4246.537172317505,
+        "wires": [
+            [
+                "ac83e2cb.70f6f"
+            ]
+        ]
+    },
+    {
+        "id": "3774035c.e98fcc",
+        "type": "ui_numeric",
+        "z": "a564595f.642818",
+        "name": "Auto Off Min",
+        "label": "Screen Auto Off (min.)",
+        "tooltip": "",
+        "group": "7e458eda.984cd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "480",
+        "step": "10",
+        "x": 1190.628921508789,
+        "y": 4311.1406898498535,
+        "wires": [
+            [
+                "e3391916.895fa8",
+                "4e67589d.2a7a68"
+            ]
+        ]
+    },
+    {
+        "id": "e1ed4c7c.5f433",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Overwrite Autotstart",
+        "filename": "/home/pi/autostart",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 2092.2501487731934,
+        "y": 4315.220767021179,
+        "wires": []
+    },
+    {
+        "id": "37fe8b20.e18ef4",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "sudo mv ~/autostart /etc/xdg/lxsession//LXDE-pi/autostart",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Update File",
+        "x": 1612.6289291381836,
+        "y": 4413.177800178528,
+        "wires": [
+            [
+                "b8e24a29.8f4518"
+            ],
+            [
+                "b8e24a29.8f4518"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b8e24a29.8f4518",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1822.630859375,
+        "y": 4396.576171875,
+        "wires": []
+    },
+    {
+        "id": "4e67589d.2a7a68",
+        "type": "delay",
+        "z": "a564595f.642818",
+        "name": "delay",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1437.6289253234863,
+        "y": 4398.7910804748535,
+        "wires": [
+            [
+                "37fe8b20.e18ef4"
+            ]
+        ]
+    },
+    {
+        "id": "eb324b5.1288ab8",
+        "type": "range",
+        "z": "a564595f.642818",
+        "minin": "0",
+        "maxin": "480",
+        "minout": "0",
+        "maxout": "28800",
+        "action": "scale",
+        "round": true,
+        "property": "payload",
+        "name": "convert to seconds",
+        "x": 1577.6250228881836,
+        "y": 4290.283265113831,
+        "wires": [
+            [
+                "ffa943f2.ecd36"
             ]
         ]
     }
