@@ -9864,10 +9864,10 @@
         "id": "a20832e8.97a07",
         "type": "comment",
         "z": "a564595f.642818",
-        "name": "RPi Official Touchscreen",
+        "name": "RPi Connected Monitor or Touchscreen",
         "info": "",
-        "x": 1454.0000228881836,
-        "y": 4203.000062942505,
+        "x": 1281,
+        "y": 4229,
         "wires": []
     },
     {
@@ -9881,11 +9881,10 @@
         "syntax": "mustache",
         "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --inco>\n@xset s {{payload}} {{payload}}\n@unclutter -idle 0.5 -root",
         "output": "str",
-        "x": 1797.752098083496,
-        "y": 4284.5430335998535,
+        "x": 1638.752067565918,
+        "y": 4280.54296875,
         "wires": [
             [
-                "65309d6f.39bdc4",
                 "e1ed4c7c.5f433"
             ]
         ]
@@ -9901,44 +9900,11 @@
         "syntax": "mustache",
         "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --inco>\n@xset s noblank\n@xset s noexpose\n@xset s off\n@xset -dpms\n@unclutter -idle 0.5 -root",
         "output": "str",
-        "x": 1802.8808898925781,
-        "y": 4339.3750648498535,
+        "x": 1643.880859375,
+        "y": 4335.375,
         "wires": [
             [
                 "e1ed4c7c.5f433"
-            ]
-        ]
-    },
-    {
-        "id": "e3391916.895fa8",
-        "type": "switch",
-        "z": "a564595f.642818",
-        "name": "Never Case",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "gt",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1388.7558822631836,
-        "y": 4305.5352210998535,
-        "wires": [
-            [
-                "eb324b5.1288ab8"
-            ],
-            [
-                "7aaa8c05.fb2704"
             ]
         ]
     },
@@ -9954,8 +9920,8 @@
         "cancel": "",
         "topic": "Alert",
         "name": "Restart Needed",
-        "x": 2207.6290588378906,
-        "y": 4255.371156692505,
+        "x": 2048.6290283203125,
+        "y": 4251.371091842651,
         "wires": []
     },
     {
@@ -9977,37 +9943,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2019.6250267028809,
-        "y": 4246.537172317505,
+        "x": 1860.6249961853027,
+        "y": 4242.537107467651,
         "wires": [
             [
                 "ac83e2cb.70f6f"
-            ]
-        ]
-    },
-    {
-        "id": "3774035c.e98fcc",
-        "type": "ui_numeric",
-        "z": "a564595f.642818",
-        "name": "Auto Off Min",
-        "label": "Screen Auto Off (min.)",
-        "tooltip": "",
-        "group": "7e458eda.984cd",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "topic": "",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "480",
-        "step": "10",
-        "x": 1190.628921508789,
-        "y": 4311.1406898498535,
-        "wires": [
-            [
-                "e3391916.895fa8",
-                "4e67589d.2a7a68"
             ]
         ]
     },
@@ -10020,8 +9960,8 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 2092.2501487731934,
-        "y": 4315.220767021179,
+        "x": 1933.2501182556152,
+        "y": 4311.220702171326,
         "wires": []
     },
     {
@@ -10062,45 +10002,114 @@
         "wires": []
     },
     {
-        "id": "4e67589d.2a7a68",
-        "type": "delay",
+        "id": "ff8b6e4d.02aeb",
+        "type": "ui_dropdown",
         "z": "a564595f.642818",
-        "name": "delay",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 1437.6289253234863,
-        "y": 4398.7910804748535,
+        "name": "Timeout Dropdown",
+        "label": "Screen Auto Off",
+        "tooltip": "",
+        "place": "Select Time Out",
+        "group": "7e458eda.984cd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "options": [
+            {
+                "label": "Never",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "1 minute",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "10 minutes",
+                "value": 600,
+                "type": "num"
+            },
+            {
+                "label": "2 hours",
+                "value": 7200,
+                "type": "num"
+            },
+            {
+                "label": "8 hours",
+                "value": 28800,
+                "type": "num"
+            },
+            {
+                "label": "16 hours",
+                "value": "57600",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 1185,
+        "y": 4319,
         "wires": [
             [
-                "37fe8b20.e18ef4"
+                "caa6b4c2.3751c8",
+                "e3391916.895fa8"
             ]
         ]
     },
     {
-        "id": "eb324b5.1288ab8",
-        "type": "range",
+        "id": "caa6b4c2.3751c8",
+        "type": "trigger",
         "z": "a564595f.642818",
-        "minin": "0",
-        "maxin": "480",
-        "minout": "0",
-        "maxout": "28800",
-        "action": "scale",
-        "round": true,
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "1",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "message control",
+        "x": 1394,
+        "y": 4388,
+        "wires": [
+            [
+                "37fe8b20.e18ef4",
+                "65309d6f.39bdc4"
+            ]
+        ]
+    },
+    {
+        "id": "e3391916.895fa8",
+        "type": "switch",
+        "z": "a564595f.642818",
+        "name": "Never Case",
         "property": "payload",
-        "name": "convert to seconds",
-        "x": 1577.6250228881836,
-        "y": 4290.283265113831,
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1388.7558822631836,
+        "y": 4305.5352210998535,
         "wires": [
             [
                 "ffa943f2.ecd36"
+            ],
+            [
+                "7aaa8c05.fb2704"
             ]
         ]
     }
