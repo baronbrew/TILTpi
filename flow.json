@@ -2839,7 +2839,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3248,7 +3248,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 5,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5224,7 +5224,7 @@
         "z": "a564595f.642818",
         "name": "Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5249,7 +5249,7 @@
         "z": "a564595f.642818",
         "name": "Revert Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -9866,8 +9866,8 @@
         "z": "a564595f.642818",
         "name": "RPi Connected Monitor or Touchscreen",
         "info": "",
-        "x": 1281,
-        "y": 4229,
+        "x": 1290,
+        "y": 4100,
         "wires": []
     },
     {
@@ -9881,8 +9881,8 @@
         "syntax": "mustache",
         "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --incognito\n@xset s {{payload}} {{payload}}\n@unclutter -idle 0.5 -root",
         "output": "str",
-        "x": 1638.752067565918,
-        "y": 4280.54296875,
+        "x": 1630,
+        "y": 4280,
         "wires": [
             [
                 "e1ed4c7c.5f433"
@@ -9920,8 +9920,8 @@
         "cancel": "",
         "topic": "Alert",
         "name": "Restart Needed",
-        "x": 2048.6290283203125,
-        "y": 4251.371091842651,
+        "x": 2180,
+        "y": 4260,
         "wires": []
     },
     {
@@ -9934,7 +9934,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "Restart Needed",
+                "to": "Restart to Enable New Settings",
                 "tot": "str"
             }
         ],
@@ -9943,8 +9943,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1860.6249961853027,
-        "y": 4242.537107467651,
+        "x": 2020,
+        "y": 4260,
         "wires": [
             [
                 "ac83e2cb.70f6f"
@@ -9968,7 +9968,7 @@
         "id": "37fe8b20.e18ef4",
         "type": "exec",
         "z": "a564595f.642818",
-        "command": "sudo mv ~/autostart /etc/xdg/lxsession//LXDE-pi/autostart",
+        "command": "sudo cp ~/autostart /etc/xdg/lxsession//LXDE-pi/autostart",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
@@ -10042,8 +10042,8 @@
             },
             {
                 "label": "16 hours",
-                "value": "57600",
-                "type": "str"
+                "value": 57600,
+                "type": "num"
             }
         ],
         "payload": "",
@@ -10096,7 +10096,7 @@
             {
                 "t": "eq",
                 "v": "0",
-                "vt": "str"
+                "vt": "num"
             }
         ],
         "checkall": "false",
@@ -10248,5 +10248,107 @@
                 "cd3bfaef.fab628"
             ]
         ]
+    },
+    {
+        "id": "3698f78.a92ab08",
+        "type": "file in",
+        "z": "a564595f.642818",
+        "name": "Get current autostart",
+        "filename": "/etc/xdg/lxsession//LXDE-pi/autostart",
+        "format": "lines",
+        "chunk": false,
+        "sendError": false,
+        "x": 1240,
+        "y": 4240,
+        "wires": [
+            [
+                "f5bc4f4b.045bf"
+            ]
+        ]
+    },
+    {
+        "id": "426a0de9.439e04",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Overwrite Autotstart",
+        "filename": "/home/pi/autostart",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 1750,
+        "y": 4180,
+        "wires": []
+    },
+    {
+        "id": "66aef269.f0686c",
+        "type": "ui_slider",
+        "z": "a564595f.642818",
+        "name": "",
+        "label": "Screen Zoom",
+        "tooltip": "",
+        "group": "7e458eda.984cd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "min": ".5",
+        "max": "3",
+        "step": ".1",
+        "x": 1100,
+        "y": 4180,
+        "wires": [
+            [
+                "f5bc4f4b.045bf",
+                "3698f78.a92ab08",
+                "e5d40834.ba1b98"
+            ]
+        ]
+    },
+    {
+        "id": "f5bc4f4b.045bf",
+        "type": "function",
+        "z": "a564595f.642818",
+        "name": "process autostart",
+        "func": "if (typeof msg.payload === 'number'){\n    context.set('zoomlevel', msg.payload);\n    return\n}\n\n var settingsString = msg.payload;\n var settingsArray = settingsString.split(' ');\n    if (settingsArray.includes('@chromium-browser')){\n        for (var settingsElement of settingsArray){\n            var subElement = settingsElement.split('=');\n            if (subElement[0] == '--force-device-scale-factor'){\n                msg.payload = settingsArray[0] + ' ' + settingsArray[1] + ' ' + subElement[0] + '=' + context.get('zoomlevel') + ' ' + settingsArray[3] + ' ' + settingsArray[4];\n                return msg;\n            }\n        }\n        if (settingsArray.length == 4){\n            msg.payload = settingsArray[0] + ' ' + settingsArray[1] + ' ' + '--force-device-scale-factor' + '=' + context.get('zoomlevel') + ' ' + settingsArray[2] + ' ' + settingsArray[3];\n            return msg;\n            \n        }\n    }else{\n        return msg;\n    }\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1490,
+        "y": 4180,
+        "wires": [
+            [
+                "426a0de9.439e04",
+                "c599cd52.3ecf5",
+                "caa6b4c2.3751c8"
+            ]
+        ]
+    },
+    {
+        "id": "c599cd52.3ecf5",
+        "type": "debug",
+        "z": "a564595f.642818",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1720,
+        "y": 4240,
+        "wires": []
+    },
+    {
+        "id": "e5d40834.ba1b98",
+        "type": "file",
+        "z": "a564595f.642818",
+        "name": "Delete Previous Autotstart",
+        "filename": "/home/pi/autostart",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "delete",
+        "x": 1350,
+        "y": 4140,
+        "wires": []
     }
 ]
