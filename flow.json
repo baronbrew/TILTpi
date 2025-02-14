@@ -2839,7 +2839,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 5,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3248,7 +3248,7 @@
         "z": "a564595f.642818",
         "name": "",
         "group": "7e458eda.984cd",
-        "order": 6,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5224,7 +5224,7 @@
         "z": "a564595f.642818",
         "name": "Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5249,7 +5249,7 @@
         "z": "a564595f.642818",
         "name": "Revert Stability Fix for RPi3",
         "group": "7e458eda.984cd",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10258,7 +10258,7 @@
         "format": "lines",
         "chunk": false,
         "sendError": false,
-        "x": 1240,
+        "x": 1340,
         "y": 4240,
         "wires": [
             [
@@ -10290,19 +10290,18 @@
         "order": 2,
         "width": 0,
         "height": 0,
-        "passthru": true,
-        "outs": "end",
+        "passthru": false,
+        "outs": "all",
         "topic": "",
         "min": ".5",
         "max": "3",
         "step": ".1",
-        "x": 1100,
+        "x": 1020,
         "y": 4180,
         "wires": [
             [
-                "f5bc4f4b.045bf",
-                "3698f78.a92ab08",
-                "e5d40834.ba1b98"
+                "4ce7ca22.426144",
+                "4026b281.1842bc"
             ]
         ]
     },
@@ -10347,8 +10346,48 @@
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "delete",
-        "x": 1350,
+        "x": 1370,
         "y": 4140,
+        "wires": []
+    },
+    {
+        "id": "4ce7ca22.426144",
+        "type": "trigger",
+        "z": "a564595f.642818",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "500",
+        "extend": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "name": "debounce",
+        "x": 1180,
+        "y": 4180,
+        "wires": [
+            [
+                "f5bc4f4b.045bf",
+                "e5d40834.ba1b98",
+                "3698f78.a92ab08"
+            ]
+        ]
+    },
+    {
+        "id": "4026b281.1842bc",
+        "type": "ui_text",
+        "z": "a564595f.642818",
+        "group": "7e458eda.984cd",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "readout",
+        "label": "Zoom:",
+        "format": "{{msg.payload}}x",
+        "layout": "row-left",
+        "x": 1140,
+        "y": 4240,
         "wires": []
     }
 ]
