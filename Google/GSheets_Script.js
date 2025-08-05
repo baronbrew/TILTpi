@@ -33,15 +33,16 @@ function doPost(e){
 
 //used for testing without a Tilt
 function testBeer(){
+  var testComment = { "email" : "", "template" : "B2", "gunits" : "Plato", "tunits" : "Celsius", "Comment" : "" };
+  var testCommentString = JSON.stringify(testComment);
   var e = {
   "parameter": {
-  "Beer": "Test",
+  "Beer": "America, The Beer,41585",
   "Temp": 64,
   "SG":1.045,
   "Color":"BLUE",
-  "Comment":"noahbaron@gmail.com",
-  "Timepoint":44160.11
-  }
+  "Comment": testCommentString,
+  "Timepoint": Date.now() / 1000 / 60 / 60 / 24 + 25569 }
   };
   handleResponse(e);
 }
@@ -53,10 +54,45 @@ function handleResponse(e) {
     var beersSheet = masterDoc.getSheetByName("Beers");
     var nextBeerRow = (beersSheet.getLastRow()+1).toFixed(0);
     //app expects beer name to be followed by a comma and beer ID (except for new beers)
-    var beerName = e.parameter.Beer.split(",");
-    var tiltColor= e.parameter.Color;
-    var comment = e.parameter.Comment;
-    var email = null;
+    var beerNameIndex = e.parameter.Beer.lastIndexOf(',');//after the last comma is the beer serial number
+    var beerNumber = e.parameter.Beer.substring(beerNameIndex + 1);
+    var beerNameOnly = e.parameter.Beer.replace(',' + beerNumber,'');
+    if (beerNameOnly == beerNumber){//no beer number, no log started yet
+      var beerName = [beerNameOnly];
+    }else{
+      var beerName = [beerNameOnly, beerNumber];
+      if (isNaN(beerNumber)){
+        beerName = [e.parameter.Beer];
+      }
+    }
+    e.parameter.Beer = beerName;
+    Logger.log(beerName);
+    var tiltColor = e.parameter.Color;
+    var comment;
+    var template;
+    var gravityUnits;
+    var template;
+    var email;
+    try {
+      //modern JSON comment
+      var commentObj = JSON.parse(e.parameter.Comment);
+      template = commentObj.template;
+      gravityUnits =  commentObj.gunits;
+      tempUnits = commentObj.tunits;
+      if (commentObj.email != "" && commentObj.email != null){
+        comment = commentObj.email;
+      }else{
+        comment = commentObj.Comment ?? "";
+      }
+      e.parameter.Comment = comment;
+     
+    }
+    catch (error){
+      //classic string comment
+      Logger.log('Error parsing comment: ' + comment + ' Error: ' + error);
+      comment = e.parameter.Comment;
+      template = "B1"
+    }
     var doclongURL = "";
     var beerId = null;
     var doc = null;
@@ -64,12 +100,16 @@ function handleResponse(e) {
     if (beerName[0] == "") {
       beerName[0] = "Untitled";
     }
-    //if beer number is blank, probably a new beer and check if email address in comment
+    //if beer number is blank, check if @ symbol or email in comment field
     if (beerName[1] !== undefined){
     var beerIds = beersSheet.getRange("A" + beerName[1] + ":" + "C" + beerName[1]).getValues();
        //get Sheets ID if beer name matches
-      if (e.parameter.Beer.toLowerCase() == beerIds[0][0].toLowerCase()) {
+      if (e.parameter.Beer.join().toLowerCase() == beerIds[0][0].toLowerCase()) {
             beerId = beerIds[0][1];
+            //Logger.log(beerId);
+        }else{
+          //Logger.log(beerId);
+          beerId = null;
         }
      }
     //check if this is a new beer and process as needed
@@ -81,14 +121,20 @@ function handleResponse(e) {
       lock.waitLock(60000);
       nextBeerRow = (beersSheet.getLastRow()+1).toFixed(0);
       var settingsSheet = masterDoc.getSheetByName("Settings");
-      var sheetTemplate = settingsSheet.getRange("B1").getValue();
+      var sheetTemplate = settingsSheet.getRange(template).getValue();
       var driveTemplate = DriveApp.getFileById(sheetTemplate); //file ID of template
       var driveDoc = driveTemplate.makeCopy(beerName[0] + " (" + tiltColor + " TILT)");
       driveDoc.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
       doc = SpreadsheetApp.open(driveDoc);
+      const reportSheet = doc.getSheetByName('Report');
+      const tempCellB5 = reportSheet.getRange('B5');
+      const gravCellB6 = reportSheet.getRange('B6');
+      tempCellB5.setValue(tempUnits);
+      gravCellB6.setValue(gravityUnits);
       beerId = doc.getId();
       doclongURL = doc.getUrl();
       beerName[1] = nextBeerRow;
+      Logger.log(beerName);
       try { 
       driveDoc.addEditor(comment);
       sharedWith = comment + '<br>Important: Check email for invitation to edit if not a Gmail address.';
@@ -129,6 +175,7 @@ function handleResponse(e) {
       }
     }
       else{
+        //Logger.log(beerName);
        //advise user to enter email into comment field
       return ContentService
       .createTextOutput(JSON.stringify({result:beerName[0] + "<br><strong>TILT | " + tiltColor + '</strong><br>Start a new cloud log by entering your email address as a comment.', beername:beerName.toString(), tiltcolor:tiltColor}))
