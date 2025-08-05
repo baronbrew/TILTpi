@@ -10447,7 +10447,7 @@
         "type": "function",
         "z": "a564595f.642818",
         "name": "create JSON comment",
-        "func": "if (msg.topic == 'template' ){\n    context.set('template', msg.payload);\n}else if (msg.topic == 'email' && msg.payload !== \"\"){\n    var template = context.get('template')||'v2';\n    var gUnits = flow.get('fermdisplayUnits')||\"SG\";\n    var tUnits = flow.get('displayUnits')||\"Fahrenheit\";\n    if (gUnits == \"°P\"){\n        gUnits = \"Plato\";\n    }else if (\"°Bx\"){\n        gUnits = \"Brix\";\n    }\n    if (tUnits == \"°F\"){\n        tUnits = \"Fahrenheit\";\n    }else if (tUnits == \"°C\"){\n        tUnits = \"Celsius\";\n    }\n    msg.payload = JSON.stringify({ \"template\" : template, \"email\" : msg.payload, \"gunits\" : gUnits, \"tunits\" : tUnits, \"Comment\" : \"\" });\n    return msg;\n}\n",
+        "func": "if (msg.topic == 'template' ){\n    context.set('template', msg.payload);\n}else if (msg.topic == 'email' && msg.payload !== \"\"){\n    var template = context.get('template')||'B2';\n    var gUnits = flow.get('fermdisplayUnits')||\"SG\";\n    var tUnits = flow.get('displayUnits')||\"Fahrenheit\";\n    if (gUnits == \"°P\"){\n        gUnits = \"Plato\";\n    }else if (\"°Bx\"){\n        gUnits = \"Brix\";\n    }\n    if (tUnits == \"°F\"){\n        tUnits = \"Fahrenheit\";\n    }else if (tUnits == \"°C\"){\n        tUnits = \"Celsius\";\n    }\n    msg.payload = JSON.stringify({ \"template\" : template, \"email\" : msg.payload, \"gunits\" : gUnits, \"tunits\" : tUnits, \"Comment\" : \"\" });\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 1580,
