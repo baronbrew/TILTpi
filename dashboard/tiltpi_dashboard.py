@@ -413,7 +413,10 @@ class Dashboard(tk.Tk):
     def _layout(self):
         keys = sorted(self.cards)
         width = max(self.grid_frame.winfo_width(), 1)
-        cols = max(1, min(len(keys), width // self.style["col_w"])) if width > 1 else 1
+        # Fit as many columns as the width (and card count) allow, but never
+        # fewer than 2 -- so a single card spans at most half the screen.
+        fit = max(1, width // self.style["col_w"])
+        cols = max(2, min(len(keys), fit)) if keys else 1
 
         for i in range(12):
             self.grid_frame.columnconfigure(i, weight=0, uniform="")
