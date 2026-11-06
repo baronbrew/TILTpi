@@ -4826,7 +4826,7 @@
         "type": "debug",
         "z": "a564595f.642818",
         "name": "response debugger",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9869,47 +9869,9 @@
         "z": "a564595f.642818",
         "name": "RPi Connected Monitor or Touchscreen",
         "info": "",
-        "x": 1290,
-        "y": 4100,
+        "x": 2110,
+        "y": 4160,
         "wires": []
-    },
-    {
-        "id": "ffa943f2.ecd36",
-        "type": "template",
-        "z": "a564595f.642818",
-        "name": "Generate Autostart Text",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --incognito\n@xset s {{payload}} {{payload}}\n@unclutter -idle 0.5 -root",
-        "output": "str",
-        "x": 1630,
-        "y": 4280,
-        "wires": [
-            [
-                "e1ed4c7c.5f433"
-            ]
-        ]
-    },
-    {
-        "id": "7aaa8c05.fb2704",
-        "type": "template",
-        "z": "a564595f.642818",
-        "name": "Generate Autostart Text",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "@lxpanel --profile LXDE-pi\n@pcmanfm --desktop --profile LXDE-pi\n@chromium-browser file:///home/pi/Desktop/tiltpi.html --start-fullscreen --incognito\n@xset s noblank\n@xset s noexpose\n@xset s off\n@xset -dpms\n@unclutter -idle 0.5 -root",
-        "output": "str",
-        "x": 1643.880859375,
-        "y": 4335.375,
-        "wires": [
-            [
-                "e1ed4c7c.5f433"
-            ]
-        ]
     },
     {
         "id": "ac83e2cb.70f6f",
@@ -9923,8 +9885,8 @@
         "cancel": "",
         "topic": "Alert",
         "name": "Restart Needed",
-        "x": 2180,
-        "y": 4260,
+        "x": 1760,
+        "y": 4400,
         "wires": []
     },
     {
@@ -9946,63 +9908,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2020,
-        "y": 4260,
+        "x": 1580,
+        "y": 4400,
         "wires": [
             [
                 "ac83e2cb.70f6f"
             ]
         ]
-    },
-    {
-        "id": "e1ed4c7c.5f433",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "Overwrite Autotstart",
-        "filename": "/home/pi/autostart",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "x": 1933.2501182556152,
-        "y": 4311.220702171326,
-        "wires": []
-    },
-    {
-        "id": "37fe8b20.e18ef4",
-        "type": "exec",
-        "z": "a564595f.642818",
-        "command": "sudo cp ~/autostart /etc/xdg/lxsession//LXDE-pi/autostart",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "Update File",
-        "x": 1612.6289291381836,
-        "y": 4413.177800178528,
-        "wires": [
-            [
-                "b8e24a29.8f4518"
-            ],
-            [
-                "b8e24a29.8f4518"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "b8e24a29.8f4518",
-        "type": "debug",
-        "z": "a564595f.642818",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1822.630859375,
-        "y": 4396.576171875,
-        "wires": []
     },
     {
         "id": "ff8b6e4d.02aeb",
@@ -10016,7 +9928,7 @@
         "order": 1,
         "width": 0,
         "height": 0,
-        "passthru": true,
+        "passthru": false,
         "options": [
             {
                 "label": "Never",
@@ -10056,7 +9968,7 @@
         "wires": [
             [
                 "caa6b4c2.3751c8",
-                "e3391916.895fa8"
+                "12c4f8d2.56fd77"
             ]
         ]
     },
@@ -10078,41 +9990,7 @@
         "y": 4388,
         "wires": [
             [
-                "37fe8b20.e18ef4",
                 "65309d6f.39bdc4"
-            ]
-        ]
-    },
-    {
-        "id": "e3391916.895fa8",
-        "type": "switch",
-        "z": "a564595f.642818",
-        "name": "Never Case",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "gt",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1388.7558822631836,
-        "y": 4305.5352210998535,
-        "wires": [
-            [
-                "ffa943f2.ecd36"
-            ],
-            [
-                "7aaa8c05.fb2704"
             ]
         ]
     },
@@ -10253,36 +10131,6 @@
         ]
     },
     {
-        "id": "3698f78.a92ab08",
-        "type": "file in",
-        "z": "a564595f.642818",
-        "name": "Get current autostart",
-        "filename": "/etc/xdg/lxsession//LXDE-pi/autostart",
-        "format": "lines",
-        "chunk": false,
-        "sendError": false,
-        "x": 1340,
-        "y": 4240,
-        "wires": [
-            [
-                "f5bc4f4b.045bf"
-            ]
-        ]
-    },
-    {
-        "id": "426a0de9.439e04",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "Overwrite Autotstart",
-        "filename": "/home/pi/autostart",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "false",
-        "x": 1750,
-        "y": 4180,
-        "wires": []
-    },
-    {
         "id": "66aef269.f0686c",
         "type": "ui_slider",
         "z": "a564595f.642818",
@@ -10309,24 +10157,6 @@
         ]
     },
     {
-        "id": "f5bc4f4b.045bf",
-        "type": "function",
-        "z": "a564595f.642818",
-        "name": "process autostart",
-        "func": "if (typeof msg.payload === 'number'){\n    context.set('zoomlevel', msg.payload);\n    return\n}\n\n var settingsString = msg.payload;\n var settingsArray = settingsString.split(' ');\n    if (settingsArray.includes('@chromium-browser')){\n        for (var settingsElement of settingsArray){\n            var subElement = settingsElement.split('=');\n            if (subElement[0] == '--force-device-scale-factor'){\n                msg.payload = settingsArray[0] + ' ' + settingsArray[1] + ' ' + subElement[0] + '=' + context.get('zoomlevel') + ' ' + settingsArray[3] + ' ' + settingsArray[4];\n                return msg;\n            }\n        }\n        if (settingsArray.length == 4){\n            msg.payload = settingsArray[0] + ' ' + settingsArray[1] + ' ' + '--force-device-scale-factor' + '=' + context.get('zoomlevel') + ' ' + settingsArray[2] + ' ' + settingsArray[3];\n            return msg;\n            \n        }\n    }else{\n        return msg;\n    }\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1490,
-        "y": 4180,
-        "wires": [
-            [
-                "426a0de9.439e04",
-                "c599cd52.3ecf5",
-                "caa6b4c2.3751c8"
-            ]
-        ]
-    },
-    {
         "id": "c599cd52.3ecf5",
         "type": "debug",
         "z": "a564595f.642818",
@@ -10336,21 +10166,8 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1720,
-        "y": 4240,
-        "wires": []
-    },
-    {
-        "id": "e5d40834.ba1b98",
-        "type": "file",
-        "z": "a564595f.642818",
-        "name": "Delete Previous Autotstart",
-        "filename": "/home/pi/autostart",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "delete",
-        "x": 1370,
-        "y": 4140,
+        "x": 1790,
+        "y": 4300,
         "wires": []
     },
     {
@@ -10367,13 +10184,12 @@
         "reset": "",
         "bytopic": "all",
         "name": "debounce",
-        "x": 1180,
+        "x": 1220,
         "y": 4180,
         "wires": [
             [
-                "f5bc4f4b.045bf",
-                "e5d40834.ba1b98",
-                "3698f78.a92ab08"
+                "baf625c7.ad047",
+                "caa6b4c2.3751c8"
             ]
         ]
     },
@@ -10495,6 +10311,79 @@
         "wires": [
             [
                 "de92b02f.5ebe1"
+            ]
+        ]
+    },
+    {
+        "id": "ec9f6a1a.b1755",
+        "type": "catch",
+        "z": "a564595f.642818",
+        "name": "If no autostart",
+        "scope": [
+            "3698f78.a92ab08"
+        ],
+        "x": 1150,
+        "y": 4100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "baf625c7.ad047",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Format Scale Factor",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "sed -i 's/--force-device-scale-factor=[0-9.]*/--force-device-scale-factor={{{payload}}}/' ~/xinitrc_chromium.sh &\nsudo sed -i 's/--force-device-scale-factor=[0-9.]*/--force-device-scale-factor={{{payload}}}/' /etc/xdg/lxsession//LXDE-pi/autostart",
+        "output": "str",
+        "x": 1440,
+        "y": 4200,
+        "wires": [
+            [
+                "dbb00567.472a",
+                "c599cd52.3ecf5"
+            ]
+        ]
+    },
+    {
+        "id": "dbb00567.472a",
+        "type": "exec",
+        "z": "a564595f.642818",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Update Scale Factor",
+        "x": 1760,
+        "y": 4240,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "12c4f8d2.56fd77",
+        "type": "template",
+        "z": "a564595f.642818",
+        "name": "Format Timeout Factor",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "sed -i -E 's/^xset s ([0-9]|[1-9][0-9]{1,3}|[1-4][0-9]{4}|5[0-6][0-9]{3}|57[0-5][0-9]{2}|57600) \\1$/xset s {{{payload}}} {{{payload}}}/' ~/xinitrc_chromium.sh &\nsed -i 's/xset s off*/xset s {{{payload}}} {{{payload}}}/' ~/xinitrc_chromium.sh &\nsudo sed -i -E 's/^@xset s ([0-9]|[1-9][0-9]{1,3}|[1-4][0-9]{4}|5[0-6][0-9]{3}|57[0-5][0-9]{2}|57600) \\1$/@xset s {{{payload}}} {{{payload}}}/' /etc/xdg/lxsession//LXDE-pi/autostart &\nsudo sed -i 's/@xset s off*/@xset s {{{payload}}} {{{payload}}}/' /etc/xdg/lxsession//LXDE-pi/autostart\n\n",
+        "output": "str",
+        "x": 1460,
+        "y": 4300,
+        "wires": [
+            [
+                "dbb00567.472a",
+                "c599cd52.3ecf5"
             ]
         ]
     }
